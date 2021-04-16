@@ -1,11 +1,13 @@
-import {UserModel} from 'entity/User'
-import {UserRepository} from 'entity/UserRepository'
+import {UserModel} from 'domain/User'
+import {UserRepository} from 'domain/UserRepository'
+import { getRepository } from 'typeorm'
 
 module.exports = class implements UserRepository {
 
-  persist(domainUser: UserModel): void {
-    const {name, lastname, password, email} = domainUser
-
+  async persist(domainUser: UserModel): Promise<UserModel> {
+    const users = getRepository(UserModel)
+    const new_user = users.create(domainUser)
+    return users.save(new_user)
   }
 
   merge(domainUser: UserModel): void {

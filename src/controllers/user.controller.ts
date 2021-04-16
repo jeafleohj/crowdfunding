@@ -1,6 +1,6 @@
 import {getRepository} from 'typeorm'
 import {Context, Next} from 'koa'
-import {UserModel} from 'entity/User'
+import {UserModel} from 'domain/User'
 
 const getUsers = async (ctx: Context, next: Next) => {
   const users = await getRepository(UserModel).find()
