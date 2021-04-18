@@ -1,7 +1,13 @@
-import {UserModel} from 'domain/User'
+import {User, userData} from 'domain/User'
 import {UserRepository} from 'domain/UserRepository'
 
-module.exports = (name: string, lastname: string, type: number, document_name: string, document_value: string, userRepository: UserRepository): Promise<UserModel> => {
-  const user = new UserModel(name, lastname, type, document_name, document_value);
+
+const CreateUser = (data: userData,
+                    {userRepository}:{userRepository: UserRepository} ) : Promise<User> => {
+  const user = new User(data);
   return userRepository.persist(user)
+}
+
+export {
+  CreateUser
 }

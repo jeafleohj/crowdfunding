@@ -2,26 +2,33 @@ import 'reflect-metadata'
 import koa from 'koa'
 import bodyparser from 'koa-bodyparser'
 import {createConnection} from 'typeorm'
-//import {User} from './entity/User'
+import logger from 'koa-logger'
+import {helloRouter} from 'interfaces/routes/hello'
 
 const app = new koa()
 
-app.use(bodyparser)
-
 createConnection()
-//    .then(async () => {
-//        const usuario = getRepository(User)
-//        const newuser = usuario.create({firstName: "V", lastName: "V"})
-//        await usuario.save(newuser)
-//        let result = await getRepository('User').find()
-//        console.log(result)
-//    })
+
+app.use(async (ctx, next) => {
+	try {
+		await next()
+  } catch (err) {
+    ctx.status = err.status || 500
+    ctx.body = err.message || 'Error interno'
+  }
+})
 
 
-app.use(async ctx => {
-  ctx.body = 'Hello World';
-});
+app.use(bodyparser())
+app.use(logger())
 
-app.listen(4003, function(): void {
-    console.log('Server running on https://localhost:4003 GGWP');
+app.use(helloRouter.routes())
+
+//app.use(async ctx => {
+//  ctx.body = 'Hello World';
+//});
+
+
+app.listen(4000, function(): void {
+    console.log('🔥🔥Server running on port 4000🔥🔥');
 });

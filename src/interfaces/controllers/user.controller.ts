@@ -1,15 +1,15 @@
 import {getRepository} from 'typeorm'
 import {Context, Next} from 'koa'
-import {UserModel} from 'domain/User'
+import {User} from 'domain/User'
 
 const getUsers = async (ctx: Context, next: Next) => {
-  const users = await getRepository(UserModel).find()
+  const users = await getRepository(User).find()
   ctx.body = users
   await next()
 }
 
 const createUser = async (ctx: Context, next: Next) => {
-  const user = getRepository(UserModel)
+  const user = getRepository(User)
   const newuser = user.create(ctx.request.body)
   const users = user.save(newuser)
   ctx.body = {
