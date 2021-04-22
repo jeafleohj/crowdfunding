@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa-logger": "^3.2.1",
@@ -20,6 +21,7 @@
     "typeorm": "^0.2.32"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/jest": "^26.0.22",
     "@types/koa": "^2.13.1",
     "@types/koa-bodyparser": "^4.3.0",
