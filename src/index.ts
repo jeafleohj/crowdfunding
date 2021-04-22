@@ -3,14 +3,15 @@ import koa from 'koa'
 import bodyparser from 'koa-bodyparser'
 import {createConnection} from 'typeorm'
 import logger from 'koa-logger'
-import {userRouter} from 'interfaces/routes/user'
+import Routes from 'interfaces/routes'
 import { userRepository } from 'infrastructure/repository/UserRepositoryTypeOrm'
 
 const app = new koa()
 
 createConnection()
-
-app.context.userRepository = new userRepository()
+  .then(()=>{
+    app.context.userRepository = new userRepository()
+  })
 
 // Error handler
 app.use(async (ctx, next) => {
@@ -25,8 +26,8 @@ app.use(async (ctx, next) => {
 app.use(bodyparser())
 app.use(logger())
 
-app.use(userRouter.routes())
-app.use(userRouter.allowedMethods())
+app.use(Routes.routes())
+app.use(Routes.allowedMethods())
 
 
 app.listen(4000, function(): void {

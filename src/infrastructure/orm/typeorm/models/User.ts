@@ -18,6 +18,6 @@ export class User{
 
   @BeforeInsert()
   async generatePasswordHash(): Promise<void> {
-    this.password = bcrypt.hashSync(this.password.toLocaleUpperCase(), bcrypt.genSaltSync())
+    this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync())
   }
 }
