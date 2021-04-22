@@ -1,0 +1,41 @@
+import {compare, hashSync} from 'bcryptjs'
+import {Context} from 'koa'
+import jwt from 'jsonwebtoken'
+
+async function generateToken(payload: any): Promise<string> {
+  const token = jwt.sign(
+    payload,
+    'Key',
+    {
+      expiresIn: '10 days',
+      jwtid: 'holi'
+    }
+  )
+  return token
+}
+
+const login = async (ctx: Context) => {
+  const {email,password} = ctx.request.body
+  const user = await ctx.userRepository.getByEmail(email)
+  const valid = await compare(password, user.password)
+  let token: string
+  if(valid) {
+    token = await generateToken({
+      id: user.id,
+      email
+    })
+    ctx.body = {
+      error: false,
+      token,
+      status: 200,
+      message: 'ok'
+    }
+  } else {
+    //Custom error handler
+    throw new Error('Contraseña invalida')
+  }
+}
+
+export {
+  login
+}
