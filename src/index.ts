@@ -3,12 +3,16 @@ import koa from 'koa'
 import bodyparser from 'koa-bodyparser'
 import {createConnection} from 'typeorm'
 import logger from 'koa-logger'
-import {helloRouter} from 'interfaces/routes/hello'
+import {userRouter} from 'interfaces/routes/user'
+import { userRepository } from 'infrastructure/repository/UserRepositoryTypeOrm'
 
 const app = new koa()
 
 createConnection()
 
+app.context.userRepository = new userRepository()
+
+// Error handler
 app.use(async (ctx, next) => {
 	try {
 		await next()
@@ -18,17 +22,13 @@ app.use(async (ctx, next) => {
   }
 })
 
-
 app.use(bodyparser())
 app.use(logger())
 
-app.use(helloRouter.routes())
-
-//app.use(async ctx => {
-//  ctx.body = 'Hello World';
-//});
+app.use(userRouter.routes())
+app.use(userRouter.allowedMethods())
 
 
 app.listen(4000, function(): void {
-    console.log('🔥🔥Server running on port 4000🔥🔥');
+  console.log('🔥🔥Server running on port 4000🐈🐈🔥🔥');
 });

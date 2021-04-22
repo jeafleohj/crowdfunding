@@ -1,10 +1,11 @@
-import {User} from 'domain/User'
+import {User} from 'infrastructure/orm/typeorm/models/User'
 import {UserRepository} from 'domain/UserRepository'
 import {getRepository} from 'typeorm'
 
-module.exports = class implements UserRepository {
+export class userRepository implements UserRepository {
 
   async persist(domainUser: User): Promise<User> {
+    console.log(domainUser)
     const users = getRepository(User)
     const new_user = users.create(domainUser)
     return users.save(new_user)
@@ -18,8 +19,9 @@ module.exports = class implements UserRepository {
     throw new Error('Method not implemented.');
   }
 
-  get(userId: number): void {
-    throw new Error('Method not implemented.');
+  get(): Promise<any> {
+    const users = getRepository(User)
+    return users.find()
   }
 
   getByEmail(email: string): void {
