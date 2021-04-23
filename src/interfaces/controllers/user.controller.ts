@@ -1,7 +1,10 @@
 import {Context, Next} from 'koa'
+import {CreateUser} from 'application/use_cases/CreateUser'
+import {GetAll} from 'application/use_cases/GetUserByEmail'
+
 
 const getUsers = async (ctx: Context, next: Next) => {
-  const users = await ctx.userRepository.get()
+  const users = await GetAll(ctx)
   ctx.body = {
     error: false,
     data: users,
@@ -12,7 +15,7 @@ const getUsers = async (ctx: Context, next: Next) => {
 }
 
 const createUser = async (ctx: Context, next: Next) => {
-  const response = await ctx.userRepository.persist(ctx.request.body)
+  const response = await CreateUser(ctx.request.body, ctx)
   ctx.body = {
     error: false,
     data: response,

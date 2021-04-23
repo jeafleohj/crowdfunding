@@ -1,6 +1,7 @@
-import {compare, hashSync} from 'bcryptjs'
 import {Context} from 'koa'
 import jwt from 'jsonwebtoken'
+import { userData } from 'domain/User'
+import { ValidateLogin } from 'application/use_cases/Login'
 
 async function generateToken(payload: any): Promise<string> {
   const token = jwt.sign(
@@ -15,14 +16,13 @@ async function generateToken(payload: any): Promise<string> {
 }
 
 const login = async (ctx: Context) => {
-  const {email,password} = ctx.request.body
-  const user = await ctx.userRepository.getByEmail(email)
-  const valid = await compare(password, user.password)
+  const data = ctx.request.body as userData
+  const {valid, id} = await ValidateLogin(data, ctx)
   let token: string
   if(valid) {
     token = await generateToken({
-      id: user.id,
-      email
+      id: id,
+      email: data.email
     })
     ctx.body = {
       error: false,

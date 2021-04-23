@@ -10,8 +10,14 @@ export class User{
   @Column()
   lastname: string
   @Column()
-  phone: string
-  @Column()
+  phone?: string
+  @Column({
+    nullable: true
+  })
+  document?: string
+  @Column({
+    unique: true
+  })
   email: string
   @Column()
   password: string

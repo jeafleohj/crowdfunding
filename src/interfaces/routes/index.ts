@@ -1,7 +1,6 @@
 import Router from 'koa-router'
 import {userRouter} from 'interfaces/routes/user'
 import {authRouter} from 'interfaces/routes/auth/login'
-import {} from 'interfaces/routes/auth/login'
 
 const routes = [
   userRouter,

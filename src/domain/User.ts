@@ -1,25 +1,28 @@
 import { Document } from './DocumentModel'
 
 export type userData = {
+  id: number
   name: string
   lastname: string
-  type: number
-  document_name: string
-  document_value: string
+  document: string
   phone: string
   email: string
+  password: string
 }
 
 export class User {
+  id: number
   name: string
   lastname: string
   password: string
   document: Document
   phone: string
   email: string
-  constructor({name, lastname}: userData) {
+  constructor({name, email, lastname, password, phone}: userData) {
     this.name = name.toLocaleLowerCase()
     this.lastname = lastname.toLocaleLowerCase()
-    //this.document = new Document(type, document_name, document_value)
+    this.phone = phone
+    this.email = email
+    this.password = password
   }
 }
