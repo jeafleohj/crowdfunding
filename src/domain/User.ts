@@ -1,5 +1,3 @@
-import { Document } from './DocumentModel'
-
 export type userData = {
   id: number
   name: string
