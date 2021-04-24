@@ -1,4 +1,8 @@
 #+title: Crowdfunding
+* DB
+- Run container :: ~docker-compose up~
+- Enter to container :: ~docker-compose exec mysql mysql -uroot -ppassword~
+
 * Routes
 ** Create user
 #+begin_src restclient
@@ -13,31 +17,6 @@ Content-Type: application/json;charset=UTF-8
     "password":"roblox"
 }
 #+end_src
-
-#+RESULTS:
-#+BEGIN_SRC js
-{
-  "error": false,
-  "data": {
-    "name": "Ariana",
-    "lastname": "Perez",
-    "phone": "909823098123",
-    "email": "crowdfunding@gmail.com",
-    "password": "$2a$10$2xTirDX2KnGoHTxyJZabEuBPCRzORkY7wq4FAy8NFaIyVtoQbC2y2",
-    "id": 8
-  },
-  "status": 200,
-  "message": "ok"
-}
-// POST http://localhost:4000/user
-// HTTP/1.1 200 OK
-// Content-Type: application/json; charset=utf-8
-// Content-Length: 224
-// Date: Thu, 22 Apr 2021 22:18:08 GMT
-// Connection: keep-alive
-// Keep-Alive: timeout=5
-// Request duration: 0.261104s
-#+END_SRC
 
 ** Login
 #+begin_src restclient
