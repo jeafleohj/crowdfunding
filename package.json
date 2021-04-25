@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc && tsc-alias",
     "start": "ts-node -r tsconfig-paths/register src/index.ts",
-    "watch": "nodemon -e ts -w ./src -x ts-node -r tsconfig-paths/register src/index.ts --inspect"
+    "watch": "nodemon -e ts -w ./src --ignore ./src/seeder -x ts-node -r tsconfig-paths/register src/index.ts --inspect",
+    "seed": "ts-node -r tsconfig-paths/register src/seeder/seed.ts --inspect"
   },
   "author": "",
   "license": "ISC",

@@ -17,6 +17,8 @@ export class Province {
   @ManyToOne(()=>Region, region=>region.provinces)
   region: Region
 
-  @OneToMany(()=>District, district=>district.id)
+  @OneToMany(()=>District, district=>district.id, {
+    cascade: true
+  })
   districts: District[]
 }
