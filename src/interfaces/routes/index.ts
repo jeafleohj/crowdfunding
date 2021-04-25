@@ -1,10 +1,12 @@
 import Router from 'koa-router'
-import {userRouter} from 'interfaces/routes/user'
-import {authRouter} from 'interfaces/routes/auth/login'
+import { userRouter } from 'interfaces/routes/user'
+import { authRouter } from 'interfaces/routes/auth/login'
+import { ubigeoRouter } from 'interfaces/routes/ubigeo'
 
 const routes = [
   userRouter,
   authRouter,
+  ubigeoRouter
 ]
 
 const Routes = new Router()

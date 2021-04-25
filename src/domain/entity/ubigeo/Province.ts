@@ -1,9 +1,9 @@
 export class Province {
   id: number
   name: string
-  region_id: number
-  constructor({name, region_id}: Province) {
+  regionId?: number
+  constructor({name, regionId}: Province) {
     this.name = name
-    this.region_id = region_id
+    this.regionId = regionId
   }
 }

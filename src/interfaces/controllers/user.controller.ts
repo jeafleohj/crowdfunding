@@ -1,7 +1,6 @@
 import {Context, Next} from 'koa'
 import {CreateUser} from 'application/use_cases/CreateUser'
-import {GetAll} from 'application/use_cases/GetUserByEmail'
-
+import {GetAll} from 'application/use_cases/GetAll'
 
 const getUsers = async (ctx: Context, next: Next) => {
   const users = await GetAll(ctx)
