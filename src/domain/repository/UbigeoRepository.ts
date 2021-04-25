@@ -4,6 +4,6 @@ import { Region } from 'domain/entity/ubigeo/Region'
 
 export interface UbigeoRepository {
   getRegions(): Promise<Region[]>
-  getProvinces(): Promise<Province[]>
-  getDistricts(): Promise<District[]>
+  getProvinces(id: number): Promise<Province[]>
+  getDistricts(id: number): Promise<District[]>
 }
