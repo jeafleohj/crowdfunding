@@ -2,7 +2,8 @@
 * DB
 - Run container :: ~docker-compose up~
 - Enter to container :: ~docker-compose exec mysql mysql -uroot -ppassword~
-
+** Ubigeo
+- Fill /region/, /province/ and /district/ dbs run :: ~npm run seed~
 * Routes
 ** Create user
 #+begin_src restclient
