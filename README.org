@@ -5,6 +5,10 @@
 ** Ubigeo
 - Fill /region/, /province/ and /district/ dbs run :: ~npm run seed~
 * Routes
+** Ubigeo
+- Departamentos :: GET ~/regions~
+- Provincias :: GET ~/provinces/:id~
+- Distritos :: GET ~/districts/:id~
 ** Create user
 #+begin_src restclient
 :base-url = http://localhost:4000/user
