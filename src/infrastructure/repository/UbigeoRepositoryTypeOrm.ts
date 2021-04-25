@@ -7,9 +7,11 @@ import { getRepository, Repository } from 'typeorm'
 export class ubigeoRepository implements UbigeoRepository {
   private regionRepository: Repository<Region>
   private provinceRepository: Repository<Province>
+  private districtRepository: Repository<District>
   constructor() {
     this.regionRepository = getRepository(Region)
     this.provinceRepository = getRepository(Province)
+    this.districtRepository = getRepository(District)
   }
 
   getRegions(): Promise<Region[]> {
@@ -25,6 +27,10 @@ export class ubigeoRepository implements UbigeoRepository {
   }
 
   getDistricts(id: number): Promise<District[]> {
-    throw new Error('Method not implemented.')
+    return this.districtRepository.find({
+      where: [
+        {province: {id}}
+      ]
+    })
   }
 }
