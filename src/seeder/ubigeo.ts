@@ -223,7 +223,7 @@ const provinces = [
 ]
 
 const districts = [
-  {id: 1, name: 'CHACHAPOYAS', provinceId: 1},
+  {id: 1, name: 'CHACHAPOYAS', province: 1},
   {id: 2, name: 'ASUNCION', province: 1},
   {id: 3, name: 'BALSAS', province: 1},
   {id: 4, name: 'CHETO', province: 1},
