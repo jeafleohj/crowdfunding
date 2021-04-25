@@ -1,5 +1,5 @@
-import {User, userData} from 'domain/User'
-import {UserRepository} from 'domain/UserRepository'
+import { User, userData } from 'domain/Entity/User'
+import { UserRepository } from 'domain/Repository/UserRepository'
 
 
 const CreateUser = (data: userData,

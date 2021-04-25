@@ -5,7 +5,7 @@ import { createConnection } from 'typeorm'
 import logger from 'koa-logger'
 import Routes from 'interfaces/routes'
 import { userRepository } from 'infrastructure/repository/UserRepositoryTypeOrm'
-import { UserRepository } from 'domain/UserRepository'
+import { UserRepository } from 'domain/Repository/UserRepository'
 
 declare module "koa" {
   interface BaseContext {

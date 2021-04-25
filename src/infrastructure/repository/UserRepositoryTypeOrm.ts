@@ -1,6 +1,6 @@
-import {User} from 'infrastructure/orm/typeorm/models/User'
-import {UserRepository} from 'domain/UserRepository'
-import {getRepository, Repository} from 'typeorm'
+import { User } from 'infrastructure/orm/typeorm/models/User'
+import { UserRepository } from 'domain/Repository/UserRepository'
+import { getRepository, Repository } from 'typeorm'
 
 export class userRepository implements UserRepository {
   private repository: Repository<User>
