@@ -1,6 +1,6 @@
 import {Context} from 'koa'
 import jwt from 'jsonwebtoken'
-import { userData } from 'domain/Entity/User'
+import { userData } from 'domain/entity/User'
 import { ValidateLogin } from 'application/use_cases/Login'
 
 async function generateToken(payload: any): Promise<string> {

@@ -1,5 +1,5 @@
-import { userData } from 'domain/Entity/User'
-import { UserRepository } from 'domain/Repository/UserRepository'
+import { userData } from 'domain/entity/User'
+import { UserRepository } from 'domain/repository/UserRepository'
 import bcrypt from 'bcryptjs'
 
 const ValidateLogin = async (data: userData,

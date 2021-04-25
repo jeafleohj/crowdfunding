@@ -1,8 +1,8 @@
-import { User } from 'domain/Entity/User'
-import { UserRepository } from 'domain/Repository/UserRepository'
+import { User } from 'domain/entity/User'
+import { UserRepository } from 'domain/repository/UserRepository'
 
 const GetAll = ({userRepository}:{userRepository: UserRepository} ) : Promise<User[]> => {
-  return userRepository.get()
+  return userRepository.getAll()
 }
 
 export {

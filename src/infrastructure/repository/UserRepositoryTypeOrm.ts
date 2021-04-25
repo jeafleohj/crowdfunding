@@ -1,5 +1,5 @@
 import { User } from 'infrastructure/orm/typeorm/models/User'
-import { UserRepository } from 'domain/Repository/UserRepository'
+import { UserRepository } from 'domain/repository/UserRepository'
 import { getRepository, Repository } from 'typeorm'
 
 export class userRepository implements UserRepository {
@@ -21,7 +21,7 @@ export class userRepository implements UserRepository {
     throw new Error('Method not implemented.');
   }
 
-  get(): Promise<any> {
+  getAll(): Promise<any> {
     return this.repository.find()
   }
 
