@@ -13,6 +13,8 @@ export class Region {
   })
   name: string
 
-  @OneToMany(()=>Province, province=>province.id)
+  @OneToMany(()=>Province, province=>province.id, {
+    cascade: true
+  })
   provinces: Province[]
 }

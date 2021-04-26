@@ -14,9 +14,7 @@ export class Province {
   })
   name: string
 
-  @ManyToOne(()=>Region, region=>region.provinces, {
-    eager: true
-  })
+  @ManyToOne(()=>Region, region=>region.provinces)
   region: Region
 
   @OneToMany(()=>District, district=>district.id, {
