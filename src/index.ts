@@ -6,13 +6,16 @@ import logger from 'koa-logger'
 import Routes from 'interfaces/routes'
 import { userRepository } from 'infrastructure/repository/UserRepositoryTypeOrm'
 import { ubigeoRepository } from 'infrastructure/repository/UbigeoRepositoryTypeOrm'
+import { campaignRepository } from './infrastructure/repository/CampaignRepositoryTypeOrm';
 import { UserRepository } from 'domain/repository/UserRepository'
 import { UbigeoRepository } from 'domain/repository/UbigeoRepository'
+import { CampaignRepository } from './domain/repository/CampaignRepository';
 
 declare module "koa" {
   interface BaseContext {
     userRepository: UserRepository
     ubigeoRepository: UbigeoRepository
+    campaignRepository: CampaignRepository
   }
 }
 
@@ -22,6 +25,7 @@ createConnection()
   .then(()=>{
     app.context.userRepository = new userRepository()
     app.context.ubigeoRepository = new ubigeoRepository()
+    app.context.campaignRepository = new campaignRepository()
   })
 
 // Error handler

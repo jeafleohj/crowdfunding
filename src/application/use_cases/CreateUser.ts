@@ -3,7 +3,7 @@ import { UserRepository } from 'domain/repository/UserRepository'
 
 
 const CreateUser = (data: userData,
-                    {userRepository}:{userRepository: UserRepository} ) : Promise<User> => {
+  { userRepository }: { userRepository: UserRepository }): Promise<User> => {
   const user = new User(data)
   return userRepository.persist(user)
 }
