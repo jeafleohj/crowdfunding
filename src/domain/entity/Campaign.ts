@@ -1,12 +1,25 @@
+export enum campaignType {
+  material = 'materiales',
+  service = 'serviciales',
+  monetary = 'monetario',
+}
+
+export enum campaignStatus {
+  created = 'creada',
+  published = 'publicada',
+  distribution = 'distribution',
+  finalized = 'finalizada',
+}
+
 export type CampaignData = {
   id: number
   name: string
   userId?: number
-  description: string
-  type: string
-  release: Date
-  ending: Date
-  status: string 
+  description?: string
+  type: campaignType
+  release?: Date
+  ending?: Date
+  status: campaignStatus
 }
 
 export class Campaign {
@@ -14,14 +27,14 @@ export class Campaign {
   name: string
   userId?: number
   description: string
-  type: string
+  type: campaignType
   release: Date
   ending: Date
-  status: string // --> creada, publicada (recaudacion), distribucion,& finalizada  
+  status: campaignStatus // --> creada, publicada (recaudacion), distribucion,& finalizada
 
-  constructor({name, type, status}:CampaignData) {
+  constructor({name, type}:CampaignData) {
     this.name = name
     this.type = type
-    this.status = status
+    this.status = campaignStatus.created
   }
 }

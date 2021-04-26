@@ -1,5 +1,6 @@
-import { User } from './User';
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, BeforeInsert} from 'typeorm'
+import { User } from './User'
+import { campaignType } from 'domain/entity/Campaign'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class Campaign{
@@ -7,15 +8,22 @@ export class Campaign{
   id: number;
   @Column()
   name: string
-  @Column()
-  lastname: string
-  @Column()
+  @Column({
+    nullable: true,
+  })
   description: string
-  @Column()
-  type: string
-  @Column()
+  @Column({
+    type: 'enum',
+    enum: campaignType,
+  })
+  type: campaignType
+  @Column({
+    nullable: true,
+  })
   release: Date
-  @Column()
+  @Column({
+    nullable: true,
+  })
   ending: Date
   @Column()
   status: string

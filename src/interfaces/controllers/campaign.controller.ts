@@ -14,6 +14,7 @@ const getCampaigns = async (ctx: Context, next: Next) => {
 }
 
 const createCampaign = async (ctx: Context, next: Next) => {
+  const userId: number = ctx.state.id
   const response = await CreateCampaign(ctx.request.body, ctx)
   ctx.body = {
     error: false,
