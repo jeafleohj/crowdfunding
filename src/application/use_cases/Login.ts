@@ -8,7 +8,7 @@ const ValidateLogin = async (data: userData,
   const user = await userRepository.getByEmail(email)
   const valid = await bcrypt.compare(password, user.password)
   return {
-    id: user.id,
+    user,
     valid
   }
 }

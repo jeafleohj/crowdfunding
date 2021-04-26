@@ -27,11 +27,7 @@ export class userRepository implements UserRepository {
 
   async getByEmail(email: string): Promise<any> {
     const user = await this.repository.findOne({email}) as User
-    return {
-      id: user.id,
-      email: user.email,
-      password: user.password
-    }
+    return user
   }
 
   find(): void {

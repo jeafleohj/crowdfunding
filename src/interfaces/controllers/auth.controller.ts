@@ -17,15 +17,17 @@ async function generateToken(payload: any): Promise<string> {
 
 const login = async (ctx: Context) => {
   const data = ctx.request.body as userData
-  const {valid, id} = await ValidateLogin(data, ctx)
+  let {valid, user} = await ValidateLogin(data, ctx)
+  delete user['password']
   let token: string
   if(valid) {
     token = await generateToken({
-      id: id,
+      id: user.id,
       email: data.email
     })
     ctx.body = {
       error: false,
+      data: user,
       token,
       status: 200,
       message: 'ok'
