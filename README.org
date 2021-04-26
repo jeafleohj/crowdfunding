@@ -33,3 +33,16 @@ Content-Type: application/json;charset=UTF-8
     "password":"roblox"
 }
 #+end_src
+
+** Campaign
+#+begin_src restclient
+:base-url = http://localhost:4000/user/campaign
+:token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjE5NDY3NjE3LCJleHAiOjE2MjAzMzE2MTcsImp0aSI6ImhvbGkifQ.dl3X0-fYfgxQKnW6upJUAWGE7NZ6NWab_VlfW1rxUlA
+POST :base-url
+Content-Type: application/json
+Authorization: Bearer :token
+{
+    "name":"Regalando Sonrisas",
+    "type":"materiales"
+}
+#+end_src
