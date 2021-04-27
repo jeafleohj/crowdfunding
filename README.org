@@ -37,12 +37,35 @@ Content-Type: application/json;charset=UTF-8
 ** Campaign
 #+begin_src restclient
 :base-url = http://localhost:4000/user/campaign
-:token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjE5NDY3NjE3LCJleHAiOjE2MjAzMzE2MTcsImp0aSI6ImhvbGkifQ.dl3X0-fYfgxQKnW6upJUAWGE7NZ6NWab_VlfW1rxUlA
+:token = 
 POST :base-url
 Content-Type: application/json
 Authorization: Bearer :token
 {
     "name":"Regalando Sonrisas",
     "type":"materiales"
+}
+#+end_src
+
+
+** Beneficiary
+#+begin_src restclient
+:base-url = http://localhost:4000/user/beneficiary
+:token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjE5NTM2OTc2LCJleHAiOjE2MjA0MDA5NzYsImp0aSI6ImhvbGkifQ.wT1g3QHgAy49JEsCJxZRXLO6Ki19I-F2wJQfFCX91D0
+POST :base-url
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+    "name": "Carmelolll",
+    "lastname": "Gallo",
+     "maternal_lastname": "Valiente",
+    "sex": "m",
+    "nse": "__",
+    "document": "65465412",
+    "age": 45,
+    "district": 20,
+    "address": "laskdjf",
+    "status": "lsakdjf",
+    "campaign": 2
 }
 #+end_src
