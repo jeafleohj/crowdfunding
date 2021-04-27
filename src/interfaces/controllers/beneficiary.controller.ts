@@ -6,7 +6,7 @@ const createBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
   const response = await CreateBeneficiary(data, ctx)
   ctx.body = {
     error: false,
-    data: response,
+    data: response.beneficiaries,
     status: 200,
     message: 'ok'
   }
