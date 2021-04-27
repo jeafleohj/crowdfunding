@@ -1,8 +1,9 @@
 import 'reflect-metadata'
 import koa  from 'koa'
 import bodyparser from 'koa-bodyparser'
-import { createConnection } from 'typeorm'
 import logger from 'koa-logger'
+import cors from '@koa/cors'
+import { createConnection } from 'typeorm'
 import Routes from 'interfaces/routes'
 import { userRepository } from 'infrastructure/repository/UserRepositoryTypeOrm'
 import { ubigeoRepository } from 'infrastructure/repository/UbigeoRepositoryTypeOrm'
@@ -20,6 +21,12 @@ declare module "koa" {
 }
 
 const app = new koa()
+
+app.use(cors({
+	origin: () => "*",
+	allowHeaders: ['etag', 'Content-Type', 'X-Requested-With', 'Accept', 'Origin', 'Authorization'],
+	credentials: true
+}))
 
 createConnection()
   .then(()=>{
