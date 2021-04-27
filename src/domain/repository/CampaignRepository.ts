@@ -1,8 +1,10 @@
+import { Beneficiary } from 'domain/entity/Beneficiary';
 import { Campaign } from 'domain/entity/Campaign'
 export interface CampaignRepository {
-   persist(domain: any): Promise<any>
-   merge(domain: any): void
-   remove(campaignId: number): void
-   getAll(): Promise<Campaign[]>
-   getByName(name: string): Promise<Campaign>
+  persist(domain: any): Promise<any>
+  merge(domain: any): void
+  remove(campaignId: number): void
+  getAll(): Promise<Campaign[]>
+  getByName(name: string): Promise<Campaign>
+  addBeneficiary(beneficiary: Beneficiary): Promise<any>
 }

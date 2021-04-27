@@ -1,6 +1,7 @@
 import { User } from './User'
+import { Beneficiary } from './Beneficiary'
 import { campaignType } from 'domain/entity/Campaign'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class Campaign{
@@ -29,4 +30,10 @@ export class Campaign{
   status: string
   @ManyToOne(()=>User, user=>user.id)
   user: User
+  @ManyToMany(() => Beneficiary, {
+    cascade: true,
+    eager: true
+  })
+  @JoinTable()
+  beneficiaries: Beneficiary[]
 }

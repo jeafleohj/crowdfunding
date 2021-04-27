@@ -11,12 +11,15 @@ import { campaignRepository } from './infrastructure/repository/CampaignReposito
 import { UserRepository } from 'domain/repository/UserRepository'
 import { UbigeoRepository } from 'domain/repository/UbigeoRepository'
 import { CampaignRepository } from './domain/repository/CampaignRepository';
+import { BeneficiaryRepository } from './domain/repository/BeneficiaryRepository';
+import { beneficiaryRepository } from 'infrastructure/repository/BeneficiaryRepository'
 
 declare module "koa" {
   interface BaseContext {
-    userRepository: UserRepository
-    ubigeoRepository: UbigeoRepository
+    beneficiaryRepository: BeneficiaryRepository
     campaignRepository: CampaignRepository
+    ubigeoRepository: UbigeoRepository
+    userRepository: UserRepository
   }
 }
 
@@ -33,6 +36,7 @@ createConnection()
     app.context.userRepository = new userRepository()
     app.context.ubigeoRepository = new ubigeoRepository()
     app.context.campaignRepository = new campaignRepository()
+    app.context.beneficiaryRepository = new beneficiaryRepository()
   })
 
 // Error handler
@@ -40,7 +44,7 @@ app.use(async (ctx, next) => {
 	try {
 		await next()
   } catch (err) {
-    //ctx.status = err.status || 500
+    ctx.status = err.status || 500
     //ctx.body = err.message || 'Error interno'
     console.log(err)
   }

@@ -7,11 +7,13 @@ export class Beneficiary {
   nse: string
   document: string
   age: number
-  provinceId?: number
+  district?: number
   address: string
   status: string
+  campaign?: number
 
-  constructor({name, lastname, maternal_lastname, sex, nse, document, age, provinceId, address, status}:Beneficiary) {
+  constructor({name, lastname, maternal_lastname, sex, nse, document, age, district, address, status, campaign}
+              :Beneficiary) {
     this.name = name
     this.lastname = lastname
     this.maternal_lastname = maternal_lastname
@@ -19,8 +21,9 @@ export class Beneficiary {
     this.nse = nse
     this.document = document
     this.age = age
-    this.provinceId = provinceId
+    this.district = district
     this.address = address
     this.status = status
+    this.campaign = campaign
   }
 }

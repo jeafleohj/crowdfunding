@@ -1,3 +1,5 @@
+import { Beneficiary } from "./Beneficiary"
+
 export enum campaignType {
   material = 'materiales',
   service = 'serviciales',
@@ -30,7 +32,8 @@ export class Campaign {
   type: campaignType
   release: Date
   ending: Date
-  status: campaignStatus // --> creada, publicada (recaudacion), distribucion,& finalizada
+  status: campaignStatus
+  beneficiaries: Beneficiary[]
 
   constructor({name, type, user}:CampaignData) {
     this.name = name
