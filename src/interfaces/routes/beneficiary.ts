@@ -4,14 +4,14 @@ import Router from 'koa-router'
 
 const beneficiaryRouter = new Router()
 
-beneficiaryRouter.prefix('/user')
+beneficiaryRouter.prefix('/beneficiary')
 
 beneficiaryRouter.use(jwt({
   secret: 'Key'
 }))
 
 beneficiaryRouter
-  .post('/beneficiary', createBeneficiary)
+  .post('/', createBeneficiary)
 
 export {
   beneficiaryRouter
