@@ -5,10 +5,10 @@ import { ubigeoRouter } from 'interfaces/routes/ubigeo'
 import { userRouter } from 'interfaces/routes/user'
 
 const routes = [
+  userRouter,
   authRouter,
   campaignRouter,
   ubigeoRouter,
-  userRouter,
 ]
 
 const Routes = new Router()
