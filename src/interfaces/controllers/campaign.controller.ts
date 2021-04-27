@@ -14,8 +14,10 @@ const getCampaigns = async (ctx: Context, next: Next) => {
 }
 
 const createCampaign = async (ctx: Context, next: Next) => {
-  const userId: number = ctx.state.id
-  const response = await CreateCampaign(ctx.request.body, ctx)
+  const user = ctx.state.user.id
+  let data = ctx.request.body
+  data.user = user
+  const response = await CreateCampaign(data , ctx)
   ctx.body = {
     error: false,
     data: response,

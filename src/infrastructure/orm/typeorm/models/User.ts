@@ -1,5 +1,6 @@
-import {Entity, Column, PrimaryGeneratedColumn, BeforeInsert} from 'typeorm'
+import {Entity, Column, PrimaryGeneratedColumn, BeforeInsert, OneToMany} from 'typeorm'
 import bcrypt from 'bcryptjs';
+import { Campaign } from './Campaign';
 
 @Entity()
 export class User{
@@ -21,6 +22,11 @@ export class User{
   email: string
   @Column()
   password: string
+
+  @OneToMany(()=>Campaign, campaign => campaign.id, {
+    cascade: true
+  })
+  campaigns: Campaign[]
 
   @BeforeInsert()
   async generatePasswordHash(): Promise<void> {

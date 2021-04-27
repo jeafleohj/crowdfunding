@@ -27,6 +27,6 @@ export class Campaign{
   ending: Date
   @Column()
   status: string
-  @ManyToOne(()=>User, user=>user.id) //no estoy segura de esto xd
+  @ManyToOne(()=>User, user=>user.id)
   user: User
 }
