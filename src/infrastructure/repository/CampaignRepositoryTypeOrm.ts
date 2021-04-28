@@ -1,22 +1,27 @@
 import { getRepository, Repository } from 'typeorm'
 import { Campaign } from 'infrastructure/orm/typeorm/models/Campaign'
 import { CampaignRepository } from 'domain/repository/CampaignRepository';
-import { Beneficiary} from 'domain/entity/Beneficiary';
+import { Beneficiary } from 'domain/entity/Beneficiary';
+import { Campaign as CampaignEntity } from 'domain/entity/Campaign';
 
 export class campaignRepository implements CampaignRepository {
   private repository: Repository<Campaign>
   constructor() {
     this.repository = getRepository(Campaign)
   }
+  getByUser(idUser: number): Promise<any> {
+    console.log('cualquier cosa')
+    return this.repository.find({ where: { user: idUser } })
+  }
 
   async listBeneficiaries(id: number): Promise<any> {
-    let campaign = this.repository.findOne({id})
-    return  campaign
+    let campaign = this.repository.findOne({ id })
+    return campaign
   }
 
   async addBeneficiary(data: Beneficiary): Promise<any> {
-    let campaign = await this.repository.findOne({id: data.campaign}) as Campaign
-    if ( campaign.beneficiaries === undefined ) {
+    let campaign = await this.repository.findOne({ id: data.campaign }) as Campaign
+    if (campaign.beneficiaries === undefined) {
       campaign.beneficiaries = [data]
     } else {
       campaign.beneficiaries.push(data)
@@ -37,12 +42,8 @@ export class campaignRepository implements CampaignRepository {
     throw new Error('Method not implemented.');
   }
 
-  getAll(): Promise<any> {
-    return this.repository.find()
-  }
-
   async getByName(name: string): Promise<any> {
-    const campaign = await this.repository.findOne({name}) as Campaign
+    const campaign = await this.repository.findOne({ name }) as Campaign
     return campaign
   }
 
