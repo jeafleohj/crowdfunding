@@ -1,10 +1,12 @@
-import {Context, Next} from 'koa'
+import { Context, Next } from 'koa'
 import { CreateCampaign } from 'application/use_cases/campaign/CreateCampaign'
 import { GetAllCampaigns } from 'application/use_cases/campaign/GetAllCampaigns'
 import { ListBeneficiaries } from 'application/use_cases/campaign/ListBeneficiary'
 
 const getCampaigns = async (ctx: Context, next: Next) => {
-  const campaigns = await GetAllCampaigns(ctx)
+  const user = ctx.state.user.id
+  console.log(ctx.state)
+  const campaigns = await GetAllCampaigns(0, ctx)
   ctx.body = {
     error: false,
     data: campaigns,
@@ -18,7 +20,7 @@ const createCampaign = async (ctx: Context, next: Next) => {
   const user = ctx.state.user.id
   let data = ctx.request.body
   data.user = user
-  const response = await CreateCampaign(data , ctx)
+  const response = await CreateCampaign(data, ctx)
   ctx.body = {
     error: false,
     data: response,
