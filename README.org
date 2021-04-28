@@ -1,4 +1,6 @@
 #+title: Crowdfunding
+#+PROPERTY: header-args :var token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjE5NjQ4MzYzLCJleHAiOjE2MjA1MTIzNjMsImp0aSI6ImhvbGkifQ.cACHRx_GxgTOfMHoyISF2p3XViHl0HUaWzQOVh7TOqw"
+
 * DB
 - Run container :: ~docker-compose up~
 - Enter to container :: ~docker-compose exec mysql mysql -uroot -ppassword~
@@ -37,7 +39,6 @@ Content-Type: application/json;charset=UTF-8
 ** Campaign
 #+begin_src restclient
 :base-url = http://localhost:4000/user/campaign
-:token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjE5NjQ2Mzc4LCJleHAiOjE2MjA1MTAzNzgsImp0aSI6ImhvbGkifQ.l_aeMyXCv4GHLlrJD0EuiI1qgJqnIOHuXLVuqbUY7h4
 POST :base-url
 Content-Type: application/json
 Authorization: Bearer :token
@@ -50,7 +51,6 @@ Authorization: Bearer :token
 *** List all campaigns by user
 #+begin_src restclient
 :base-url = http://localhost:4000/user/campaign
-:token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjE5NjQ2Mzc4LCJleHAiOjE2MjA1MTAzNzgsImp0aSI6ImhvbGkifQ.l_aeMyXCv4GHLlrJD0EuiI1qgJqnIOHuXLVuqbUY7h4
 GET :base-url
 Content-Type: application/json
 Authorization: Bearer :token
@@ -59,7 +59,6 @@ Authorization: Bearer :token
 ** Beneficiary
 #+begin_src restclient
 :base-url = http://localhost:4000/beneficiary
-:token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjE5NTM2OTc2LCJleHAiOjE2MjA0MDA5NzYsImp0aSI6ImhvbGkifQ.wT1g3QHgAy49JEsCJxZRXLO6Ki19I-F2wJQfFCX91D0
 POST :base-url
 Content-Type: application/json;charset=UTF-8
 Authorization: Bearer :token
@@ -80,7 +79,6 @@ Authorization: Bearer :token
 
 #+begin_src restclient
 :base-url = http://localhost:4000/beneficiary?idCampaign=2
-:token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjE5NTM2OTc2LCJleHAiOjE2MjA0MDA5NzYsImp0aSI6ImhvbGkifQ.wT1g3QHgAy49JEsCJxZRXLO6Ki19I-F2wJQfFCX91D0
 GET :base-url
 Authorization: Bearer :token
 #+end_src
