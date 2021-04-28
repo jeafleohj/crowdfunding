@@ -37,7 +37,7 @@ Content-Type: application/json;charset=UTF-8
 ** Campaign
 #+begin_src restclient
 :base-url = http://localhost:4000/user/campaign
-:token = 
+:token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjE5NjQ2Mzc4LCJleHAiOjE2MjA1MTAzNzgsImp0aSI6ImhvbGkifQ.l_aeMyXCv4GHLlrJD0EuiI1qgJqnIOHuXLVuqbUY7h4
 POST :base-url
 Content-Type: application/json
 Authorization: Bearer :token
@@ -45,6 +45,15 @@ Authorization: Bearer :token
     "name":"Regalando Sonrisas",
     "type":"materiales"
 }
+#+end_src
+
+*** List all campaigns by user
+#+begin_src restclient
+:base-url = http://localhost:4000/user/campaign
+:token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjE5NjQ2Mzc4LCJleHAiOjE2MjA1MTAzNzgsImp0aSI6ImhvbGkifQ.l_aeMyXCv4GHLlrJD0EuiI1qgJqnIOHuXLVuqbUY7h4
+GET :base-url
+Content-Type: application/json
+Authorization: Bearer :token
 #+end_src
 
 ** Beneficiary
@@ -70,8 +79,9 @@ Authorization: Bearer :token
 #+end_src
 
 #+begin_src restclient
-:base-url = http://localhost:4000/beneficiary?idCampaign=1
+:base-url = http://localhost:4000/beneficiary?idCampaign=2
 :token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjE5NTM2OTc2LCJleHAiOjE2MjA0MDA5NzYsImp0aSI6ImhvbGkifQ.wT1g3QHgAy49JEsCJxZRXLO6Ki19I-F2wJQfFCX91D0
 GET :base-url
 Authorization: Bearer :token
 #+end_src
+

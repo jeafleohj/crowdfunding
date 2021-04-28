@@ -5,8 +5,7 @@ import { ListBeneficiaries } from 'application/use_cases/campaign/ListBeneficiar
 
 const getCampaigns = async (ctx: Context, next: Next) => {
   const user = ctx.state.user.id
-  console.log(ctx.state)
-  const campaigns = await GetAllCampaigns(0, ctx)
+  const campaigns = await GetAllCampaigns(user, ctx)
   ctx.body = {
     error: false,
     data: campaigns,

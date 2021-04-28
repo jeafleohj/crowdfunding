@@ -11,7 +11,6 @@ export class CampaignRepository implements ICampaignRepository {
     this.repository = getRepository(CampaignEntity)
   }
   getByUser(idUser: number): Promise<any> {
-    console.log('cualquier cosa')
     return this.repository.find({ where: { user: idUser } })
   }
 
