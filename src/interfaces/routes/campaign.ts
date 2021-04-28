@@ -4,15 +4,15 @@ import Router from 'koa-router'
 
 const campaignRouter = new Router()
 
-campaignRouter.prefix('/user')
+campaignRouter.prefix('/user/campaign')
 
 campaignRouter.use(jwt({
   secret: 'Key'
 }))
 
 campaignRouter
-  .get('/campaign', getCampaigns)
-  .post('/campaign', createCampaign)
+  .get('/', getCampaigns)
+  .post('/', createCampaign)
 
 export {
   campaignRouter
