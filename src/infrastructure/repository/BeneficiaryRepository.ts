@@ -1,11 +1,12 @@
-import { Beneficiary } from 'infrastructure/orm/typeorm/models/Beneficiary'
+import { BeneficiaryEntity } from 'infrastructure/orm/typeorm/models/Beneficiary'
 import { IBeneficiaryRepository } from 'domain/repository/BeneficiaryRepository'
 import { getRepository, Repository } from 'typeorm'
+import { Beneficiary } from 'domain/entity/Beneficiary'
 
 export class BeneficiaryRepository implements IBeneficiaryRepository {
-  private repository: Repository<Beneficiary>
+  private repository: Repository<BeneficiaryEntity>
   constructor() {
-    this.repository = getRepository(Beneficiary)
+    this.repository = getRepository(BeneficiaryEntity)
   }
 
   persist(beneficiary: Beneficiary): Promise<any> {

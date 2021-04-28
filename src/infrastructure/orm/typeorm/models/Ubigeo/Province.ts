@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
-import { Region } from './Region'
-import { District } from './District'
+import { RegionEntity } from './Region'
+import { DistrictEntity } from './District'
 
-@Entity()
-export class Province {
+@Entity('province')
+export class ProvinceEntity {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -14,11 +14,11 @@ export class Province {
   })
   name: string
 
-  @ManyToOne(()=>Region, region=>region.provinces)
-  region: Region
+  @ManyToOne(()=>RegionEntity, region=>region.provinces)
+  region: RegionEntity
 
-  @OneToMany(()=>District, district=>district.id, {
+  @OneToMany(()=>DistrictEntity, district=>district.id, {
     cascade: true
   })
-  districts: District[]
+  districts: DistrictEntity[]
 }

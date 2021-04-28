@@ -1,8 +1,8 @@
-import { Province } from "./Province";
+import { ProvinceEntity } from "./Province";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
-export class Region {
+@Entity('region')
+export class RegionEntity {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -13,8 +13,8 @@ export class Region {
   })
   name: string
 
-  @OneToMany(()=>Province, province=>province.id, {
+  @OneToMany(()=>ProvinceEntity, province=>province.id, {
     cascade: true
   })
-  provinces: Province[]
+  provinces: ProvinceEntity[]
 }

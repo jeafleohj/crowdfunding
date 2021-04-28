@@ -1,19 +1,19 @@
-import { User } from 'infrastructure/orm/typeorm/models/User'
+import { UserEntity } from 'infrastructure/orm/typeorm/models/User'
 import { IUserRepository } from 'domain/repository/UserRepository'
 import { getRepository, Repository } from 'typeorm'
 
 export class UserRepository implements IUserRepository {
-  private repository: Repository<User>
+  private repository: Repository<UserEntity>
   constructor() {
-    this.repository = getRepository(User)
+    this.repository = getRepository(UserEntity)
   }
 
-  async persist(domainUser: User): Promise<User> {
+  async persist(domainUser: UserEntity): Promise<UserEntity> {
     const new_user = this.repository.create(domainUser)
     return this.repository.save(new_user)
   }
 
-  merge(domainUser: User): void {
+  merge(domainUser: UserEntity): void {
     throw new Error('Method not implemented.');
   }
 
@@ -26,7 +26,7 @@ export class UserRepository implements IUserRepository {
   }
 
   async getByEmail(email: string): Promise<any> {
-    const user = await this.repository.findOne({email}) as User
+    const user = await this.repository.findOne({email}) as UserEntity
     return user
   }
 

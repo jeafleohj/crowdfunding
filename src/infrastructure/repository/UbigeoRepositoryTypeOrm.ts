@@ -1,24 +1,24 @@
-import { District } from 'infrastructure/orm/typeorm/models/Ubigeo/District'
-import { Province } from 'infrastructure/orm/typeorm/models/Ubigeo/Province'
-import { Region } from 'infrastructure/orm/typeorm/models/Ubigeo/Region'
+import { DistrictEntity } from 'infrastructure/orm/typeorm/models/Ubigeo/District'
+import { ProvinceEntity } from 'infrastructure/orm/typeorm/models/Ubigeo/Province'
+import { RegionEntity } from 'infrastructure/orm/typeorm/models/Ubigeo/Region'
 import { IUbigeoRepository } from "domain/repository/UbigeoRepository"
 import { getRepository, Repository } from 'typeorm'
 
 export class UbigeoRepository implements IUbigeoRepository {
-  private regionRepository: Repository<Region>
-  private provinceRepository: Repository<Province>
-  private districtRepository: Repository<District>
+  private regionRepository: Repository<RegionEntity>
+  private provinceRepository: Repository<ProvinceEntity>
+  private districtRepository: Repository<DistrictEntity>
   constructor() {
-    this.regionRepository = getRepository(Region)
-    this.provinceRepository = getRepository(Province)
-    this.districtRepository = getRepository(District)
+    this.regionRepository = getRepository(RegionEntity)
+    this.provinceRepository = getRepository(ProvinceEntity)
+    this.districtRepository = getRepository(DistrictEntity)
   }
 
-  getRegions(): Promise<Region[]> {
+  getRegions(): Promise<RegionEntity[]> {
     return this.regionRepository.find()
   }
 
-  getProvinces(id: number): Promise<Province[]> {
+  getProvinces(id: number): Promise<ProvinceEntity[]> {
     return this.provinceRepository.find({
       where: [
         {region: {id}}
@@ -26,7 +26,7 @@ export class UbigeoRepository implements IUbigeoRepository {
     })
   }
 
-  getDistricts(id: number): Promise<District[]> {
+  getDistricts(id: number): Promise<DistrictEntity[]> {
     return this.districtRepository.find({
       where: [
         {province: {id}}

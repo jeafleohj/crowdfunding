@@ -1,8 +1,8 @@
-import { Province } from './Province'
+import { ProvinceEntity } from './Province'
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 
-@Entity()
-export class District {
+@Entity('district')
+export class DistrictEntity {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -13,6 +13,6 @@ export class District {
   })
   name: string
 
-  @ManyToOne(()=>Province, province=>province.districts)
-  province: Province
+  @ManyToOne(()=>ProvinceEntity, province=>province.districts)
+  province: ProvinceEntity
 }
