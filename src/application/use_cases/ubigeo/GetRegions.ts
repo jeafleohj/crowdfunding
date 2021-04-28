@@ -1,7 +1,7 @@
 import { Region } from 'domain/entity/ubigeo/Region'
-import { UbigeoRepository } from 'domain/repository/UbigeoRepository'
+import { IUbigeoRepository } from 'domain/repository/UbigeoRepository'
 
-const GetRegions = ({ubigeoRepository}:{ubigeoRepository: UbigeoRepository}) : Promise<Region[]> => {
+const GetRegions = ({ubigeoRepository}:{ubigeoRepository: IUbigeoRepository}) : Promise<Region[]> => {
   return ubigeoRepository.getRegions()
 }
 

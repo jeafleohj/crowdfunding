@@ -1,7 +1,7 @@
 import { User } from 'domain/entity/User'
-import { UserRepository } from 'domain/repository/UserRepository'
+import { IUserRepository } from 'domain/repository/UserRepository'
 
-const GetAll = ({userRepository}:{userRepository: UserRepository} ) : Promise<User[]> => {
+const GetAll = ({userRepository}:{userRepository: IUserRepository} ) : Promise<User[]> => {
   return userRepository.getAll()
 }
 

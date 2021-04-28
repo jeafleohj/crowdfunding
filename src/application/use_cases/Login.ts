@@ -1,9 +1,9 @@
 import { userData } from 'domain/entity/User'
-import { UserRepository } from 'domain/repository/UserRepository'
+import { IUserRepository } from 'domain/repository/UserRepository'
 import bcrypt from 'bcryptjs'
 
 const ValidateLogin = async (data: userData,
-                         {userRepository}:{userRepository: UserRepository}) : Promise<any> =>  {
+                         {userRepository}:{userRepository: IUserRepository}) : Promise<any> =>  {
   const {email, password} = data
   const user = await userRepository.getByEmail(email)
   const valid = await bcrypt.compare(password, user.password)

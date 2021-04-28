@@ -1,8 +1,8 @@
 import { Beneficiary } from 'infrastructure/orm/typeorm/models/Beneficiary'
-import { BeneficiaryRepository } from 'domain/repository/BeneficiaryRepository'
+import { IBeneficiaryRepository } from 'domain/repository/BeneficiaryRepository'
 import { getRepository, Repository } from 'typeorm'
 
-export class beneficiaryRepository implements BeneficiaryRepository {
+export class BeneficiaryRepository implements IBeneficiaryRepository {
   private repository: Repository<Beneficiary>
   constructor() {
     this.repository = getRepository(Beneficiary)

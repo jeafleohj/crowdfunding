@@ -1,9 +1,9 @@
 import { Beneficiary } from 'domain/entity/Beneficiary'
-import { CampaignRepository } from 'domain/repository/CampaignRepository'
+import { ICampaignRepository } from 'domain/repository/CampaignRepository'
 
 
 const CreateBeneficiary = (data: Beneficiary,
-  { campaignRepository }: {campaignRepository : CampaignRepository }): Promise<any> => {
+  { campaignRepository }: {campaignRepository : ICampaignRepository }): Promise<any> => {
   const user = new Beneficiary(data)
   return campaignRepository.addBeneficiary(user)
 }

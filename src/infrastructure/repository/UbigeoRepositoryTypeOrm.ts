@@ -1,10 +1,10 @@
 import { District } from 'infrastructure/orm/typeorm/models/Ubigeo/District'
 import { Province } from 'infrastructure/orm/typeorm/models/Ubigeo/Province'
 import { Region } from 'infrastructure/orm/typeorm/models/Ubigeo/Region'
-import { UbigeoRepository } from "domain/repository/UbigeoRepository"
+import { IUbigeoRepository } from "domain/repository/UbigeoRepository"
 import { getRepository, Repository } from 'typeorm'
 
-export class ubigeoRepository implements UbigeoRepository {
+export class UbigeoRepository implements IUbigeoRepository {
   private regionRepository: Repository<Region>
   private provinceRepository: Repository<Province>
   private districtRepository: Repository<District>

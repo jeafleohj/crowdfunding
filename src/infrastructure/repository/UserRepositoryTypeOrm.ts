@@ -1,8 +1,8 @@
 import { User } from 'infrastructure/orm/typeorm/models/User'
-import { UserRepository } from 'domain/repository/UserRepository'
+import { IUserRepository } from 'domain/repository/UserRepository'
 import { getRepository, Repository } from 'typeorm'
 
-export class userRepository implements UserRepository {
+export class UserRepository implements IUserRepository {
   private repository: Repository<User>
   constructor() {
     this.repository = getRepository(User)

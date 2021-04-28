@@ -1,5 +1,5 @@
 import { User } from 'domain/entity/User'
-export interface UserRepository {
+export interface IUserRepository {
    persist(domainUser: any): Promise<any>
    merge(domainUser: any): void
    remove(userId: number): void

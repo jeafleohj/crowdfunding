@@ -1,6 +1,6 @@
 import { Beneficiary } from 'domain/entity/Beneficiary';
 import { Campaign } from 'domain/entity/Campaign'
-export interface CampaignRepository {
+export interface ICampaignRepository {
   persist(domain: any): Promise<any>
   merge(domain: any): void
   remove(campaignId: number): void

@@ -5,21 +5,21 @@ import logger from 'koa-logger'
 import cors from '@koa/cors'
 import { createConnection } from 'typeorm'
 import Routes from 'interfaces/routes'
-import { userRepository } from 'infrastructure/repository/UserRepositoryTypeOrm'
-import { ubigeoRepository } from 'infrastructure/repository/UbigeoRepositoryTypeOrm'
-import { campaignRepository } from './infrastructure/repository/CampaignRepositoryTypeOrm';
-import { UserRepository } from 'domain/repository/UserRepository'
-import { UbigeoRepository } from 'domain/repository/UbigeoRepository'
-import { CampaignRepository } from './domain/repository/CampaignRepository';
-import { BeneficiaryRepository } from './domain/repository/BeneficiaryRepository';
-import { beneficiaryRepository } from 'infrastructure/repository/BeneficiaryRepository'
+import { UserRepository } from 'infrastructure/repository/UserRepositoryTypeOrm'
+import { UbigeoRepository } from 'infrastructure/repository/UbigeoRepositoryTypeOrm'
+import { CampaignRepository } from './infrastructure/repository/CampaignRepositoryTypeOrm';
+import { IUserRepository } from 'domain/repository/UserRepository'
+import { IUbigeoRepository } from 'domain/repository/UbigeoRepository'
+import { ICampaignRepository } from './domain/repository/CampaignRepository';
+import { IBeneficiaryRepository } from './domain/repository/BeneficiaryRepository';
+import { BeneficiaryRepository } from 'infrastructure/repository/BeneficiaryRepository'
 
 declare module "koa" {
   interface BaseContext {
-    beneficiaryRepository: BeneficiaryRepository
-    campaignRepository: CampaignRepository
-    ubigeoRepository: UbigeoRepository
-    userRepository: UserRepository
+    beneficiaryRepository: IBeneficiaryRepository
+    campaignRepository: ICampaignRepository
+    ubigeoRepository: IUbigeoRepository
+    userRepository: IUserRepository
   }
 }
 
@@ -33,10 +33,10 @@ app.use(cors({
 
 createConnection()
   .then(()=>{
-    app.context.userRepository = new userRepository()
-    app.context.ubigeoRepository = new ubigeoRepository()
-    app.context.campaignRepository = new campaignRepository()
-    app.context.beneficiaryRepository = new beneficiaryRepository()
+    app.context.userRepository = new UserRepository()
+    app.context.ubigeoRepository = new UbigeoRepository()
+    app.context.campaignRepository = new CampaignRepository()
+    app.context.beneficiaryRepository = new BeneficiaryRepository()
   })
 
 // Error handler

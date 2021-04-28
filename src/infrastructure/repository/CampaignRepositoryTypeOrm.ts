@@ -1,9 +1,9 @@
 import { getRepository, Repository } from 'typeorm'
 import { Campaign } from 'infrastructure/orm/typeorm/models/Campaign'
-import { CampaignRepository } from 'domain/repository/CampaignRepository';
+import { ICampaignRepository } from 'domain/repository/CampaignRepository';
 import { Beneficiary} from 'domain/entity/Beneficiary';
 
-export class campaignRepository implements CampaignRepository {
+export class CampaignRepository implements ICampaignRepository {
   private repository: Repository<Campaign>
   constructor() {
     this.repository = getRepository(Campaign)

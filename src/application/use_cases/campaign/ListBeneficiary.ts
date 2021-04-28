@@ -1,8 +1,8 @@
 import { Beneficiary } from 'domain/entity/Beneficiary'
-import { CampaignRepository } from 'domain/repository/CampaignRepository'
+import { ICampaignRepository } from 'domain/repository/CampaignRepository'
 
 const ListBeneficiaries = async (id: number,
-  { campaignRepository }: { campaignRepository: CampaignRepository })  => {
+  { campaignRepository }: { campaignRepository: ICampaignRepository })  => {
   let campaing = await campaignRepository.listBeneficiaries(id)
   return campaing.beneficiaries
 }
