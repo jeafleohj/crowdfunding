@@ -7,4 +7,5 @@ export interface CampaignRepository {
   getAll(): Promise<Campaign[]>
   getByName(name: string): Promise<Campaign>
   addBeneficiary(beneficiary: Beneficiary): Promise<any>
+  listBeneficiaries(id: number): Promise<any>
 }

@@ -9,6 +9,11 @@ export class campaignRepository implements CampaignRepository {
     this.repository = getRepository(Campaign)
   }
 
+  async listBeneficiaries(id: number): Promise<any> {
+    let campaign = this.repository.findOne({id})
+    return  campaign
+  }
+
   async addBeneficiary(data: Beneficiary): Promise<any> {
     let campaign = await this.repository.findOne({id: data.campaign}) as Campaign
     if ( campaign.beneficiaries === undefined ) {
