@@ -1,7 +1,7 @@
 import { createConnection, getRepository } from 'typeorm'
-import { District } from 'infrastructure/orm/typeorm/models/Ubigeo/District'
-import { Province } from 'infrastructure/orm/typeorm/models/Ubigeo/Province'
-import { Region } from 'infrastructure/orm/typeorm/models/Ubigeo/Region'
+import { DistrictEntity } from 'infrastructure/orm/typeorm/models/Ubigeo/District'
+import { ProvinceEntity } from 'infrastructure/orm/typeorm/models/Ubigeo/Province'
+import { RegionEntity } from 'infrastructure/orm/typeorm/models/Ubigeo/Region'
 import { districts, provinces, regions } from './ubigeo'
 //const region = getRepository(Region)
 //const district = getRepository(District)
@@ -13,9 +13,9 @@ const forEachAsync = (arr: any[], fn: any) =>  arr.reduce(
 
 createConnection()
   .then(async(connection)=>{
-    const rr =  getRepository(Region)
-    const pr = getRepository(Province)
-    const dr = getRepository(District)
+    const rr =  getRepository(RegionEntity)
+    const pr = getRepository(ProvinceEntity)
+    const dr = getRepository(DistrictEntity)
     await forEachAsync (regions, async (el: any) => {
       const region = rr.create(el)
       return await rr.save(region)
