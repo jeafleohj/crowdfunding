@@ -1,15 +1,17 @@
 import {Context} from 'koa'
 import jwt from 'jsonwebtoken'
+import uniqid from 'uniqid'
 import { userData } from 'domain/entity/User'
 import { ValidateLogin } from 'application/use_cases/Login'
 
 async function generateToken(payload: any): Promise<string> {
+  const jid = uniqid()
   const token = jwt.sign(
     payload,
     'Key',
     {
       expiresIn: '10 days',
-      jwtid: 'holi'
+      jwtid: jid
     }
   )
   return token

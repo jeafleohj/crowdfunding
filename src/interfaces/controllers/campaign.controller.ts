@@ -12,7 +12,6 @@ const getCampaigns = async (ctx: Context, next: Next) => {
     status: 200,
     message: 'ok'
   }
-  next()
 }
 
 const createCampaign = async (ctx: Context, next: Next) => {

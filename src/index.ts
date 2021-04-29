@@ -15,13 +15,16 @@ import { IBeneficiaryRepository } from './domain/repository/BeneficiaryRepositor
 import { BeneficiaryRepository } from 'infrastructure/repository/BeneficiaryRepository'
 import { IDonationRepository } from './domain/repository/DonationRepository';
 import { DonationRepository } from './infrastructure/repository/DonationRepository';
+import { ITokenBlacklistingRepository } from 'domain/repository/TokenBlacklisting'
+import { BlackListTokenRepository } from 'infrastructure/repository/TokenBlacklistingRepositoryTypeOrm'
 
 
 declare module "koa" {
   interface BaseContext {
-    donationRepository: IDonationRepository
     beneficiaryRepository: IBeneficiaryRepository
     campaignRepository: ICampaignRepository
+    donationRepository: IDonationRepository
+    tokenBlacklistingRepository: ITokenBlacklistingRepository
     ubigeoRepository: IUbigeoRepository
     userRepository: IUserRepository
   }
@@ -37,11 +40,12 @@ app.use(cors({
 
 createConnection()
   .then(()=>{
-    app.context.userRepository = new UserRepository()
-    app.context.ubigeoRepository = new UbigeoRepository()
-    app.context.campaignRepository = new CampaignRepository()
     app.context.beneficiaryRepository = new BeneficiaryRepository()
+    app.context.campaignRepository = new CampaignRepository()
     app.context.donationRepository = new DonationRepository()
+    app.context.tokenBlacklistingRepository = new BlackListTokenRepository()
+    app.context.ubigeoRepository = new UbigeoRepository()
+    app.context.userRepository = new UserRepository()
   })
 
 // Error handler
