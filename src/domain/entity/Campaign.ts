@@ -1,3 +1,4 @@
+import { Donation } from './Donation';
 import { Beneficiary } from "./Beneficiary"
 
 export enum campaignType {
@@ -34,6 +35,7 @@ export class Campaign {
   ending: Date
   status: campaignStatus
   beneficiaries: Beneficiary[]
+  donations: Donation[]
 
   constructor({name, type, user}:CampaignData) {
     this.name = name

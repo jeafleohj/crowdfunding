@@ -4,6 +4,7 @@ import { campaignRouter } from 'interfaces/routes/campaign'
 import { ubigeoRouter } from 'interfaces/routes/ubigeo'
 import { userRouter } from 'interfaces/routes/user'
 import { beneficiaryRouter } from 'interfaces/routes/beneficiary'
+import { donationRouter } from 'interfaces/routes/donation'
 
 const routes = [
   userRouter,
@@ -11,6 +12,7 @@ const routes = [
   campaignRouter,
   ubigeoRouter,
   beneficiaryRouter,
+  donationRouter
 ]
 
 const Routes = new Router()

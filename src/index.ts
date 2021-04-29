@@ -13,9 +13,13 @@ import { IUbigeoRepository } from 'domain/repository/UbigeoRepository'
 import { ICampaignRepository } from './domain/repository/CampaignRepository';
 import { IBeneficiaryRepository } from './domain/repository/BeneficiaryRepository';
 import { BeneficiaryRepository } from 'infrastructure/repository/BeneficiaryRepository'
+import { IDonationRepository } from './domain/repository/DonationRepository';
+import { DonationRepository } from './infrastructure/repository/DonationRepository';
+
 
 declare module "koa" {
   interface BaseContext {
+    donationRepository: IDonationRepository
     beneficiaryRepository: IBeneficiaryRepository
     campaignRepository: ICampaignRepository
     ubigeoRepository: IUbigeoRepository
@@ -37,6 +41,7 @@ createConnection()
     app.context.ubigeoRepository = new UbigeoRepository()
     app.context.campaignRepository = new CampaignRepository()
     app.context.beneficiaryRepository = new BeneficiaryRepository()
+    app.context.donationRepository = new DonationRepository()
   })
 
 // Error handler
