@@ -4,13 +4,11 @@ import { Context, Next } from 'koa'
 
 const addToken = async (ctx: Context) => {
   const jwtid = ctx.state.user.jti
-  const response = await AddToken(jwtid, ctx)
-  console.log(response)
+  await AddToken(jwtid, ctx)
   ctx.status = 200
-  ctx.body = response
 }
 
-const ValidateToken = async (ctx: Context, next: Next) => {
+const validateToken = async (ctx: Context, next: Next) => {
   const jwtid = ctx.state.user.jti
   const valid = await FindToken(jwtid, ctx)
   if ( valid ) {
@@ -22,5 +20,5 @@ const ValidateToken = async (ctx: Context, next: Next) => {
 
 export {
   addToken,
-  ValidateToken
+  validateToken
 }

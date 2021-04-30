@@ -1,13 +1,13 @@
 import Router from 'koa-router'
 import { addToken } from 'interfaces/controllers/tokenblacklisting.controller'
 
-const authRouter = new Router()
+const logAuth = new Router()
 
-authRouter.prefix('/auth')
+logAuth.prefix('/user/logout')
 
-authRouter
+logAuth
   .post('/', addToken)
 
 export {
-  authRouter
+  logAuth
 }
