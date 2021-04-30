@@ -34,6 +34,11 @@ Content-Type: application/json;charset=UTF-8
 }
 #+end_src
 
+#+begin_src restclient
+POST :base-url/user/logout
+Authorization: Bearer :token
+#+end_src
+
 ** Campaign
 *** Create campaign
 #+begin_src restclient
