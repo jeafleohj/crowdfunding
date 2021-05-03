@@ -2,7 +2,8 @@ import { DonationEntity } from './Donation';
 import { UserEntity } from './User'
 import { BeneficiaryEntity } from './Beneficiary'
 import { campaignType } from 'domain/entity/Campaign'
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { VolunteerEntity } from './Volunteer';
 
 @Entity('campaign')
 export class CampaignEntity{
@@ -52,5 +53,8 @@ export class CampaignEntity{
   })
   @JoinTable()
   donations: DonationEntity[]
+
+  @OneToMany(() => VolunteerEntity, volunteer => volunteer.user )
+  volunteers!: VolunteerEntity[]
 
 }

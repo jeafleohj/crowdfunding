@@ -1,4 +1,4 @@
-import { Donation } from 'domain/entity/Donation'
+import { Donation } from 'domain/entity'
 
 export interface IDonationRepository {
    persist(donation: Donation): Promise<any>

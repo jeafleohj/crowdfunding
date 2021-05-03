@@ -1,0 +1,6 @@
+export { BeneficiaryRepository } from './BeneficiaryRepository'
+export { TokenBlacklistingRepository } from './TokenBlacklistingRepositoryTypeOrm'
+export { CampaignRepository } from './CampaignRepositoryTypeOrm'
+export { DonationRepository } from './DonationRepository'
+export { UbigeoRepository} from './UbigeoRepositoryTypeOrm'
+export { UserRepository} from './UserRepositoryTypeOrm'

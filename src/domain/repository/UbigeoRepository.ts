@@ -1,6 +1,8 @@
-import { District } from 'domain/entity/ubigeo/District';
-import { Province } from 'domain/entity/ubigeo/Province';
-import { Region } from 'domain/entity/ubigeo/Region'
+import {
+  District,
+  Province,
+  Region,
+} from 'domain/entity/ubigeo';
 
 export interface IUbigeoRepository {
   getRegions(): Promise<Region[]>

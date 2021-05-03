@@ -1,9 +1,9 @@
 import { TokenBlacklisting } from 'domain/entity/TokenBlacklisting'
-import { ITokenBlacklistingRepository } from 'domain/repository/TokenBlacklisting'
+import { ITokenBlacklistingRepository } from 'domain/repository'
 import { TokenBlacklistingEntity } from 'infrastructure/orm/typeorm/models/TokenBlacklisting'
 import { getRepository, Repository } from 'typeorm'
 
-export class BlackListTokenRepository implements ITokenBlacklistingRepository {
+export class TokenBlacklistingRepository implements ITokenBlacklistingRepository {
   private repository: Repository<TokenBlacklistingEntity>
 
   constructor(){

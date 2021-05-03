@@ -1,4 +1,4 @@
-import { ITokenBlacklistingRepository } from 'domain/repository/TokenBlacklisting'
+import { ITokenBlacklistingRepository } from 'domain/repository'
 
 export function FindToken(jwtid: string,
                          {tokenBlacklistingRepository}:{tokenBlacklistingRepository: ITokenBlacklistingRepository}) : Promise<any> {

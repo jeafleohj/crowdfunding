@@ -1,6 +1,8 @@
-import { Donation } from 'domain/entity/Donation';
-import { Beneficiary } from 'domain/entity/Beneficiary';
-import { Campaign } from 'domain/entity/Campaign'
+import {
+  Beneficiary,
+  Campaign,
+  Donation,
+} from 'domain/entity';
 
 export interface ICampaignRepository {
   persist(domain: any): Promise<any>

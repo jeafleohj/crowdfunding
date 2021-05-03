@@ -5,19 +5,22 @@ import logger from 'koa-logger'
 import cors from '@koa/cors'
 import { createConnection } from 'typeorm'
 import Routes from 'interfaces/routes'
-import { UserRepository } from 'infrastructure/repository/UserRepositoryTypeOrm'
-import { UbigeoRepository } from 'infrastructure/repository/UbigeoRepositoryTypeOrm'
-import { CampaignRepository } from './infrastructure/repository/CampaignRepositoryTypeOrm';
-import { IUserRepository } from 'domain/repository/UserRepository'
-import { IUbigeoRepository } from 'domain/repository/UbigeoRepository'
-import { ICampaignRepository } from './domain/repository/CampaignRepository';
-import { IBeneficiaryRepository } from './domain/repository/BeneficiaryRepository';
-import { BeneficiaryRepository } from 'infrastructure/repository/BeneficiaryRepository'
-import { IDonationRepository } from './domain/repository/DonationRepository';
-import { DonationRepository } from './infrastructure/repository/DonationRepository';
-import { ITokenBlacklistingRepository } from 'domain/repository/TokenBlacklisting'
-import { BlackListTokenRepository } from 'infrastructure/repository/TokenBlacklistingRepositoryTypeOrm'
-
+import {
+  BeneficiaryRepository,
+  CampaignRepository,
+  DonationRepository,
+  TokenBlacklistingRepository,
+  UbigeoRepository,
+  UserRepository,
+} from 'infrastructure/repository'
+import {
+  IBeneficiaryRepository,
+  ICampaignRepository,
+  IDonationRepository,
+  ITokenBlacklistingRepository,
+  IUbigeoRepository,
+  IUserRepository,
+} from 'domain/repository'
 
 declare module "koa" {
   interface BaseContext {
@@ -43,7 +46,7 @@ createConnection()
     app.context.beneficiaryRepository = new BeneficiaryRepository()
     app.context.campaignRepository = new CampaignRepository()
     app.context.donationRepository = new DonationRepository()
-    app.context.tokenBlacklistingRepository = new BlackListTokenRepository()
+    app.context.tokenBlacklistingRepository = new TokenBlacklistingRepository()
     app.context.ubigeoRepository = new UbigeoRepository()
     app.context.userRepository = new UserRepository()
   })

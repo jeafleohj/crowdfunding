@@ -1,5 +1,5 @@
 import { TokenBlacklisting } from 'domain/entity/TokenBlacklisting'
-import { ITokenBlacklistingRepository } from 'domain/repository/TokenBlacklisting'
+import { ITokenBlacklistingRepository } from 'domain/repository'
 
 export function AddToken(jwtid: string,
                          {tokenBlacklistingRepository}:{tokenBlacklistingRepository: ITokenBlacklistingRepository}) : Promise<any> {

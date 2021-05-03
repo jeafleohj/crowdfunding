@@ -1,0 +1,7 @@
+export { IBeneficiaryRepository } from './BeneficiaryRepository'
+export { ICampaignRepository } from './CampaignRepository'
+export { IDonationRepository } from './DonationRepository'
+export { ITokenBlacklistingRepository } from './TokenBlacklistingRepository'
+export { IUbigeoRepository } from './UbigeoRepository'
+export { IUserRepository } from './UserRepository'
+export { IVolunteerRepository } from './VolunteerRepository'

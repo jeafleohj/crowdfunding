@@ -1,7 +1,7 @@
-import { BeneficiaryEntity } from 'infrastructure/orm/typeorm/models/Beneficiary'
-import { IBeneficiaryRepository } from 'domain/repository/BeneficiaryRepository'
+import { Beneficiary } from 'domain/entity'
+import { BeneficiaryEntity } from 'infrastructure/orm/typeorm/models'
+import { IBeneficiaryRepository } from 'domain/repository'
 import { getRepository, Repository } from 'typeorm'
-import { Beneficiary } from 'domain/entity/Beneficiary'
 
 export class BeneficiaryRepository implements IBeneficiaryRepository {
   private repository: Repository<BeneficiaryEntity>

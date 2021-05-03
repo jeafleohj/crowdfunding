@@ -1,4 +1,4 @@
-import { User } from 'domain/entity/User'
+import { User } from 'domain/entity'
 export interface IUserRepository {
    persist(domainUser: any): Promise<any>
    merge(domainUser: any): void
