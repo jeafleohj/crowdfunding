@@ -1,7 +1,9 @@
 import { Context, Next } from 'koa'
-import { GetRegions } from 'application/use_cases/ubigeo'
-import { GetProvinces } from 'application/use_cases/ubigeo/GetProvinces'
-import { GetDistricts } from 'application/use_cases/ubigeo/GetDistricts'
+import {
+  GetDistricts,
+  GetProvinces,
+  GetRegions,
+} from 'application/use_cases/ubigeo'
 
 const getRegions = async (ctx: Context, next: Next) => {
   const regions = await GetRegions(ctx)

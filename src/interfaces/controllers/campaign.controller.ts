@@ -1,7 +1,9 @@
 import { Context, Next } from 'koa'
-import { CreateCampaign } from 'application/use_cases/campaign/CreateCampaign'
-import { GetAllCampaigns } from 'application/use_cases/campaign/GetAllCampaigns'
-import { ListBeneficiaries } from 'application/use_cases/campaign/ListBeneficiary'
+import {
+  CreateCampaign,
+  GetAllCampaigns,
+  ListBeneficiaries,
+} from 'application/use_cases/campaign'
 
 const getCampaigns = async (ctx: Context, next: Next) => {
   const user = ctx.state.user.id

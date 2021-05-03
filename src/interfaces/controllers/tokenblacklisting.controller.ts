@@ -1,5 +1,7 @@
-import { AddToken } from 'application/use_cases/tokenblacklisting/AddToken'
-import { FindToken } from 'application/use_cases/tokenblacklisting/FindToken'
+import {
+  AddToken,
+  FindToken,
+} from 'application/use_cases/tokenblacklisting'
 import { Context, Next } from 'koa'
 
 const addToken = async (ctx: Context) => {
