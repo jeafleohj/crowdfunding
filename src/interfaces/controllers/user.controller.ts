@@ -10,7 +10,6 @@ const getUsers = async (ctx: Context, next: Next) => {
     status: 200,
     message: 'ok'
   }
-  next()
 }
 
 const createUser = async (ctx: Context, next: Next) => {
@@ -21,7 +20,6 @@ const createUser = async (ctx: Context, next: Next) => {
     status: 200,
     message: 'ok'
   }
-  next()
 }
 
 export {

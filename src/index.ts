@@ -41,7 +41,18 @@ app.use(cors({
 	credentials: true
 }))
 
-createConnection()
+createConnection({
+  type: "mysql",
+  host: "localhost",
+  database: "crowdfunding",
+  username: "root",
+  password: "password",
+  synchronize: true,
+  logging: false,
+  entities: [
+    __dirname+"/infrastructure/orm/typeorm/models/**/*.{js,ts}"
+  ],
+})
   .then(()=>{
     app.context.beneficiaryRepository = new BeneficiaryRepository()
     app.context.campaignRepository = new CampaignRepository()
