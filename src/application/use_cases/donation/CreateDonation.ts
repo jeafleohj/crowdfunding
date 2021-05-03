@@ -1,5 +1,5 @@
-import { Donation } from 'domain/entity/Donation';
-import { ICampaignRepository } from 'domain/repository/CampaignRepository'
+import { Donation } from 'domain/entity'
+import { ICampaignRepository } from 'domain/repository'
 
 const CreateDonation = (data: Donation,
   { campaignRepository }: {campaignRepository : ICampaignRepository }): Promise<any> => {

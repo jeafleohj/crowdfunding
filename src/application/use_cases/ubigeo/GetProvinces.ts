@@ -1,5 +1,5 @@
-import { Province } from 'domain/entity/ubigeo/Province'
-import { IUbigeoRepository } from 'domain/repository/UbigeoRepository'
+import { Province } from 'domain/entity/ubigeo'
+import { IUbigeoRepository } from 'domain/repository'
 
 const GetProvinces = (id:number,
                       {ubigeoRepository}:{ubigeoRepository: IUbigeoRepository}) : Promise<Province[]> => {

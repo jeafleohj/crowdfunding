@@ -1,4 +1,4 @@
-import { ICampaignRepository } from 'domain/repository/CampaignRepository'
+import { ICampaignRepository } from 'domain/repository'
 import { CampaignData, Campaign } from 'domain/entity/Campaign'
 
 const CreateCampaign = (data: CampaignData,

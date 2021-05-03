@@ -1,5 +1,5 @@
-import { District } from 'domain/entity/ubigeo/District'
-import { IUbigeoRepository } from 'domain/repository/UbigeoRepository'
+import { District } from 'domain/entity/ubigeo'
+import { IUbigeoRepository } from 'domain/repository'
 
 const GetDistricts = (id: number,
                       {ubigeoRepository}:{ubigeoRepository: IUbigeoRepository}) : Promise<District[]> => {

@@ -1,5 +1,5 @@
 import { User, userData } from 'domain/entity/User'
-import { IUserRepository } from 'domain/repository/UserRepository'
+import { IUserRepository } from 'domain/repository'
 
 
 const CreateUser = (data: userData,

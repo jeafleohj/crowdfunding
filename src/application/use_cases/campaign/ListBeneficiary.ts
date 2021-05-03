@@ -1,5 +1,5 @@
-import { Beneficiary } from 'domain/entity/Beneficiary'
-import { ICampaignRepository } from 'domain/repository/CampaignRepository'
+import { Beneficiary } from 'domain/entity'
+import { ICampaignRepository } from 'domain/repository'
 
 const ListBeneficiaries = async (id: number,
   { campaignRepository }: { campaignRepository: ICampaignRepository })  => {

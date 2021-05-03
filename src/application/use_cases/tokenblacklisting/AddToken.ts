@@ -1,4 +1,4 @@
-import { TokenBlacklisting } from 'domain/entity/TokenBlacklisting'
+import { TokenBlacklisting } from 'domain/entity'
 import { ITokenBlacklistingRepository } from 'domain/repository'
 
 export function AddToken(jwtid: string,
