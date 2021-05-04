@@ -7,13 +7,19 @@ import {
 } from 'application/use_cases/campaign'
 
 const getCampaigns = async (ctx: Context, next: Next) => {
-  const user = ctx.state.user.id
-  const campaigns = await GetAllCampaigns(user, ctx)
-  ctx.body = {
-    error: false,
-    data: campaigns,
-    status: 200,
-    message: 'ok'
+  const query = ctx.request.query
+  const obj = JSON.stringify(query);
+  if (obj === '{}') {
+    const user = ctx.state.user.id
+    const campaigns = await GetAllCampaigns(user, ctx)
+    ctx.body = {
+      error: false,
+      data: campaigns,
+      status: 200,
+      message: 'ok'
+    }
+  } else {
+    await next()
   }
 }
 
@@ -44,14 +50,10 @@ const listBeneficaries = async (ctx: Context, next: Next) => {
 }
 
 const getCampaignById = async (ctx: Context, next: Next) => {
-  let idCampaign = (ctx.request.query as any).idCampaign
-  const campaign = await GetCampaignById(idCampaign,ctx)
-  ctx.body = {
-    error: false,
-    data: campaign,
-    status: 200,
-    message: 'ok'
-  }
+  let idCampaign = (ctx.request.query as any).id
+  const campaign = await GetCampaignById(idCampaign, ctx)
+  ctx.body = campaign
+  ctx.status = 200
 }
 
 
