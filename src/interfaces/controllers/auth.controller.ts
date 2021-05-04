@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import uniqid from 'uniqid'
 import { userData } from 'domain/entity/User'
 import { ValidateLogin } from 'application/use_cases/Login'
+import { ErrorHandler } from 'application/error'
 
 async function generateToken(payload: any): Promise<string> {
   const jid = uniqid()
@@ -35,8 +36,10 @@ const login = async (ctx: Context) => {
       message: 'ok'
     }
   } else {
-    //Custom error handler
-    throw new Error('Contraseña invalida')
+    throw new ErrorHandler({
+      status: 401,
+      message: 'Contraseña incorrecta',
+    })
   }
 }
 

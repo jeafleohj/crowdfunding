@@ -62,13 +62,12 @@ createConnection({
     app.context.userRepository = new UserRepository()
   })
 
-// Error handler
 app.use(async (ctx, next) => {
 	try {
 		await next()
   } catch (err) {
     ctx.status = err.status || 500
-    //ctx.body = err.message || 'Error interno'
+    ctx.body = err.message || 'Error interno'
     console.log(err)
   }
 })
