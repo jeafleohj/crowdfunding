@@ -39,6 +39,55 @@ POST :base-url/user/logout
 Authorization: Bearer :token
 #+end_src
 
+*** Failed
+- Wrong email
+#+begin_src restclient
+POST :base-url/auth
+Content-Type: application/json;charset=UTF-8
+{
+    "email":"crowdfunding2@gmail.com",
+    "password":"roblox"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC text
+El correo electrónico que ingresó no pertenece a ninguna cuenta.
+POST http://localhost:4000/auth
+HTTP/1.1 401 Unauthorized
+Vary: Origin
+Content-Type: text/plain; charset=utf-8
+Content-Length: 66
+Date: Tue, 04 May 2021 19:48:40 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Request duration: 0.011135s
+#+END_SRC
+
+- Wrong password
+#+begin_src restclient
+POST :base-url/auth
+Content-Type: application/json;charset=UTF-8
+{
+    "email":"crowdfunding@gmail.com",
+    "password":"roblox2"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC text
+Contraseña incorrecta
+POST http://localhost:4000/auth
+HTTP/1.1 401 Unauthorized
+Vary: Origin
+Content-Type: text/plain; charset=utf-8
+Content-Length: 22
+Date: Tue, 04 May 2021 19:50:18 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Request duration: 0.122258s
+#+END_SRC
+
 ** Campaign
 *** Create campaign
 #+begin_src restclient
