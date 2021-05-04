@@ -41,7 +41,7 @@ Authorization: Bearer :token
 
 *** Failed
 - Wrong email
-#+begin_src restclient
+#+begin_src restclient :exports both
 POST :base-url/auth
 Content-Type: application/json;charset=UTF-8
 {
@@ -65,7 +65,7 @@ Request duration: 0.011135s
 #+END_SRC
 
 - Wrong password
-#+begin_src restclient
+#+begin_src restclient :exports both
 POST :base-url/auth
 Content-Type: application/json;charset=UTF-8
 {
