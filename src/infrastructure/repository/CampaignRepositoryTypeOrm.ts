@@ -59,4 +59,9 @@ export class CampaignRepository implements ICampaignRepository {
     return campaign
   }
 
+  async getById(id: number): Promise<any> {
+    const campaign = await this.repository.findOne({ id }) as CampaignEntity
+    return campaign
+  }
+
 }

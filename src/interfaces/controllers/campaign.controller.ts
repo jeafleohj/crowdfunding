@@ -3,6 +3,7 @@ import {
   CreateCampaign,
   GetAllCampaigns,
   ListBeneficiaries,
+  GetCampaignById,
 } from 'application/use_cases/campaign'
 
 const getCampaigns = async (ctx: Context, next: Next) => {
@@ -42,8 +43,21 @@ const listBeneficaries = async (ctx: Context, next: Next) => {
   next()
 }
 
+const getCampaignById = async (ctx: Context, next: Next) => {
+  let idCampaign = (ctx.request.query as any).idCampaign
+  const campaign = await GetCampaignById(idCampaign,ctx)
+  ctx.body = {
+    error: false,
+    data: campaign,
+    status: 200,
+    message: 'ok'
+  }
+}
+
+
 export {
   getCampaigns,
   createCampaign,
   listBeneficaries,
+  getCampaignById
 }
