@@ -1,3 +1,9 @@
+export enum beneficiaryStatus {
+  associated = 'asociado',
+  selected = 'pendiente', 
+  attended = 'atendido',
+}
+
 export class Beneficiary {
   id: number
   name: string
@@ -9,10 +15,11 @@ export class Beneficiary {
   age: number
   district?: number
   address: string
-  status: string
+  handicapped: boolean
+  status: beneficiaryStatus
   campaign?: number
 
-  constructor({name, lastname, maternal_lastname, sex, nse, document, age, district, address, status, campaign}
+  constructor({name, lastname, maternal_lastname, sex, nse, document, age, district, address, handicapped, campaign}
               :Beneficiary) {
     this.name = name
     this.lastname = lastname
@@ -23,7 +30,8 @@ export class Beneficiary {
     this.age = age
     this.district = district
     this.address = address
-    this.status = status
+    this.handicapped = handicapped
+    this.status = beneficiaryStatus.associated
     this.campaign = campaign
   }
 }
