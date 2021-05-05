@@ -25,4 +25,10 @@ export class BeneficiaryRepository implements IBeneficiaryRepository {
   getAll(): Promise<Beneficiary[]> {
     throw new Error("Method not implemented.");
   }
+
+  getByDocument(document: number): Promise<any> {
+    const beneficiary = this.repository.findOne({ where: {document: document} })
+    return beneficiary
+  }
+
 }

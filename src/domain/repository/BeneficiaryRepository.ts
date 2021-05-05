@@ -5,4 +5,5 @@ export interface IBeneficiaryRepository {
    merge(beneficiary: Beneficiary): void
    remove(id: number): void
    getAll(): Promise<Beneficiary[]>
+   getByDocument(document: number): Promise<Beneficiary>
 }
