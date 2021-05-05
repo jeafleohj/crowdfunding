@@ -5,6 +5,7 @@ import { ubigeoRouter } from 'interfaces/routes/ubigeo'
 import { userRouter } from 'interfaces/routes/user'
 import { beneficiaryRouter } from 'interfaces/routes/beneficiary'
 import { donationRouter } from 'interfaces/routes/donation'
+import { volunteerRouter } from 'interfaces/routes/volunteer'
 import { logAuth  } from 'interfaces/routes/auth/logout'
 import jwt from 'koa-jwt'
 import { validateToken } from 'interfaces/controllers/tokenblacklisting.controller'
@@ -24,6 +25,7 @@ const private_routes = [
   beneficiaryRouter,
   donationRouter,
   logAuth,
+  volunteerRouter
 ]
 
 Routes

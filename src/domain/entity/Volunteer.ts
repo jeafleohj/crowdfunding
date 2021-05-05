@@ -1,8 +1,8 @@
 export class Volunteer {
-  campaign: number
-  user: number
-  constructor({campaign, user}: Volunteer) {
-    this.campaign = campaign
-    this.user = user
+  campaignId: number
+  userId: number
+  constructor({campaignId, userId}: Volunteer) {
+    this.campaignId = campaignId
+    this.userId = userId
   }
 }

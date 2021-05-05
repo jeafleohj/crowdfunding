@@ -12,6 +12,7 @@ import {
   TokenBlacklistingRepository,
   UbigeoRepository,
   UserRepository,
+  VolunteerRepository,
 } from 'infrastructure/repository'
 import {
   IBeneficiaryRepository,
@@ -20,6 +21,7 @@ import {
   ITokenBlacklistingRepository,
   IUbigeoRepository,
   IUserRepository,
+  IVolunteerRepository,
 } from 'domain/repository'
 
 declare module "koa" {
@@ -30,6 +32,7 @@ declare module "koa" {
     tokenBlacklistingRepository: ITokenBlacklistingRepository
     ubigeoRepository: IUbigeoRepository
     userRepository: IUserRepository
+    volunteerRepository: IVolunteerRepository
   }
 }
 
@@ -60,6 +63,7 @@ createConnection({
     app.context.tokenBlacklistingRepository = new TokenBlacklistingRepository()
     app.context.ubigeoRepository = new UbigeoRepository()
     app.context.userRepository = new UserRepository()
+    app.context.volunteerRepository = new VolunteerRepository()
   })
 
 app.use(async (ctx, next) => {

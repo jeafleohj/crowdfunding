@@ -1,8 +1,11 @@
 import { IVolunteerRepository } from 'domain/repository'
 
-const AddVolenteer = (payload: any, {volunteerRepository}:{volunteerRepository: IVolunteerRepository}) => {
+const AddVolunteer = (campaignId: number,
+                      userId: number,
+                      { volunteerRepository } : {volunteerRepository: IVolunteerRepository}) : Promise<any> => {
+  return volunteerRepository.add(campaignId, userId)
 }
 
 export {
-  AddVolenteer
+  AddVolunteer
 }

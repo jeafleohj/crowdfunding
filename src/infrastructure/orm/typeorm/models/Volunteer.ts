@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn} from 'typeorm'
+import { Column, Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn} from 'typeorm'
 import { CampaignEntity } from './Campaign'
 import { UserEntity } from './User'
 
@@ -14,9 +14,11 @@ export class VolunteerEntity {
   campaignId: number
 
   @ManyToOne(() => UserEntity, user => user.volunteers)
+  @JoinTable()
   user!: UserEntity
 
   @ManyToOne(() => CampaignEntity, campaign => campaign.volunteers)
+  @JoinTable()
   campaign!: CampaignEntity
 
 }
