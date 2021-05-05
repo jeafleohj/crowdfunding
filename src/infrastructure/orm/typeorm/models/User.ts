@@ -27,7 +27,9 @@ export class UserEntity{
   })
   email: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   password: string
 
   @OneToMany(()=>CampaignEntity, campaign => campaign.id, {
@@ -40,6 +42,8 @@ export class UserEntity{
 
   @BeforeInsert()
   async generatePasswordHash(): Promise<void> {
-    this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync())
+    if( this.password ) {
+      this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync())
+    }
   }
 }

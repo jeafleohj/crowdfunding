@@ -1,9 +1,9 @@
 import {Context} from 'koa'
 import jwt from 'jsonwebtoken'
 import uniqid from 'uniqid'
-import { userData } from 'domain/entity/User'
 import { ValidateLogin } from 'application/use_cases/Login'
 import { ErrorHandler } from 'application/error'
+import { User } from 'domain/entity'
 
 async function generateToken(payload: any): Promise<string> {
   const jid = uniqid()
@@ -19,7 +19,7 @@ async function generateToken(payload: any): Promise<string> {
 }
 
 const login = async (ctx: Context) => {
-  const data = ctx.request.body as userData
+  const data = ctx.request.body as User
   let {valid, user} = await ValidateLogin(data, ctx)
   delete user['password']
   let token: string

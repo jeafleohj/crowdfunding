@@ -1,9 +1,9 @@
-import { userData } from 'domain/entity/User'
 import { IUserRepository } from 'domain/repository'
 import bcrypt from 'bcryptjs'
 import { ErrorHandler } from 'application/error'
+import { User } from 'domain/entity'
 
-const ValidateLogin = async (data: userData,
+const ValidateLogin = async (data: User,
                          {userRepository}:{userRepository: IUserRepository}) : Promise<any> =>  {
   const {email, password} = data
   const user = await userRepository.getByEmail(email)

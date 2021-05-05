@@ -1,22 +1,12 @@
-export type userData = {
-  id: number
-  name: string
-  lastname: string
-  document: string
-  phone: string
-  email: string
-  password: string
-}
-
 export class User {
   id: number
   name: string
   lastname: string
   password: string
-  document: Document
+  document: string
   phone: string
   email: string
-  constructor({name, email, lastname, password, phone}: userData) {
+  constructor({name, email, lastname, password, phone}: User) {
     this.name = name.toLocaleLowerCase()
     this.lastname = lastname.toLocaleLowerCase()
     this.phone = phone
