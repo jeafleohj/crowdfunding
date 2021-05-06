@@ -18,8 +18,9 @@ export class BeneficiaryRepository implements IBeneficiaryRepository {
     throw new Error("Method not implemented.");
   }
 
-  remove(id: number): void {
-    throw new Error("Method not implemented.");
+  async remove(id: number): Promise<any> {
+    const beneficiary = await this.repository.findOne({ id: id }) as BeneficiaryEntity;
+    return this.repository.remove(beneficiary)
   }
 
   getAll(): Promise<Beneficiary[]> {
@@ -32,17 +33,9 @@ export class BeneficiaryRepository implements IBeneficiaryRepository {
   }
 
   async updateBeneficiary(beneficiary: Beneficiary): Promise<any> {
-    // await this.repository.update(
-    //   beneficiary.id,
-    //   beneficiary
-    // );
-    // let updatedBeneficiary = await this.repository.findOne(beneficiary.id) as BeneficiaryEntity
-    // return updatedBeneficiary
-
     let updated = await this.repository.findOne({ id: beneficiary.id }) as BeneficiaryEntity
-    updated.name = beneficiary.name
+    updated = beneficiary
     return this.repository.save(updated)
-
   }
 
 }
