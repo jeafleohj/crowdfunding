@@ -12,6 +12,7 @@ export interface ICampaignRepository {
   getByName(name: string): Promise<Campaign>
   getById(id: number): Promise<Campaign>
   addBeneficiary(beneficiary: Beneficiary): Promise<any>
+  removeBeneficiary(beneficiary: Beneficiary): Promise<any>
   addDonation(donation: Donation): Promise<any>
   listBeneficiaries(id: number): Promise<any>
 }

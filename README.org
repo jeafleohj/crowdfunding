@@ -135,6 +135,47 @@ GET :base-url/beneficiary?idCampaign=2
 Authorization: Bearer :token
 #+end_src
 
+*** Update beneficiary
+#+begin_src restclient
+PUT :base-url/beneficiary
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+    "id": 5,
+    "name": "Carmela",
+    "lastname": "Gallo",
+     "maternal_lastname": "Valiente",
+    "sex": "m",
+    "nse": "__",
+    "document": "65465412",
+    "age": 45,
+    "district": 20,
+    "address": "laskdjf",
+    "handicapped":true,
+    "campaign": 13
+}
+#+end_src
+
+*** Delete beneficiary
+#+begin_src restclient
+PUT :base-url/beneficiary/remove
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+    "id": 12,
+    "name": "Carmelo",
+    "lastname": "Torres",
+     "maternal_lastname": "Valiente",
+    "sex": "m",
+    "nse": "__",
+    "document": "65465412",
+    "age": 45,
+    "district": 20,
+    "address": "laskdjf",
+    "handicapped":true,
+    "campaign": 13
+}
+#+end_src
 
 ** Volunteer
 *** Add volunteer

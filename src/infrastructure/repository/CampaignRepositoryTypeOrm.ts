@@ -27,6 +27,17 @@ export class CampaignRepository implements ICampaignRepository {
     return this.repository.save(campaign)
   }
 
+  async removeBeneficiary(data: Beneficiary): Promise<any> {
+    let campaign = await this.repository.findOne({ id: data.campaign }) as CampaignEntity
+    if (campaign.beneficiaries === undefined) {
+      throw new Error('Lista de beneficiarios vacía.');
+    } else {
+      let removeIndex = campaign.beneficiaries.map(item => { return item.id }).indexOf(data.id);
+      campaign.beneficiaries.splice(removeIndex,1)
+    }
+    return this.repository.save(campaign)
+  }
+
   async addDonation(donation: Donation): Promise<any> {
     let campaign = await this.repository.findOne({ id: donation.campaign }) as CampaignEntity
     if (campaign.donations === undefined) {
