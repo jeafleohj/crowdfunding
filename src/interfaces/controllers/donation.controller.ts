@@ -1,4 +1,6 @@
 import { CreateDonation } from 'application/use_cases/donation/CreateDonation'
+import { RemoveDonation } from 'application/use_cases/donation/RemoveDonation'
+import { UpdateDonation } from 'application/use_cases/donation/UpdateDonation'
 import { Context, Next } from 'koa'
 
 const createDonation = async (ctx: Context, next: Next): Promise<void> => {
@@ -14,6 +16,25 @@ const createDonation = async (ctx: Context, next: Next): Promise<void> => {
 
 }
 
+const updateDonation = async (ctx: Context, next: Next): Promise<void> => {
+  let data = ctx.request.body
+  const response = await UpdateDonation(data, ctx)
+  ctx.body = response
+  ctx.status = 200
+  next()
+}
+
+const removeDonation = async (ctx: Context, next: Next): Promise<void> => {
+  let data = ctx.request.body
+  const response = await RemoveDonation(data, ctx)
+  ctx.body = response
+  ctx.status = 200
+  next()
+}
+
+
 export {
-  createDonation
+  createDonation,
+  updateDonation,
+  removeDonation
 }

@@ -1,7 +1,7 @@
 import { IVolunteerRepository } from 'domain/repository'
 
 const GetByCampaign = (campaignId: number,
-                       { volunteerRepository } : {volunteerRepository: IVolunteerRepository}) : Promise<any> => {
+  { volunteerRepository }: { volunteerRepository: IVolunteerRepository }): Promise<any> => {
   return volunteerRepository.getByCampaign(campaignId)
 }
 

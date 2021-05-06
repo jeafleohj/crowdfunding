@@ -3,6 +3,7 @@ import {
   CreateCampaign,
   GetAllCampaigns,
   ListBeneficiaries,
+  ListDonations,
   GetCampaignById,
 } from 'application/use_cases/campaign'
 
@@ -49,6 +50,13 @@ const listBeneficaries = async (ctx: Context, next: Next) => {
   next()
 }
 
+const listDonations = async (ctx: Context, next: Next) => {
+  let idCampaign = (ctx.request.query as any).idCampaign
+  let donations = await ListDonations(idCampaign, ctx)
+  ctx.body = donations
+  ctx.status = 200
+}
+
 const getCampaignById = async (ctx: Context, next: Next) => {
   let idCampaign = (ctx.request.query as any).id
   const campaign = await GetCampaignById(idCampaign, ctx)
@@ -61,5 +69,6 @@ export {
   getCampaigns,
   createCampaign,
   listBeneficaries,
+  listDonations,
   getCampaignById
 }

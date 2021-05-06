@@ -15,4 +15,5 @@ export interface ICampaignRepository {
   removeBeneficiary(beneficiary: Beneficiary): Promise<any>
   addDonation(donation: Donation): Promise<any>
   listBeneficiaries(id: number): Promise<any>
+  listDonations(id: number): Promise<any>
 }

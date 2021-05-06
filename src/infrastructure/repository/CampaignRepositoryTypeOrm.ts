@@ -11,6 +11,10 @@ export class CampaignRepository implements ICampaignRepository {
   constructor() {
     this.repository = getRepository(CampaignEntity)
   }
+  async listDonations(id: number): Promise<any> {
+    let campaign = this.repository.findOne({ id })
+    return campaign
+  }
 
   async listBeneficiaries(id: number): Promise<any> {
     let campaign = this.repository.findOne({ id })

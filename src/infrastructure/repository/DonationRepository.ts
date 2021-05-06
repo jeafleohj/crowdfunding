@@ -26,4 +26,16 @@ export class DonationRepository implements IDonationRepository {
   getAll(): Promise<Donation[]> {
     throw new Error("Method not implemented.");
   }
+
+  async updateDonation(donation: Donation): Promise<any> {
+    let updated = await this.repository.findOne({ id: donation.id }) as DonationEntity
+    updated = donation
+    return this.repository.save(updated)
+  }
+
+  async removeDonation(donation: Donation): Promise<any> {
+    const updated = await this.repository.findOne({ id: donation.id }) as DonationEntity;
+    return this.repository.remove(updated)
+  }
+
 }

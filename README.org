@@ -177,6 +177,57 @@ Authorization: Bearer :token
 }
 #+end_src
 
+** Donation
+*** Create donation
+#+begin_src restclient
+POST :base-url/donation
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+  "name": "Lentejas",
+  "description": "Bolsas de 1kg",
+  "category": "Viveres",
+  "amountByBeneficiary": 2,
+  "campaign": "2",
+}
+#+end_src
+
+*** Get donations by campaign
+#+begin_src restclient
+GET :base-url/donation?idCampaign=2
+Authorization: Bearer :token
+#+end_src
+
+*** Update donation
+#+begin_src restclient
+PUT :base-url/donation
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+    "id": 5,
+    "name": "Lentejes",
+    "description": "Bolsas de 1kg",
+    "category": "Viveres",
+    "amountByBeneficiary": 2,
+    "campaign": "2",
+}
+#+end_src
+
+*** Delete donation
+#+begin_src restclient
+PUT :base-url/donation/remove
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+    "id": 12,
+    "name": "Lentejas",
+    "description": "Bolsas de 1kg",
+    "category": "Viveres",
+    "amountByBeneficiary": 2,
+    "campaign": "2",
+}
+#+end_src
+
 ** Volunteer
 *** Add volunteer
 #+begin_src restclient
