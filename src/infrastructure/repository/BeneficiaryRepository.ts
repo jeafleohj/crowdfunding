@@ -27,8 +27,22 @@ export class BeneficiaryRepository implements IBeneficiaryRepository {
   }
 
   getByDocument(document: number): Promise<any> {
-    const beneficiary = this.repository.findOne({ where: {document: document} })
+    const beneficiary = this.repository.findOne({ where: { document: document } })
     return beneficiary
+  }
+
+  async updateBeneficiary(beneficiary: Beneficiary): Promise<any> {
+    // await this.repository.update(
+    //   beneficiary.id,
+    //   beneficiary
+    // );
+    // let updatedBeneficiary = await this.repository.findOne(beneficiary.id) as BeneficiaryEntity
+    // return updatedBeneficiary
+
+    let updated = await this.repository.findOne({ id: beneficiary.id }) as BeneficiaryEntity
+    updated.name = beneficiary.name
+    return this.repository.save(updated)
+
   }
 
 }

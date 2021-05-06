@@ -6,4 +6,5 @@ export interface IBeneficiaryRepository {
    remove(id: number): void
    getAll(): Promise<Beneficiary[]>
    getByDocument(document: number): Promise<Beneficiary>
+   updateBeneficiary(beneficiary: Beneficiary): Promise<any>
 }

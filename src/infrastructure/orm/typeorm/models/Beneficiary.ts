@@ -31,7 +31,8 @@ export class BeneficiaryEntity {
 
   @Column({
     length: 8,
-    type: 'char'
+    type: 'char',
+    unique: true
   })
   document: string
 

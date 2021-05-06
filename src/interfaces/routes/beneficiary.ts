@@ -1,4 +1,4 @@
-import { createBeneficiary } from 'interfaces/controllers/beneficiary.controller'
+import { createBeneficiary, updateBeneficiary } from 'interfaces/controllers/beneficiary.controller'
 import { listBeneficaries  } from 'interfaces/controllers/campaign.controller'
 import jwt from 'koa-jwt'
 import Router from 'koa-router'
@@ -14,6 +14,7 @@ beneficiaryRouter.use(jwt({
 beneficiaryRouter
   .get('/', listBeneficaries)
   .post('/', createBeneficiary)
+  .put('/', updateBeneficiary)
 
 export {
   beneficiaryRouter
