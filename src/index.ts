@@ -17,6 +17,7 @@ import {
 import {
   IBeneficiaryRepository,
   ICampaignRepository,
+  ICampaingStageRepository,
   IDonationRepository,
   ITokenBlacklistingRepository,
   IUbigeoRepository,
@@ -28,6 +29,7 @@ declare module "koa" {
   interface BaseContext {
     beneficiaryRepository: IBeneficiaryRepository
     campaignRepository: ICampaignRepository
+    campaignStageRepository: ICampaingStageRepository
     donationRepository: IDonationRepository
     tokenBlacklistingRepository: ITokenBlacklistingRepository
     ubigeoRepository: IUbigeoRepository

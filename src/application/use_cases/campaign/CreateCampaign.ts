@@ -1,7 +1,7 @@
 import { ICampaignRepository } from 'domain/repository'
-import { CampaignData, Campaign } from 'domain/entity/Campaign'
+import { Campaign } from 'domain/entity'
 
-const CreateCampaign = (data: CampaignData,
+const CreateCampaign = (data: Campaign,
   { campaignRepository }: { campaignRepository: ICampaignRepository }): Promise<Campaign> => {
   const campaign = new Campaign(data)
   return campaignRepository.persist(campaign)

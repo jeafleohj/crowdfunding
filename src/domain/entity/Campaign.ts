@@ -14,17 +14,6 @@ export enum campaignStatus {
   finalized = 'finalizada',
 }
 
-export type CampaignData = {
-  id: number
-  name: string
-  user?: number
-  description?: string
-  type: campaignType
-  release?: Date
-  ending?: Date
-  status: campaignStatus
-}
-
 export class Campaign {
   id: number
   name: string
@@ -37,7 +26,7 @@ export class Campaign {
   beneficiaries: Beneficiary[]
   donations: Donation[]
 
-  constructor({name, type, user}:CampaignData) {
+  constructor({name, type, user}: Campaign) {
     this.name = name
     this.type = type
     this.status = campaignStatus.created
