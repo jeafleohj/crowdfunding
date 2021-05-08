@@ -4,9 +4,10 @@ import { BeneficiaryEntity } from './Beneficiary'
 import { campaignType } from 'domain/entity/Campaign'
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { VolunteerEntity } from './Volunteer';
+import { SharedProps } from './SharedProps';
 
 @Entity('campaign')
-export class CampaignEntity{
+export class CampaignEntity extends SharedProps {
   @PrimaryGeneratedColumn()
   id: number;
 

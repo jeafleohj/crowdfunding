@@ -1,7 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { SharedProps } from './SharedProps'
 
 @Entity('beneficiary')
-export class BeneficiaryEntity {
+export class BeneficiaryEntity extends SharedProps {
   @PrimaryGeneratedColumn()
   id: number
 

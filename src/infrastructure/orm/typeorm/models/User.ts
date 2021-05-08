@@ -1,10 +1,11 @@
 import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, OneToMany } from 'typeorm'
-import bcrypt from 'bcryptjs';
-import { CampaignEntity } from './Campaign';
-import { VolunteerEntity } from './Volunteer';
+import bcrypt from 'bcryptjs'
+import { CampaignEntity } from './Campaign'
+import { VolunteerEntity } from './Volunteer'
+import { SharedProps } from './SharedProps'
 
 @Entity('user')
-export class UserEntity{
+export class UserEntity extends SharedProps {
   @PrimaryGeneratedColumn()
   id: number;
 
