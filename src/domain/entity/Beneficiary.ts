@@ -1,6 +1,6 @@
 export enum beneficiaryStatus {
   associated = 'asociado',
-  selected = 'pendiente', 
+  selected = 'pendiente',
   attended = 'atendido',
 }
 
@@ -14,6 +14,8 @@ export class Beneficiary {
   document: string
   age: number
   district?: number
+  province?: number
+  region?: number
   address: string
   handicapped: boolean
   status: beneficiaryStatus

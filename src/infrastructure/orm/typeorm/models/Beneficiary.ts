@@ -43,6 +43,12 @@ export class BeneficiaryEntity extends SharedProps {
   @Column()
   district?: number
 
+  @Column()
+  region?: number
+
+  @Column()
+  province?: number
+
   @Column({
     length: 50,
     type: 'varchar',
