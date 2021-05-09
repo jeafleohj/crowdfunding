@@ -1,6 +1,7 @@
 import { UserEntity } from 'infrastructure/orm/typeorm/models/User'
 import { IUserRepository } from 'domain/repository/UserRepository'
 import { getRepository, Repository } from 'typeorm'
+import { User } from 'domain/entity'
 
 export class UserRepository implements IUserRepository {
   private repository: Repository<UserEntity>
@@ -21,7 +22,7 @@ export class UserRepository implements IUserRepository {
     throw new Error('Method not implemented.');
   }
 
-  getAll(): Promise<any> {
+  getAll(): Promise<User[]> {
     return this.repository.find()
   }
 

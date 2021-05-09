@@ -3,8 +3,8 @@ export class User {
   name: string
   lastname: string
   password: string
-  document: string
-  phone: string
+  document?: string
+  phone?: string
   email: string
   constructor({name, email, lastname, password, phone}: User) {
     this.name = name.toLocaleLowerCase()
