@@ -21,7 +21,7 @@ export class Beneficiary {
   status: beneficiaryStatus
   campaign?: number
 
-  constructor({name, lastname, maternal_lastname, sex, nse, document, age, district, address, handicapped, campaign}
+  constructor({name, lastname, maternal_lastname, province, region, sex, nse, document, age, district, address, handicapped, campaign}
               :Beneficiary) {
     this.name = name
     this.lastname = lastname
@@ -31,6 +31,8 @@ export class Beneficiary {
     this.document = document
     this.age = age
     this.district = district
+    this.province = province
+    this.region = region
     this.address = address
     this.handicapped = handicapped
     this.status = beneficiaryStatus.associated
