@@ -18,7 +18,7 @@ export class Campaign {
   id: number
   name: string
   user?: number
-  url_imagen?: string
+  image_url?: string
   description: string
   type: campaignType
   release: Date
@@ -27,10 +27,11 @@ export class Campaign {
   beneficiaries: Beneficiary[]
   donations: Donation[]
 
-  constructor({name, type, user}: Campaign) {
+  constructor({name, type, user, image_url}: Campaign) {
     this.name = name
     this.type = type
     this.status = campaignStatus.created
     this.user = user
+    this.image_url = image_url
   }
 }
