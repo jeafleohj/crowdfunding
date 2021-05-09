@@ -18,6 +18,7 @@ export class Campaign {
   id: number
   name: string
   user?: number
+  url_imagen?: string
   description: string
   type: campaignType
   release: Date

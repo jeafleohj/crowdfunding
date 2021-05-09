@@ -58,4 +58,9 @@ export class CampaignEntity extends SharedProps {
   @OneToMany(() => VolunteerEntity, volunteer => volunteer.user )
   volunteers!: VolunteerEntity[]
 
+  @Column({
+    type: 'mediumtext',
+  })
+  image_url?: string
+
 }
