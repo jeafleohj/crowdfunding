@@ -1,3 +1,5 @@
+import { CampaignEntity } from './../orm/typeorm/models/Campaign';
+import { UserEntity } from './../orm/typeorm/models/User';
 import { User, Volunteer } from 'domain/entity'
 import { IVolunteerRepository } from 'domain/repository'
 import { VolunteerEntity } from 'infrastructure/orm/typeorm/models/Volunteer'
@@ -12,7 +14,11 @@ export class VolunteerRepository implements IVolunteerRepository {
   }
   async getCampaigns(userId: number): Promise<any> {
     const campaigns = await this.repository.find({ where: [{ userId: userId }] })
-    console.log(campaigns)
+    // const campaigns = await this.repository.createQueryBuilder("volunteer")
+    // .where("volunteer.userId = :userId", { userId: userId })
+    // .innerJoinAndSelect(CampaignEntity, "campaign", "campaign.id = volunteer.campaignId")
+    // .getMany();
+    // console.log(campaigns)
     return campaigns
   }
 

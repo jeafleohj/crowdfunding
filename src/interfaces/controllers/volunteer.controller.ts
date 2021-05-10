@@ -24,7 +24,11 @@ const getByCampaign = async (ctx: Context, next: Next): Promise<void> => {
 const getCampaigns = async (ctx: Context, next: Next): Promise<void> => {
   const user = ctx.state.user.id
   const response = await GetCampaigns(user , ctx)
-  ctx.body = response
+  const data = response.map( (volunteer:any) => {
+    delete volunteer.campaign.beneficiaries
+    return volunteer.campaign
+  })
+  ctx.body = data
 
 }
 
