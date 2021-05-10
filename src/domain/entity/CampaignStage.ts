@@ -11,7 +11,9 @@ export class CampaignStage {
   campaign: number
   stage: CampaignStageType
   startDate: Date
-  endDate: Date
+  endingDate: Date
+  startTime: string
+  endingTime: string
   constructor({
                name,
                address,
@@ -19,7 +21,9 @@ export class CampaignStage {
                campaign,
                stage,
                startDate,
-               endDate,
+               endingDate,
+               startTime,
+               endingTime
   }: CampaignStage) {
     this.name = name
     this.address = address
@@ -27,6 +31,8 @@ export class CampaignStage {
     this.campaign = campaign
     this.stage = stage
     this.startDate = startDate
-    this.endDate = endDate
+    this.endingDate = endingDate
+    this.startTime = startTime
+    this.endingTime = endingTime
   }
 }

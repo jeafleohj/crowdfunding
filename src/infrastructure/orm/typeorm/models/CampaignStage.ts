@@ -38,5 +38,16 @@ export class CampaignStageEntity extends SharedProps {
     type: 'timestamp',
     nullable: true,
   })
-  endDate: Date
+  endingDate: Date
+
+  @Column({
+    nullable: true,
+  })
+  startTime: string
+
+  @Column({
+    nullable: true,
+  })
+  endingTime: string
+
 }
