@@ -1,6 +1,6 @@
 export { Beneficiary } from './Beneficiary'
 export { Campaign } from './Campaign'
-export { CampaingStage } from './CampaignStage'
+export { CampaignStage } from './CampaignStage'
 export { Donation } from './Donation'
 export { Giver } from './Giver'
 export { TokenBlacklisting } from './TokenBlacklisting'

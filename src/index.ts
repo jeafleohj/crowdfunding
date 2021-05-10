@@ -8,6 +8,7 @@ import Routes from 'interfaces/routes'
 import {
   BeneficiaryRepository,
   CampaignRepository,
+  CampaignStageRepository,
   DonationRepository,
   TokenBlacklistingRepository,
   UbigeoRepository,
@@ -58,7 +59,7 @@ createConnection({
     __dirname+"/infrastructure/orm/typeorm/models/**/*.{js,ts}"
   ],
 })
-  .then(()=>{
+  .then((): void=>{
     app.context.beneficiaryRepository = new BeneficiaryRepository()
     app.context.campaignRepository = new CampaignRepository()
     app.context.donationRepository = new DonationRepository()
@@ -66,6 +67,7 @@ createConnection({
     app.context.ubigeoRepository = new UbigeoRepository()
     app.context.userRepository = new UserRepository()
     app.context.volunteerRepository = new VolunteerRepository()
+    app.context.campaignStageRepository =  new CampaignStageRepository()
   })
 
 app.use(async (ctx, next) => {

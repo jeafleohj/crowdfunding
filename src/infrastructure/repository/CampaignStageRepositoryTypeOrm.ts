@@ -1,18 +1,19 @@
-import { CampaingStage } from 'domain/entity';
+import { CampaignStage } from 'domain/entity'
 import { ICampaingStageRepository } from 'domain/repository'
+import { CampaignStageEntity } from 'infrastructure/orm/typeorm/models/CampaignStage'
 import { getRepository, Repository } from 'typeorm'
 
 export class CampaignStageRepository implements ICampaingStageRepository {
-  private repository: Repository<CampaingStage>
+  private repository: Repository<CampaignStageEntity>
   constructor() {
-    this.repository = getRepository(CampaingStage)
+    this.repository = getRepository(CampaignStageEntity)
   }
 
-  persist(payload: CampaingStage): Promise<CampaingStage> {
+  persist(payload: CampaignStage): Promise<CampaignStage> {
     return this.repository.save(payload)
   }
 
-  merge(payload: Partial<CampaingStage>): void {
+  merge(payload: Partial<CampaignStage>): void {
     throw new Error('Method not implemented.');
   }
 
@@ -20,7 +21,7 @@ export class CampaignStageRepository implements ICampaingStageRepository {
     throw new Error('Method not implemented.');
   }
 
-  getAll(): Promise<CampaingStage[]> {
+  getAll(): Promise<CampaignStage[]> {
     throw new Error('Method not implemented.');
   }
 }

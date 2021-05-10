@@ -3,7 +3,7 @@ export enum CampaignStageType {
   delivery = 'entrega',
 }
 
-export class CampaingStage {
+export class CampaignStage {
   id: number
   name: string
   address: string
@@ -12,4 +12,21 @@ export class CampaingStage {
   stage: CampaignStageType
   startDate: Date
   endDate: Date
+  constructor({
+               name,
+               address,
+               details,
+               campaign,
+               stage,
+               startDate,
+               endDate,
+  }: CampaignStage) {
+    this.name = name
+    this.address = address
+    this.details = details
+    this.campaign = campaign
+    this.stage = stage
+    this.startDate = startDate
+    this.endDate = endDate
+  }
 }
