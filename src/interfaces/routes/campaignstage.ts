@@ -1,4 +1,4 @@
-import { createCampaignStage } from 'interfaces/controllers/campaignstage.controller'
+import { createCampaignStage, getByCampaign } from 'interfaces/controllers/campaignstage.controller'
 import Router from 'koa-router'
 
 const campaignStageRouter = new Router()
@@ -8,6 +8,7 @@ campaignStageRouter
 
 campaignStageRouter
   .post('/:id/stage', createCampaignStage)
+  .get('/:id/stage', getByCampaign)
 
 export {
   campaignStageRouter

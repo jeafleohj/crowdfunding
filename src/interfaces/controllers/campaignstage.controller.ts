@@ -1,6 +1,7 @@
 import { Context, Next } from 'koa'
 import {
-  CreateStage
+  CreateStage,
+  GetStageByCampaign,
 } from 'application/use_cases/campaignstage'
 import { CampaignStage } from 'domain/entity'
 
@@ -14,13 +15,21 @@ const createCampaignStage = async (ctx: Context, next: Next) => {
     ...data,
     campaign,
     endDate,
-    startDate
+    startDate,
   })
-  console.log(stage)
   await CreateStage(stage, ctx)
   ctx.status = 200
 }
 
+const getByCampaign = async (ctx: Context, next: Next) => {
+  const campaignId = ctx.params.id
+  const response = await GetStageByCampaign(campaignId, ctx)
+  ctx.body = response
+  ctx.status = 200
+
+}
+
 export {
-  createCampaignStage
+  createCampaignStage,
+  getByCampaign,
 }

@@ -9,6 +9,13 @@ export class CampaignStageRepository implements ICampaingStageRepository {
     this.repository = getRepository(CampaignStageEntity)
   }
 
+  getByCampaign(campaign: number): Promise<any> {
+    let events = this.repository.find({where:[{
+      campaign: campaign
+    }]})
+    return events
+  }
+
   persist(payload: CampaignStage): Promise<CampaignStage> {
     return this.repository.save(payload)
   }
