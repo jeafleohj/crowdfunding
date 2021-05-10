@@ -18,7 +18,9 @@ export class VolunteerEntity extends SharedProps {
   @JoinTable()
   user!: UserEntity
 
-  @ManyToOne(() => CampaignEntity, campaign => campaign.volunteers)
+  @ManyToOne(() => CampaignEntity, campaign => campaign.volunteers, {
+    eager: true
+  })
   @JoinTable()
   campaign!: CampaignEntity
 

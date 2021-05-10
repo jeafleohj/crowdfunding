@@ -10,6 +10,11 @@ export class VolunteerRepository implements IVolunteerRepository {
     this.repository = getRepository(VolunteerEntity)
 
   }
+  async getCampaigns(userId: number): Promise<any> {
+    const campaigns = await this.repository.find({ where: [{ userId: userId }] })
+    console.log(campaigns)
+    return campaigns
+  }
 
   add(campaignId: number, userId: number): Promise<any> {
     const volunteer = new Volunteer({campaignId, userId})
