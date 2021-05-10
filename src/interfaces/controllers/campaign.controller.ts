@@ -6,6 +6,8 @@ import {
   ListDonations,
   GetCampaignById,
 } from 'application/use_cases/campaign'
+import { UpdateCampaign } from 'application/use_cases/campaign/UpdateCampaign'
+import { Campaign } from 'domain/entity'
 
 const getCampaigns = async (ctx: Context, next: Next) => {
   const query = ctx.request.query
@@ -38,6 +40,17 @@ const createCampaign = async (ctx: Context, next: Next) => {
   next()
 }
 
+const updateCampaign = async (ctx: Context, next: Next) => {
+  const payload: Partial<Campaign> = {
+    id: ctx.params.id,
+    image_url: ctx.request.body.image_url,
+    description: ctx.request.body.description,
+  }
+  //verify if beneficiary is empty
+  const response =  await UpdateCampaign(payload, ctx)
+  ctx.body = response
+}
+
 const listBeneficaries = async (ctx: Context, next: Next) => {
   let idCampaign = (ctx.request.query as any).idCampaign
   let beneficiary = await ListBeneficiaries(idCampaign, ctx)
@@ -66,9 +79,10 @@ const getCampaignById = async (ctx: Context, next: Next) => {
 
 
 export {
-  getCampaigns,
   createCampaign,
+  getCampaignById,
+  getCampaigns,
   listBeneficaries,
   listDonations,
-  getCampaignById
+  updateCampaign,
 }

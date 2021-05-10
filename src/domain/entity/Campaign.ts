@@ -32,6 +32,6 @@ export class Campaign {
     this.type = type
     this.status = campaignStatus.created
     this.user = user
-    this.image_url = image_url
+    this.image_url = image_url || ''
   }
 }

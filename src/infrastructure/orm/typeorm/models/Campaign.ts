@@ -1,7 +1,7 @@
 import { DonationEntity } from './Donation';
 import { UserEntity } from './User'
 import { BeneficiaryEntity } from './Beneficiary'
-import { campaignType } from 'domain/entity/Campaign'
+import { campaignStatus, campaignType } from 'domain/entity/Campaign'
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { VolunteerEntity } from './Volunteer';
 import { SharedProps } from './SharedProps';
@@ -35,8 +35,12 @@ export class CampaignEntity extends SharedProps {
   })
   ending: Date
 
-  @Column()
-  status: string
+  @Column({
+    type: 'enum',
+    enum: campaignStatus,
+    default: campaignStatus.created
+  })
+  status: campaignStatus
 
   @ManyToOne(()=>UserEntity, user=>user.id)
   user: UserEntity

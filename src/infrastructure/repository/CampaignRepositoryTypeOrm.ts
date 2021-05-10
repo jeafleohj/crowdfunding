@@ -2,8 +2,9 @@ import { getRepository, Repository } from 'typeorm'
 import { CampaignEntity } from 'infrastructure/orm/typeorm/models/Campaign'
 import { ICampaignRepository } from 'domain/repository/CampaignRepository'
 import { Beneficiary } from 'domain/entity/Beneficiary'
-import { Campaign } from 'domain/entity/Campaign';
-import { Donation } from 'domain/entity/Donation';
+import { Campaign, campaignStatus } from 'domain/entity/Campaign'
+import { Donation } from 'domain/entity/Donation'
+import { ErrorHandler } from 'application/error'
 
 
 export class CampaignRepository implements ICampaignRepository {
@@ -51,7 +52,7 @@ export class CampaignRepository implements ICampaignRepository {
     }
     return this.repository.save(campaign)
   }
-  
+
   getByUser(idUser: number): Promise<any> {
     return this.repository.find({ where: { user: idUser } })
   }
@@ -61,8 +62,18 @@ export class CampaignRepository implements ICampaignRepository {
     return this.repository.save(new_campaign)
   }
 
-  merge(domain: Campaign): void {
-    throw new Error('Method not implemented.');
+  async merge(payload: Partial<Campaign>): Promise<CampaignEntity> {
+    let campaign = await this.repository.findOne(payload.id as number) as CampaignEntity
+    if ( campaign.beneficiaries.length === 0  ) {
+      throw new ErrorHandler({
+        status: 401,
+        message: 'Se tiene que agregar beneficiarios a la campaña',
+      })
+    }
+    campaign.image_url = payload.image_url
+    campaign.description = payload.description || ''
+    campaign.status = campaignStatus.published
+    return this.repository.save(campaign)
   }
 
   remove(id: number): void {
