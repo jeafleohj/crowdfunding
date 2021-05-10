@@ -1,14 +1,13 @@
 export enum CampaignStageType {
-  created = 'creada',
   collection = 'recaudación',
   delivery = 'entrega',
-  finished = 'finalizada',
 }
 
 export class CampaingStage {
   id: number
+  name: string
   address: string
-  notes: string
+  details: string
   campaign: number
   stage: CampaignStageType
   startDate: Date
