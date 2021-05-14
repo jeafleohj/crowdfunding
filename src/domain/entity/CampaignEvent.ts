@@ -1,15 +1,15 @@
-export enum CampaignStageType {
+export enum CampaignEventType {
   collection = 'recaudación',
   delivery = 'entrega',
 }
 
-export class CampaignStage {
+export class CampaignEvent {
   id: number
   name: string
   address: string
   details: string
   campaign: number
-  stage: CampaignStageType
+  stage: CampaignEventType
   startDate: Date
   endingDate: Date
   startTime: string
@@ -24,7 +24,7 @@ export class CampaignStage {
                endingDate,
                startTime,
                endingTime
-  }: CampaignStage) {
+  }: CampaignEvent) {
     this.name = name
     this.address = address
     this.details = details

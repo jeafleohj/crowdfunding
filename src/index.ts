@@ -8,7 +8,7 @@ import Routes from 'interfaces/routes'
 import {
   BeneficiaryRepository,
   CampaignRepository,
-  CampaignStageRepository,
+  CampaignEventRepository,
   DonationRepository,
   TokenBlacklistingRepository,
   UbigeoRepository,
@@ -18,7 +18,7 @@ import {
 import {
   IBeneficiaryRepository,
   ICampaignRepository,
-  ICampaingStageRepository,
+  ICampaingEventRepository,
   IDonationRepository,
   ITokenBlacklistingRepository,
   IUbigeoRepository,
@@ -30,7 +30,7 @@ declare module "koa" {
   interface BaseContext {
     beneficiaryRepository: IBeneficiaryRepository
     campaignRepository: ICampaignRepository
-    campaignStageRepository: ICampaingStageRepository
+    campaignEventRepository: ICampaingEventRepository
     donationRepository: IDonationRepository
     tokenBlacklistingRepository: ITokenBlacklistingRepository
     ubigeoRepository: IUbigeoRepository
@@ -67,7 +67,7 @@ createConnection({
     app.context.ubigeoRepository = new UbigeoRepository()
     app.context.userRepository = new UserRepository()
     app.context.volunteerRepository = new VolunteerRepository()
-    app.context.campaignStageRepository =  new CampaignStageRepository()
+    app.context.campaignEventRepository =  new CampaignEventRepository()
   })
 
 app.use(async (ctx, next) => {
