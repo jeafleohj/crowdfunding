@@ -1,3 +1,9 @@
+export enum giverStatus {
+  initial = 'registrado', //cuando se registra en la web
+  pending = 'pendiente',  //cuando se registra sus donaciones desde el link del correo
+  complete = 'completo'   //cuando se ha realizado la recepción de donaciones
+}
+
 export class Giver {
   id: number
   name: string
@@ -5,25 +11,20 @@ export class Giver {
   email: string
   document: string
   phone: string
-  campaign_id: number
+  campaignId: number
   collection: Date
   address: string
   reference: string
-  event_id: number
+  eventId: number
   status: string
 
-  constructor({id, name, lastname, email, document, phone, campaign_id, collection, address, reference, event_id, status}: Giver) {
-    this.id = id
+  constructor({name, lastname, email, document, phone, campaignId}: Giver) {
     this.name = name
     this.lastname = lastname
     this.email = email
     this.document = document
     this.phone = phone
-    this.campaign_id = campaign_id
-    this.collection = collection
-    this.address = address
-    this.reference = reference
-    this.event_id = event_id
-    this.status = status
+    this.campaignId = campaignId
+    this.status = giverStatus.initial
   }
 }
