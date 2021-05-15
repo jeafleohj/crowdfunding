@@ -26,7 +26,7 @@ export class Campaign {
   ending: Date
   status: campaignStatus
   beneficiaries: Beneficiary[]
-  giver: Giver[]
+  givers: Giver[]
   donations: Donation[]
 
   constructor({name, type, user, image_url}: Campaign) {
