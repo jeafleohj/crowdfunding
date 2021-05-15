@@ -2,7 +2,7 @@ import Router from 'koa-router'
 import { authRouter } from 'interfaces/routes/auth/login'
 import { beneficiaryRouter } from 'interfaces/routes/beneficiary'
 import { campaignRouter } from 'interfaces/routes/campaign'
-import { campaignStageRouter } from 'interfaces/routes/campaignstage'
+import { campaignEventRouter } from 'interfaces/routes/campaignevent'
 import { donationRouter } from 'interfaces/routes/donation'
 import { logAuth  } from 'interfaces/routes/auth/logout'
 import { ubigeoRouter } from 'interfaces/routes/ubigeo'
@@ -23,7 +23,7 @@ Routes.use(...public_routes.map(r=>r.routes()))
 const private_routes = [
   beneficiaryRouter,
   campaignRouter,
-  campaignStageRouter,
+  campaignEventRouter,
   donationRouter,
   logAuth,
   ubigeoRouter,
@@ -36,7 +36,5 @@ Routes
   }))
   .use(validateToken)
   .use(...private_routes.map(r=>r.routes()))
-
-
 
 export default Routes

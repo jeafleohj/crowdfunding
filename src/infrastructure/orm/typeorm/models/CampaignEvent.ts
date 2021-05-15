@@ -1,10 +1,10 @@
-import { CampaignStageType } from 'domain/entity/CampaignStage'
+import { CampaignEventType } from 'domain/entity/CampaignEvent'
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { CampaignEntity } from './Campaign'
 import { SharedProps } from './SharedProps'
 
-@Entity()
-export class CampaignStageEntity extends SharedProps {
+@Entity('campaignEvent')
+export class CampaignEventEntity extends SharedProps {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -23,10 +23,10 @@ export class CampaignStageEntity extends SharedProps {
 
   @Column({
     type: 'enum',
-    enum: CampaignStageType
+    enum: CampaignEventType
 
   })
-  stage: CampaignStageType
+  stage: CampaignEventType
 
   @Column({
     type: 'timestamp',
