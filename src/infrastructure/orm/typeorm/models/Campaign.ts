@@ -5,6 +5,7 @@ import { campaignStatus, campaignType } from 'domain/entity/Campaign'
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { VolunteerEntity } from './Volunteer';
 import { SharedProps } from './SharedProps';
+import { GiverEntity } from '.';
 
 @Entity('campaign')
 export class CampaignEntity extends SharedProps {
@@ -61,6 +62,9 @@ export class CampaignEntity extends SharedProps {
 
   @OneToMany(() => VolunteerEntity, volunteer => volunteer.user )
   volunteers!: VolunteerEntity[]
+
+  @OneToMany(() => GiverEntity, giver => giver.campaignId )
+  givers!: GiverEntity[]
 
   @Column({
     type: 'mediumtext',

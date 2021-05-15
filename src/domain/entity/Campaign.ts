@@ -1,3 +1,4 @@
+import { Giver } from './Giver';
 import { Donation } from './Donation';
 import { Beneficiary } from "./Beneficiary"
 
@@ -26,6 +27,7 @@ export class Campaign {
   status: campaignStatus
   beneficiaries: Beneficiary[]
   donations: Donation[]
+  givers: Giver[]
 
   constructor({name, type, user, image_url}: Campaign) {
     this.name = name
