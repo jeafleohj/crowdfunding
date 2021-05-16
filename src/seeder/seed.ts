@@ -18,7 +18,7 @@ createConnection({
   synchronize: true,
   logging: false,
   entities: [
-    __dirname+"/../infrastructure/orm/typeorm/models/**/*.ts"
+    __dirname+"/../infrastructure/orm/typeorm/models/**/*.{js,ts}"
   ],
 })
   .then(async(connection)=>{
