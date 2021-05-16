@@ -5,12 +5,26 @@ import { Beneficiary } from 'domain/entity/Beneficiary'
 import { Campaign, campaignStatus } from 'domain/entity/Campaign'
 import { Donation } from 'domain/entity/Donation'
 import { ErrorHandler } from 'application/error'
+import { Giver } from 'domain/entity'
 
 
 export class CampaignRepository implements ICampaignRepository {
   private repository: Repository<CampaignEntity>
   constructor() {
     this.repository = getRepository(CampaignEntity)
+  }
+  async addGiver(giver: Giver): Promise<any> {
+    let campaign = await this.repository.findOne({ id: giver.campaign }) as CampaignEntity
+    if (campaign.givers === undefined) {
+      campaign.givers = [giver]
+    } else {
+      campaign.givers.push(giver)
+    }
+    return this.repository.save(campaign)
+  }
+
+  listGivers(id: number): Promise<any> {
+    throw new Error('Method not implemented.')
   }
   async listDonations(id: number): Promise<any> {
     let campaign = this.repository.findOne({ id })
