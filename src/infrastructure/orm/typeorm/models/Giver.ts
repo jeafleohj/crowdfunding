@@ -64,5 +64,5 @@ export class GiverEntity extends SharedProps {
   eventId: number
 
   @ManyToOne(() => CampaignEntity, campaign => campaign.givers)
-  campaign: CampaignEntity
+  campaign: number
 }

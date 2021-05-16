@@ -10,6 +10,7 @@ import { userRouter } from 'interfaces/routes/user'
 import { volunteerRouter } from 'interfaces/routes/volunteer'
 import jwt from 'koa-jwt'
 import { validateToken } from 'interfaces/controllers/tokenblacklisting.controller'
+import { giverRouter } from './giver'
 
 const Routes = new Router()
 
@@ -28,6 +29,7 @@ const private_routes = [
   logAuth,
   ubigeoRouter,
   volunteerRouter,
+  giverRouter
 ]
 
 Routes

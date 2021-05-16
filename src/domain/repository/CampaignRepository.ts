@@ -2,6 +2,7 @@ import {
   Beneficiary,
   Campaign,
   Donation,
+  Giver,
 } from 'domain/entity';
 
 export interface ICampaignRepository {
@@ -12,8 +13,10 @@ export interface ICampaignRepository {
   getByName(name: string): Promise<Campaign>
   getById(id: number): Promise<Campaign>
   addBeneficiary(beneficiary: Beneficiary): Promise<any>
-  removeBeneficiary(beneficiary: Beneficiary): Promise<any>
   addDonation(donation: Donation): Promise<any>
+  addGiver(giver: Giver): Promise<any>
   listBeneficiaries(id: number): Promise<any>
   listDonations(id: number): Promise<any>
+  listGivers(id: number): Promise<any>
+  removeBeneficiary(beneficiary: Beneficiary): Promise<any>
 }
