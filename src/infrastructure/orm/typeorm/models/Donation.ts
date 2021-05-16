@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { CampaignEntity } from '.'
 import { SharedProps } from './SharedProps'
 
 @Entity('donation')
@@ -26,4 +27,8 @@ export class DonationEntity extends SharedProps {
 
   @Column()
   amountByBeneficiary: number
+
+  @ManyToOne(() => CampaignEntity, campaign => campaign.donations)
+  campaign: CampaignEntity
+
 }

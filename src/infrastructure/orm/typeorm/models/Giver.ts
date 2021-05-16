@@ -64,11 +64,5 @@ export class GiverEntity extends SharedProps {
   eventId: number
 
   @ManyToOne(() => CampaignEntity, campaign => campaign.givers)
-  campaign: Campaign
-
-  @Column({
-  })
-  status: giverStatus
-    type: 'enum',
-    enum: giverStatus,
+  campaign: CampaignEntity
 }

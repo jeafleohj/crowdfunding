@@ -1,12 +1,13 @@
+import { Giver } from './../../../domain/entity/Giver';
 // import { Donation } from 'domain/entity'
-// import { ICampaignRepository } from 'domain/repository'
+import { ICampaignRepository } from 'domain/repository'
 
-// const CreateDonation = (data: Donation,
-//   { campaignRepository }: {campaignRepository : ICampaignRepository }): Promise<any> => {
-//   const donation = new Donation(data)
-//   return campaignRepository.addDonation(donation)
-// }
+const CreateGiver = (data: Giver,
+  { campaignRepository }: {campaignRepository : ICampaignRepository }): Promise<any> => {
+  const donation = new Giver(data)
+  // return campaignRepository.addDonation(donation)
+}
 
-// export {
-//   CreateDonation
-// }
+export {
+  CreateGiver
+}
