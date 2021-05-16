@@ -1,3 +1,5 @@
+import { Campaign } from "./Campaign"
+
 export enum beneficiaryStatus {
   associated = 'asociado',
   selected = 'pendiente',
@@ -19,7 +21,7 @@ export class Beneficiary {
   address: string
   handicapped: boolean
   status: beneficiaryStatus
-  campaign?: number
+  campaign!: Campaign
 
   constructor({name, lastname, maternal_lastname, province, region, sex, nse, document, age, district, address, handicapped, campaign}
               :Beneficiary) {

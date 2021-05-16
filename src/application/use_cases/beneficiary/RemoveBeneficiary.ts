@@ -1,9 +1,9 @@
 import { Beneficiary } from 'domain/entity'
 import { ICampaignRepository } from 'domain/repository'
 
-const RemoveBeneficiary = (data: Beneficiary,
+const RemoveBeneficiary = (beneficiaryId: number, campaignId: number,
   { campaignRepository }: {campaignRepository : ICampaignRepository }): Promise<any> => {
-  return campaignRepository.removeBeneficiary(data)
+  return campaignRepository.removeBeneficiary(beneficiaryId, campaignId)
 }
 
 export {

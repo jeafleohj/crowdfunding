@@ -18,5 +18,5 @@ export interface ICampaignRepository {
   listBeneficiaries(id: number): Promise<any>
   listDonations(id: number): Promise<any>
   listGivers(id: number): Promise<any>
-  removeBeneficiary(beneficiary: Beneficiary): Promise<any>
+  removeBeneficiary(beneficiaryId: number, campaignId: number): Promise<any>
 }

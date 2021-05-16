@@ -37,7 +37,7 @@ export class CampaignRepository implements ICampaignRepository {
   }
 
   async addBeneficiary(data: Beneficiary): Promise<any> {
-    let campaign = await this.repository.findOne({ id: data.campaign }) as CampaignEntity
+    let campaign = await this.repository.findOne({ id: data.campaign.id }) as CampaignEntity
     if (campaign.beneficiaries === undefined) {
       campaign.beneficiaries = [data]
     } else {
@@ -46,12 +46,12 @@ export class CampaignRepository implements ICampaignRepository {
     return this.repository.save(campaign)
   }
 
-  async removeBeneficiary(data: Beneficiary): Promise<any> {
-    let campaign = await this.repository.findOne({ id: data.campaign }) as CampaignEntity
+  async removeBeneficiary(beneficiaryId: number, campaignId: number): Promise<any> {
+    let campaign = await this.repository.findOne({ id: campaignId }) as CampaignEntity
     if (campaign.beneficiaries === undefined) {
       throw new Error('Lista de beneficiarios vacía.');
     } else {
-      let removeIndex = campaign.beneficiaries.map(item => { return item.id }).indexOf(data.id);
+      let removeIndex = campaign.beneficiaries.map(item => { return item.id }).indexOf(beneficiaryId);
       campaign.beneficiaries.splice(removeIndex,1)
     }
     return this.repository.save(campaign)
