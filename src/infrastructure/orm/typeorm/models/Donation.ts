@@ -29,6 +29,6 @@ export class DonationEntity extends SharedProps {
   amountByBeneficiary: number
 
   @ManyToOne(() => CampaignEntity, campaign => campaign.donations)
-  campaign: CampaignEntity
+  campaign: number
 
 }
