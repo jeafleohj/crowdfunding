@@ -44,7 +44,7 @@ export class CampaignEntity extends SharedProps {
   status: campaignStatus
 
   @ManyToOne(()=>UserEntity, user=>user.id)
-  user: UserEntity
+  user: number
 
   @ManyToMany(() => BeneficiaryEntity, {
     cascade: true,

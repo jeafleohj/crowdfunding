@@ -13,21 +13,20 @@ export class Giver {
   email: string
   document: string
   phone: string
-  campaignId: number
-  campaign: Campaign
+  campaign: number
   collection: Date
   address: string
   reference: string
   eventId: number
   status: giverStatus
 
-  constructor({name, lastname, email, document, phone, campaignId}: Giver) {
+  constructor({name, lastname, email, document, phone, campaign}: Giver) {
     this.name = name
     this.lastname = lastname
     this.email = email
     this.document = document
     this.phone = phone
-    this.campaignId = campaignId
+    this.campaign = campaign
     this.status = giverStatus.initial
   }
 }
