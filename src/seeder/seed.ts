@@ -3,15 +3,24 @@ import { DistrictEntity } from 'infrastructure/orm/typeorm/models/Ubigeo/Distric
 import { ProvinceEntity } from 'infrastructure/orm/typeorm/models/Ubigeo/Province'
 import { RegionEntity } from 'infrastructure/orm/typeorm/models/Ubigeo/Region'
 import { districts, provinces, regions } from './ubigeo'
-//const region = getRepository(Region)
-//const district = getRepository(District)
-//const province = getRepository(Province)
 
 const forEachAsync = (arr: any[], fn: any) =>  arr.reduce(
         (promise, value) => promise.then(() => fn(value)), Promise.resolve()
 );
+console.log(__dirname+"../infrastructure/orm/typeorm/models/**/*.ts")
 
-createConnection()
+createConnection({
+  type: "mysql",
+  host: "localhost",
+  database: "crowdfunding",
+  username: "root",
+  password: "password",
+  synchronize: true,
+  logging: false,
+  entities: [
+    __dirname+"/../infrastructure/orm/typeorm/models/**/*.{js,ts}"
+  ],
+})
   .then(async(connection)=>{
     const rr =  getRepository(RegionEntity)
     const pr = getRepository(ProvinceEntity)
