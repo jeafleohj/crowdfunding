@@ -1,3 +1,4 @@
+import { beneficiaryStatus } from 'domain/entity/Beneficiary'
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 import { SharedProps } from './SharedProps'
 
@@ -59,6 +60,9 @@ export class BeneficiaryEntity extends SharedProps {
   @Column()
   handicapped: boolean
 
-  @Column()
-  status: string //Check this
+  @Column({
+    type: 'enum',
+    enum: beneficiaryStatus,
+  })
+  status: beneficiaryStatus
 }
