@@ -1,6 +1,7 @@
+import { Campaign } from 'domain/entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn} from 'typeorm'
 import { giverStatus } from 'domain/entity/Giver';
-import { Column, Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn} from 'typeorm'
-import { CampaignEntity } from '.';
+import { CampaignEntity } from '.'
 import { SharedProps } from './SharedProps'
 
 @Entity('giver')
@@ -62,17 +63,12 @@ export class GiverEntity extends SharedProps {
   @Column()
   eventId: number
 
-  @Column()
-  campaignId: number
+  @ManyToOne(() => CampaignEntity, campaign => campaign.givers)
+  campaign: Campaign
 
-  // @OneToOne(() => GiverEntity)
-  // @JoinColumn()
-  // giver: Profile;
-
-  @ManyToOne(() => CampaignEntity, campaign => campaign.givers, {
-    eager: true
+  @Column({
   })
-  @JoinTable()
-  campaign!: CampaignEntity
-
+  status: giverStatus
+    type: 'enum',
+    enum: giverStatus,
 }

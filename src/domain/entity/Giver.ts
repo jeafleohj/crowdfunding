@@ -1,3 +1,5 @@
+import { Campaign } from "./Campaign"
+
 export enum giverStatus {
   initial = 'registrado', //cuando se registra en la web
   pending = 'pendiente',  //cuando se registra sus donaciones desde el link del correo
@@ -12,11 +14,12 @@ export class Giver {
   document: string
   phone: string
   campaignId: number
+  campaign: Campaign
   collection: Date
   address: string
   reference: string
   eventId: number
-  status: string
+  status: giverStatus
 
   constructor({name, lastname, email, document, phone, campaignId}: Giver) {
     this.name = name

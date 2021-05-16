@@ -1,6 +1,7 @@
 import { Giver } from './Giver';
 import { Donation } from './Donation';
 import { Beneficiary } from "./Beneficiary"
+import { Giver } from './Giver';
 
 export enum campaignType {
   material = 'materiales',
@@ -26,6 +27,7 @@ export class Campaign {
   ending: Date
   status: campaignStatus
   beneficiaries: Beneficiary[]
+  givers: Giver[]
   donations: Donation[]
   givers: Giver[]
 
