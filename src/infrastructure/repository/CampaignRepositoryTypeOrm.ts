@@ -58,7 +58,8 @@ export class CampaignRepository implements ICampaignRepository {
   }
 
   async addDonation(donation: Donation): Promise<any> {
-    let campaign = await this.repository.findOne({ id: donation.campaign }) as CampaignEntity
+
+    let campaign = await this.repository.findOne({ id: donation.campaign.id }) as CampaignEntity
     if (campaign.donations === undefined) {
       campaign.donations = [donation]
     } else {

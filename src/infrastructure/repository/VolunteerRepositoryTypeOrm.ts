@@ -23,7 +23,7 @@ export class VolunteerRepository implements IVolunteerRepository {
   }
 
   add(campaignId: number, userId: number): Promise<any> {
-    const volunteer = new Volunteer({campaignId, userId})
+    const volunteer = new Volunteer(campaignId, userId)
     console.log(volunteer)
     const new_volunteer = this.repository.create(volunteer)
     return this.repository.save(new_volunteer)

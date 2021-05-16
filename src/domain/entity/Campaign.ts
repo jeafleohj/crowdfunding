@@ -19,7 +19,7 @@ export enum campaignStatus {
 export class Campaign {
   id: number
   name: string
-  user?: User
+  user: User
   image_url?: string
   description: string
   type: campaignType
@@ -36,7 +36,7 @@ export class Campaign {
     this.name = name || ''
     this.type = type || campaignType.material
     this.status = campaignStatus.created
-    this.user = user
+    this.user = user || new User()
     this.image_url = image_url || ''
   }
 }

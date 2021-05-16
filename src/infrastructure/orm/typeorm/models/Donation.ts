@@ -9,7 +9,7 @@ export class DonationEntity extends SharedProps {
 
   @Column({
     length: 50,
-    type: "varchar",
+    type: 'varchar',
   })
   name: string
 
@@ -29,6 +29,6 @@ export class DonationEntity extends SharedProps {
   amountByBeneficiary: number
 
   @ManyToOne(() => CampaignEntity, campaign => campaign.donations)
-  campaign: number
+  campaign: CampaignEntity
 
 }

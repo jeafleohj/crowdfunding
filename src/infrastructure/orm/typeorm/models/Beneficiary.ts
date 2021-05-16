@@ -1,5 +1,7 @@
+import { Campaign } from 'domain/entity'
 import { beneficiaryStatus } from 'domain/entity/Beneficiary'
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { CampaignEntity } from './Campaign'
 import { SharedProps } from './SharedProps'
 
 @Entity('beneficiary')
@@ -65,4 +67,5 @@ export class BeneficiaryEntity extends SharedProps {
     enum: beneficiaryStatus,
   })
   status: beneficiaryStatus
+  campaign!: CampaignEntity
 }

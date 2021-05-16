@@ -1,3 +1,6 @@
+import { Campaign } from "./Campaign"
+import { Volunteer } from "./Volunteer"
+
 export class User {
   id: number
   name: string
@@ -6,11 +9,23 @@ export class User {
   document?: string
   phone?: string
   email: string
-  constructor({name, email, lastname, password, phone}: User) {
-    this.name = name.toLocaleLowerCase()
-    this.lastname = lastname.toLocaleLowerCase()
-    this.phone = phone
-    this.email = email
-    this.password = password
+  campaigns: Campaign[]
+  volunteers: Volunteer[]
+  generatePasswordHash: any
+  constructor(user?: Partial<User>) {
+    if(user !== undefined) {
+      const {
+        name = '',
+        lastname = '',
+        phone = '',
+        email = '',
+        password = '',
+      } = user
+      this.name = name.toLocaleLowerCase()
+      this.lastname = lastname.toLocaleLowerCase()
+      this.phone = phone
+      this.email = email
+      this.password = password
+    }
   }
 }

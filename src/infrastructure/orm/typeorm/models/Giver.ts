@@ -22,7 +22,7 @@ export class GiverEntity extends SharedProps {
   lastname: string
 
   @Column()
-  phone?: string
+  phone: string
 
   @Column({
     unique: true

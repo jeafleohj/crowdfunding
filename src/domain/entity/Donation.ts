@@ -1,10 +1,12 @@
+import { Campaign } from './Campaign'
+
 export class Donation {
   id: number
   name: string
   description: string
   category: string
   amountByBeneficiary: number
-  campaign: number
+  campaign: Campaign
 
   constructor({name,description, category, amountByBeneficiary, campaign}
               :Donation) {
