@@ -1,6 +1,5 @@
 #+title: Crowdfunding
-#+PROPERTY: header-args :var base-url="http://localhost:4000" token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjE5NzMxMDA2LCJleHAiOjE2MjA1OTUwMDYsImp0aSI6IjI3b2IwcDYyOTl1a28zZTByOWoifQ.E5UaPB2fx0yKPlRchaNsIXHbKBBE3FL01vyPEBHUhk4"
-
+#+PROPERTY: header-args :var base-url="http://localhost:4000" token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjIxMjEyMDgwLCJleHAiOjE2Mjk4NTIwODAsImp0aSI6IjJueGU0NHExdThoa29ydnRheXUifQ.jcXzH6NkmcsNeKlF14Jd0ND6eUaNaRVMa3C9d-pppQU"
 * DB
 - Run container :: ~docker-compose up~
 - Enter to container :: ~docker-compose exec mysql mysql -uroot -ppassword~
@@ -16,7 +15,7 @@
 POST :base-url/user
 Content-Type: application/json;charset=UTF-8
 {
-    "email":"crowdfunding00@gmail.com",
+    "email":"crowdfunding@gmail.com",
     "name":"Ariana",
     "lastname":"Perez",
     "phone":"909823098123",
@@ -33,6 +32,35 @@ Content-Type: application/json;charset=UTF-8
     "password":"roblox"
 }
 #+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "error": false,
+  "data": {
+    "createdAt": "2021-05-17T05:41:06.416Z",
+    "updateAt": "2021-05-17T05:41:06.416Z",
+    "id": 2,
+    "name": "ariana",
+    "lastname": "perez",
+    "phone": "909823098123",
+    "document": null,
+    "email": "crowdfunding@gmail.com"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjIxMjEyMDgwLCJleHAiOjE2Mjk4NTIwODAsImp0aSI6IjJueGU0NHExdThoa29ydnRheXUifQ.jcXzH6NkmcsNeKlF14Jd0ND6eUaNaRVMa3C9d-pppQU",
+  "status": 200,
+  "message": "ok"
+}
+// POST http://localhost:4000/auth
+// HTTP/1.1 200 OK
+// Vary: Origin
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 473
+// Date: Mon, 17 May 2021 00:41:20 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.127383s
+#+END_SRC
 
 #+begin_src restclient
 POST :base-url/user/logout
@@ -100,6 +128,37 @@ Authorization: Bearer :token
 }
 #+end_src
 
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "error": false,
+  "data": {
+    "name": "Regalando Sonrisas",
+    "type": "materiales",
+    "status": "creada",
+    "image_url": "",
+    "user": 2,
+    "description": null,
+    "release": null,
+    "ending": null,
+    "createdAt": "2021-05-17T05:41:57.889Z",
+    "updateAt": "2021-05-17T05:41:57.889Z",
+    "id": 1
+  },
+  "status": 200,
+  "message": "ok"
+}
+// POST http://localhost:4000/user/campaign
+// HTTP/1.1 200 OK
+// Vary: Origin
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 274
+// Date: Mon, 17 May 2021 00:41:57 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.020450s
+#+END_SRC
+
 *** Update campaing
 #+begin_src restclient :exports both
 PUT :base-url/user/campaign/1
@@ -112,20 +171,6 @@ Authorization: Bearer :token
     "id": 10
 }
 #+end_src
-
-#+RESULTS:
-#+BEGIN_SRC text
-Se tiene que agregar beneficiarios a la campaña
-PUT http://localhost:4000/user/campaign/1
-HTTP/1.1 401 Unauthorized
-Vary: Origin
-Content-Type: text/plain; charset=utf-8
-Content-Length: 48
-Date: Mon, 10 May 2021 01:45:22 GMT
-Connection: keep-alive
-Keep-Alive: timeout=5
-Request duration: 0.059389s
-#+END_SRC
 
 *** List all campaigns by user
 #+begin_src restclient
@@ -152,7 +197,11 @@ Authorization: Bearer :token
     "district": 20,
     "address": "laskdjf",
     "status": "lsakdjf",
-    "campaign": 2
+    "region": 1,
+    "district": 1,
+    "province": 1,
+    "handicapped": "NSE-A",
+    "campaign": 1
 }
 #+end_src
 
@@ -386,4 +435,32 @@ Authorization: Bearer :token
 // Connection: keep-alive
 // Keep-Alive: timeout=5
 // Request duration: 0.062789s
+#+END_SRC
+
+** Giver
+#+begin_src restclient
+POST :base-url/giver
+Content-Type: application/json;charset=UTF-8
+{
+    "name" : "Valeria Nadine",
+    "lastname" : "Vicuña",
+    "email" : "valeria.vicuna@pucp.edu.pe",
+    "document" : "119",
+    "phone" : "976337742",
+    "campaign" : 1
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC text
+OK
+POST http://localhost:4000/giver
+HTTP/1.1 200 OK
+Vary: Origin
+Content-Type: text/plain; charset=utf-8
+Content-Length: 2
+Date: Mon, 17 May 2021 03:16:29 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Request duration: 2.958812s
 #+END_SRC
