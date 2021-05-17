@@ -14,13 +14,34 @@ export class CampaignRepository implements ICampaignRepository {
     this.repository = getRepository(CampaignEntity)
   }
   async addGiver(giver: Giver): Promise<any> {
-    let campaign = await this.repository.findOne({ id: giver.campaign }) as CampaignEntity
+    let campaign = await this.repository.findOne({
+      select: [
+        'id', 'name'
+      ],
+      where: [{id: giver.campaign}],
+      join: {
+        alias: 'campaign',
+        leftJoinAndSelect: {
+          givers: 'campaign.givers',
+        },
+      }
+    }) as CampaignEntity
+
     if (campaign.givers === undefined) {
       campaign.givers = [giver]
     } else {
       campaign.givers.push(giver)
     }
-    return this.repository.save(campaign)
+
+    let response = await this.repository.save(campaign)
+    const length = response.givers.length || 0
+    return {
+      giverId: response.givers[length-1].id,
+      campaign: {
+        id: campaign.id,
+        name: campaign.name,
+      }
+    }
   }
 
   listGivers(id: number): Promise<any> {

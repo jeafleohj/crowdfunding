@@ -60,7 +60,9 @@ export class CampaignEntity extends SharedProps {
   @OneToMany(() => VolunteerEntity, volunteer => volunteer.user )
   volunteers!: VolunteerEntity[]
 
-  @OneToMany(() => GiverEntity, giver => giver.campaign )
+  @OneToMany(() => GiverEntity, giver => giver.campaign, {
+    cascade: true,
+  })
   givers!: GiverEntity[]
 
   @Column({

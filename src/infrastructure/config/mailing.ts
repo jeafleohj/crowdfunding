@@ -22,5 +22,5 @@ export async function mailing({to, subject, html}: InfoEmail) {
     subject,
     html,
   });
-  console.log(info)
+  return info
 }

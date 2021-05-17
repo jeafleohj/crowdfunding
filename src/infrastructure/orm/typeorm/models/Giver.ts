@@ -1,4 +1,3 @@
-import { Campaign } from 'domain/entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn} from 'typeorm'
 import { giverStatus } from 'domain/entity/Giver';
 import { CampaignEntity } from '.'
@@ -60,7 +59,9 @@ export class GiverEntity extends SharedProps {
   })
   status: giverStatus
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   eventId: number
 
   @ManyToOne(() => CampaignEntity, campaign => campaign.givers)

@@ -15,8 +15,9 @@ import { giverRouter } from './giver'
 const Routes = new Router()
 
 const public_routes = [
-  userRouter,
   authRouter,
+  giverRouter,
+  userRouter,
 ]
 
 Routes.use(...public_routes.map(r=>r.routes()))
@@ -29,12 +30,11 @@ const private_routes = [
   logAuth,
   ubigeoRouter,
   volunteerRouter,
-  giverRouter
 ]
 
 Routes
   .use(jwt({
-    secret: 'Key'
+    secret: process.env.JWT_KEY as string
   }))
   .use(validateToken)
   .use(...private_routes.map(r=>r.routes()))

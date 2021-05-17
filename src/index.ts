@@ -25,6 +25,7 @@ import {
   IUserRepository,
   IVolunteerRepository,
 } from 'domain/repository'
+import { mailing } from 'infrastructure/config/mailing'
 
 declare module "koa" {
   interface BaseContext {
@@ -36,6 +37,7 @@ declare module "koa" {
     ubigeoRepository: IUbigeoRepository
     userRepository: IUserRepository
     volunteerRepository: IVolunteerRepository
+    mailing: Function
   }
 }
 
@@ -49,10 +51,10 @@ app.use(cors({
 
 createConnection({
   type: "mysql",
-  host: "localhost",
-  database: "crowdfunding",
-  username: "root",
-  password: "password",
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
   synchronize: true,
   logging: false,
   entities: [
@@ -68,6 +70,7 @@ createConnection({
     app.context.userRepository = new UserRepository()
     app.context.volunteerRepository = new VolunteerRepository()
     app.context.campaignEventRepository =  new CampaignEventRepository()
+    app.context.mailing = mailing
   })
 
 app.use(async (ctx, next) => {
@@ -85,7 +88,6 @@ app.use(logger())
 
 app.use(Routes.routes())
 app.use(Routes.allowedMethods())
-
 
 app.listen(4000, function(): void {
   console.log('🔥🔥Server running on port 4000🐈🐈🔥🔥');

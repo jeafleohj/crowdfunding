@@ -9,9 +9,9 @@ async function generateToken(payload: any): Promise<string> {
   const jid = uniqid()
   const token = jwt.sign(
     payload,
-    'Key',
+    process.env.JWT_KEY as string,
     {
-      expiresIn: '10 days',
+      expiresIn: process.env.JWT_EXPIRE,
       jwtid: jid
     }
   )

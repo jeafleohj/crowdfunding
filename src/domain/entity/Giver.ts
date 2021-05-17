@@ -20,7 +20,18 @@ export class Giver {
   eventId: number
   status: giverStatus
 
-  constructor({name, lastname, email, document, phone, campaign}: Giver) {
+  constructor(giver: Partial<Giver>) {
+    const {
+      address = '',
+      campaign = 0,
+      document = '',
+      email = '',
+      lastname = '',
+      name = '',
+      phone = '',
+      reference = '',
+    } = giver
+
     this.name = name
     this.lastname = lastname
     this.email = email
@@ -28,5 +39,8 @@ export class Giver {
     this.phone = phone
     this.campaign = campaign
     this.status = giverStatus.initial
+    this.address = address
+    this.reference = reference
+
   }
 }

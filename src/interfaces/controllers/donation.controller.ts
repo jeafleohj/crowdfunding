@@ -1,6 +1,8 @@
-import { CreateDonation } from 'application/use_cases/donation/CreateDonation'
-import { RemoveDonation } from 'application/use_cases/donation/RemoveDonation'
-import { UpdateDonation } from 'application/use_cases/donation/UpdateDonation'
+import {
+  CreateDonation,
+  RemoveDonation,
+  UpdateDonation,
+} from 'application/use_cases/donation/'
 import { Context, Next } from 'koa'
 
 const createDonation = async (ctx: Context, next: Next): Promise<void> => {
