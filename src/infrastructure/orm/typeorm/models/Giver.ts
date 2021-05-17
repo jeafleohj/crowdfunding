@@ -23,15 +23,13 @@ export class GiverEntity extends SharedProps {
   @Column()
   phone?: string
 
-  @Column({
-    unique: true
-  })
+  @Column()
   email: string
 
   @Column({
     length: 8,
     type: 'char',
-    unique: true
+    nullable: true
   })
   document: string
 

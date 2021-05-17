@@ -31,7 +31,7 @@ const createGiver = async (ctx: Context, next: Next): Promise<void> => {
 
   const mailInfo = {
     to: email,
-    subject: 'Se ha registrado como donante para !!',
+    subject: `Se ha registrado como donante en ${campaign.name}`,
     html
   }
   const sendMessage = await ctx.mailing(mailInfo)

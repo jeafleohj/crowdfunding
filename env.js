@@ -1,6 +1,6 @@
 let env = {
   NODE_ENV: 'development',
-  HOSTNAME: 'localhost',
+  HOSTNAME: 'http://127.0.0.1:3000',
   JWT_EXPIRE: '100 days',
   JWT_KEY: 'Key',
   DB_HOST: 'localhost',

@@ -5,11 +5,13 @@ export type InfoEmail = {
   html: string
 }
 
-export async function mailing({to, subject, html}: InfoEmail) {
+export async function mailing({ to, subject, html }: InfoEmail) {
   const transport = nodemailer.createTransport({
-    service: 'hotmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // use SSL
     auth: {
-      user: 'crowdfunding1999@hotmail.com',
+      user: 'crowdonation.ga@gmail.com',
       pass: 'shingeki321',
     },
     tls: {
