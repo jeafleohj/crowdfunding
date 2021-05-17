@@ -6,6 +6,7 @@ import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGen
 import { VolunteerEntity } from './Volunteer';
 import { SharedProps } from './SharedProps';
 import { GiverEntity } from './Giver';
+import { CampaignEventEntity } from './CampaignEvent';
 
 @Entity('campaign')
 export class CampaignEntity extends SharedProps {
@@ -56,6 +57,10 @@ export class CampaignEntity extends SharedProps {
   @OneToMany(() => DonationEntity, donation => donation.campaign )
   @JoinTable()
   donations: DonationEntity[]
+
+  @OneToMany(() => CampaignEventEntity, campaignEvent => campaignEvent.campaign )
+  @JoinTable()
+  events: CampaignEventEntity[]
 
   @OneToMany(() => VolunteerEntity, volunteer => volunteer.user )
   volunteers!: VolunteerEntity[]

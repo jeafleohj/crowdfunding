@@ -8,6 +8,7 @@ import Routes from 'interfaces/routes'
 import {
   BeneficiaryRepository,
   CampaignRepository,
+  GiverRepository,
   CampaignEventRepository,
   DonationRepository,
   TokenBlacklistingRepository,
@@ -24,6 +25,7 @@ import {
   IUbigeoRepository,
   IUserRepository,
   IVolunteerRepository,
+  IGiverRepository,
 } from 'domain/repository'
 import { mailing } from 'infrastructure/config/mailing'
 
@@ -37,6 +39,7 @@ declare module "koa" {
     ubigeoRepository: IUbigeoRepository
     userRepository: IUserRepository
     volunteerRepository: IVolunteerRepository
+    giverRepository: IGiverRepository
     mailing: Function
   }
 }
@@ -70,6 +73,7 @@ createConnection({
     app.context.userRepository = new UserRepository()
     app.context.volunteerRepository = new VolunteerRepository()
     app.context.campaignEventRepository =  new CampaignEventRepository()
+    app.context.giverRepository =  new GiverRepository()
     app.context.mailing = mailing
   })
 

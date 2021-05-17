@@ -2,7 +2,7 @@ import { Context, Next } from 'koa'
 import uniqid from 'uniqid'
 import jwt from 'jsonwebtoken'
 import {
-  CreateGiver,
+  CreateGiver, GetById,
 } from 'application/use_cases/giver/'
 
 async function generateUrl(payload: any): Promise<string> {
@@ -39,6 +39,14 @@ const createGiver = async (ctx: Context, next: Next): Promise<void> => {
   ctx.status = 200
 }
 
+const getGiver = async (ctx: Context, next: Next): Promise<void> => {
+  const giverId = ctx.params.id
+  const campaignId = ctx.params.campaign
+  const response = await GetById(giverId, campaignId, ctx)
+  ctx.body = response
+}
+
 export {
-  createGiver
+  createGiver,
+  getGiver
 }
