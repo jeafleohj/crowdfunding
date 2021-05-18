@@ -12,10 +12,9 @@ export class DonationRepository implements IDonationRepository {
 
   async getByCampaign(campaignId: number): Promise<Donation[]> {
     const donations = await this.repository
-    .createQueryBuilder("donation")
-    .where("donation.campaignId = :campaignId", { campaignId: campaignId})
-    .getMany()
-    console.log(donations)
+      .createQueryBuilder("donation")
+      .where("donation.campaignId = :campaignId", { campaignId: campaignId })
+      .getMany()
     return donations
   }
 
