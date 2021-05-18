@@ -10,6 +10,15 @@ export class DonationRepository implements IDonationRepository {
     this.repository = getRepository(DonationEntity)
   }
 
+  async getByCampaign(campaignId: number): Promise<Donation[]> {
+    const donations = await this.repository
+    .createQueryBuilder("donation")
+    .where("donation.campaignId = :campaignId", { campaignId: campaignId})
+    .getMany()
+    console.log(donations)
+    return donations
+  }
+
   persist(donation: Donation): Promise<any> {
     const newDonation = this.repository.create(donation)
     return this.repository.save(newDonation)
@@ -20,10 +29,6 @@ export class DonationRepository implements IDonationRepository {
   }
 
   remove(id: number): void {
-    throw new Error("Method not implemented.");
-  }
-
-  getAll(): Promise<Donation[]> {
     throw new Error("Method not implemented.");
   }
 

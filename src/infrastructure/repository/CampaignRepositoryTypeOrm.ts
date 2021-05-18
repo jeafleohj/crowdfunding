@@ -13,6 +13,31 @@ export class CampaignRepository implements ICampaignRepository {
   constructor() {
     this.repository = getRepository(CampaignEntity)
   }
+
+  async addDonation(donation: Donation): Promise<any> {
+
+    let campaign = await this.repository.findOne({
+      select: [
+        'id', 'name'
+      ],
+      where: [{id: donation.campaign}],
+      join: {
+        alias: 'campaign',
+        leftJoinAndSelect: {
+          donations: 'campaign.donations',
+        },
+      }
+    }) as CampaignEntity
+
+    if (campaign.donations === undefined) {
+      campaign.donations = [donation]
+    } else {
+      campaign.donations.push(donation)
+    }
+
+    return this.repository.save(campaign)
+  }
+
   async addGiver(giver: Giver): Promise<any> {
     let campaign = await this.repository.findOne({
       select: [
@@ -48,12 +73,13 @@ export class CampaignRepository implements ICampaignRepository {
     throw new Error('Method not implemented.')
   }
   async listDonations(id: number): Promise<any> {
-    let campaign = this.repository.findOne({ id })
+    let campaign = await this.repository.findOne({ id })
+    console.log(campaign)
     return campaign
   }
 
   async listBeneficiaries(id: number): Promise<any> {
-    let campaign = this.repository.findOne({ id })
+    let campaign = await this.repository.findOne({ id })
     return campaign
   }
 
@@ -74,16 +100,6 @@ export class CampaignRepository implements ICampaignRepository {
     } else {
       let removeIndex = campaign.beneficiaries.map(item => { return item.id }).indexOf(data.id);
       campaign.beneficiaries.splice(removeIndex,1)
-    }
-    return this.repository.save(campaign)
-  }
-
-  async addDonation(donation: Donation): Promise<any> {
-    let campaign = await this.repository.findOne({ id: donation.campaign }) as CampaignEntity
-    if (campaign.donations === undefined) {
-      campaign.donations = [donation]
-    } else {
-      campaign.donations.push(donation)
     }
     return this.repository.save(campaign)
   }

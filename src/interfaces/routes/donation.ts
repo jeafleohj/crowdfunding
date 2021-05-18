@@ -1,5 +1,4 @@
-import { listDonations } from 'interfaces/controllers/campaign.controller'
-import { createDonation, removeDonation, updateDonation } from 'interfaces/controllers/donation.controller'
+import { createDonation, listDonations, removeDonation, updateDonation } from 'interfaces/controllers/donation.controller'
 import jwt from 'koa-jwt'
 import Router from 'koa-router'
 
@@ -13,7 +12,7 @@ donationRouter.use(jwt({
 
 donationRouter
   .post('/', createDonation)
-  .get('/', listDonations)
+  .get('/campaign/:id', listDonations)
   .put('/', updateDonation)
   .put('/remove', removeDonation)
 
