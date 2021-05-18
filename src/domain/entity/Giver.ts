@@ -14,22 +14,17 @@ export class Giver {
   document: string
   phone: string
   campaign: number
-  collection: Date
-  address: string
-  reference: string
   eventId: number
   status: giverStatus
 
   constructor(giver: Partial<Giver>) {
     const {
-      address = '',
       campaign = 0,
       document = '',
       email = '',
       lastname = '',
       name = '',
       phone = '',
-      reference = '',
     } = giver
 
     this.name = name
@@ -39,8 +34,6 @@ export class Giver {
     this.phone = phone
     this.campaign = campaign
     this.status = giverStatus.initial
-    this.address = address
-    this.reference = reference
 
   }
 }

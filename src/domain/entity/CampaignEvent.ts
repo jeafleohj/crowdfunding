@@ -1,6 +1,7 @@
 export enum CampaignEventType {
   collection = 'recaudación',
   delivery = 'entrega',
+  pickup = 'recoger',
 }
 
 export class CampaignEvent {
