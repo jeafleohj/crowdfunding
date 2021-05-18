@@ -2,6 +2,8 @@ import { Context, Next } from 'koa'
 import {
   CreateEvent,
   GetEventByCampaign,
+  UpdateEvent,
+  RemoveEvent
 } from 'application/use_cases/campaignevent'
 import { CampaignEvent } from 'domain/entity'
 
@@ -28,7 +30,23 @@ const getByCampaign = async (ctx: Context, next: Next) => {
   ctx.status = 200
 }
 
+const updateEvent = async (ctx: Context, next: Next): Promise<void> => {
+  let data = ctx.request.body
+  const response = await UpdateEvent(data, ctx)
+  ctx.body = response
+  ctx.status = 200
+}
+
+const removeEvent = async (ctx: Context, next: Next): Promise<void> => {
+  let data = ctx.request.body
+  const response = await RemoveEvent(data, ctx)
+  ctx.body = response
+  ctx.status = 200
+}
+
 export {
   createCampaignEvent,
   getByCampaign,
+  updateEvent,
+  removeEvent
 }

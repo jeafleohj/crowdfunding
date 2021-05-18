@@ -8,6 +8,15 @@ export class CampaignEventRepository implements ICampaingEventRepository {
   constructor() {
     this.repository = getRepository(CampaignEventEntity)
   }
+  async updateEvent(event: CampaignEvent): Promise<any> {
+    let updated = await this.repository.findOne({ id: event.id }) as CampaignEventEntity
+    updated = event
+    return this.repository.save(updated)
+  }
+  async removeEvent(event: CampaignEvent): Promise<any> {
+    const updated = await this.repository.findOne({ id: event.id }) as CampaignEventEntity;
+    return this.repository.remove(updated)
+  }
 
   getByCampaign(campaign: number): Promise<any> {
     let events = this.repository.find({where:[{
