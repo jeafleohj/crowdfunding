@@ -34,23 +34,6 @@ export class GiverEntity extends SharedProps {
   document: string
 
   @Column({
-    length: 50,
-    type: 'varchar'
-  })
-  address: string
-
-  @Column({
-    length: 50,
-    type: 'varchar'
-  })
-  reference: string
-
-  @Column({
-    nullable: true,
-  })
-  collection: Date
-
-  @Column({
     type: 'enum',
     enum: giverStatus,
     default: giverStatus.initial

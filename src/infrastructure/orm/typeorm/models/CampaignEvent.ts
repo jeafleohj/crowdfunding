@@ -49,5 +49,4 @@ export class CampaignEventEntity extends SharedProps {
     nullable: true,
   })
   endingTime: string
-
 }
