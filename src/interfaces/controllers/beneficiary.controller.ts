@@ -16,6 +16,17 @@ const createBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
   next()
 }
 
+const multipleBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
+
+  // let data = ctx.request.files.file
+  // console.log(data)
+
+  const campaignId = ctx.params.id
+  // const response = await CreateBeneficiary(data, ctx)
+  // ctx.body = response.beneficiaries
+  ctx.status = 200
+}
+
 const updateBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
   let data = ctx.request.body
   const response = await UpdateBeneficiary(data, ctx)
@@ -35,5 +46,6 @@ const removeBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
 export {
   createBeneficiary,
   updateBeneficiary,
-  removeBeneficiary
+  removeBeneficiary,
+  multipleBeneficiary
 }
