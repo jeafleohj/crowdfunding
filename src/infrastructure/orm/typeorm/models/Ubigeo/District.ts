@@ -1,10 +1,13 @@
 import { ProvinceEntity } from './Province'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('district')
 export class DistrictEntity {
-  @PrimaryGeneratedColumn()
-  id: number
+  @PrimaryColumn({
+    length: 6,
+    type: "char",
+  })
+  id: string
 
   @Column({
     length: 50,

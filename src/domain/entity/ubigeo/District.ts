@@ -1,5 +1,5 @@
 export class District {
-  id: number
+  id: string
   name: string
   provinceId?: number
   clasification: string

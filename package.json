@@ -7,7 +7,7 @@
     "build": "tsc && tsc-alias",
     "start": "NODE_ENV=production node dist/index.js",
     "watch": "nodemon -e ts -w ./src --ignore ./src/seeder -x 'ts-node -r tsconfig-paths/register -r ./env.js src/index.ts --inspect'",
-    "seed": "ts-node -r tsconfig-paths/register src/seeder/seed.ts --inspect"
+    "seed": "ts-node -r tsconfig-paths/register -r ./env.js src/seeder/seed.ts --inspect"
   },
   "author": "",
   "license": "ISC",

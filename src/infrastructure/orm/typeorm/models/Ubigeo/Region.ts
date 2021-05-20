@@ -1,10 +1,13 @@
 import { ProvinceEntity } from "./Province";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('region')
 export class RegionEntity {
-  @PrimaryGeneratedColumn()
-  id: number
+  @PrimaryColumn({
+    length: 2,
+    type: "char",
+  })
+  id: string
 
   @Column({
     type: "varchar",

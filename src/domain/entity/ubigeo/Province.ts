@@ -1,5 +1,5 @@
 export class Province {
-  id: number
+  id: string
   name: string
   regionId?: number
   constructor({name, regionId}: Province) {

@@ -1,5 +1,5 @@
 export class Region {
-  id: number
+  id: string
   name: string
   constructor({name}: Region) {
     this.name = name
