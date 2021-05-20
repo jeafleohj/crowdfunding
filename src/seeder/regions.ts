@@ -1,0 +1,28 @@
+const regions = [
+  { id: "01", name: "AMAZONAS" },
+  { id: "02", name: "ANCASH" },
+  { id: "03", name: "APURIMAC" },
+  { id: "04", name: "AREQUIPA" },
+  { id: "05", name: "AYACUCHO" },
+  { id: "06", name: "CAJAMARCA" },
+  { id: "07", name: "CUSCO" },
+  { id: "08", name: "HUANCAVELICA" },
+  { id: "09", name: "HUANUCO" },
+  { id: "10", name: "ICA" },
+  { id: "11", name: "JUNIN" },
+  { id: "12", name: "LA LIBERTAD" },
+  { id: "13", name: "LAMBAYEQUE" },
+  { id: "14", name: "LIMA" },
+  { id: "15", name: "LORETO" },
+  { id: "16", name: "MADRE DE DIOS" },
+  { id: "17", name: "MOQUEGUA" },
+  { id: "18", name: "PASCO" },
+  { id: "19", name: "PIURA" },
+  { id: "20", name: "PUNO" },
+  { id: "21", name: "SAN MARTIN" },
+  { id: "22", name: "TACNA" },
+  { id: "23", name: "TUMBES" },
+  { id: "24", name: "CALLAO" },
+  { id: "25", name: "UCAYALI" }]
+
+  export { regions } 

@@ -2,7 +2,9 @@ import { createConnection, getRepository } from 'typeorm'
 import { DistrictEntity } from 'infrastructure/orm/typeorm/models/Ubigeo/District'
 import { ProvinceEntity } from 'infrastructure/orm/typeorm/models/Ubigeo/Province'
 import { RegionEntity } from 'infrastructure/orm/typeorm/models/Ubigeo/Region'
-import { districts, provinces, regions } from './ubigeo'
+import { districts } from './districts'
+import { provinces } from './provinces'
+import { regions } from './regions'
 
 const forEachAsync = (arr: any[], fn: any) =>  arr.reduce(
         (promise, value) => promise.then(() => fn(value)), Promise.resolve()
