@@ -335,96 +335,7 @@ Authorization: Bearer :token
     "phone": "0982374098324",
     "email": "jj@gmail.com"
   },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jj@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jj@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jj@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jj@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jj@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jj@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jj@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jj@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jj@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jj@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jjjkk@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jjjkk@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jjjkk@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "jjjkk@gmail.com"
-  },
-  {
-    "name": "carmelolll",
-    "lastname": "gallo perez",
-    "phone": "0982374098324",
-    "email": "vv@gmail.com"
-  }
+  ...
 ]
 // GET http://localhost:4000/volunteer/2
 // HTTP/1.1 200 OK
@@ -438,6 +349,7 @@ Authorization: Bearer :token
 #+END_SRC
 
 ** Giver
+*** Create giver
 #+begin_src restclient
 POST :base-url/giver
 Content-Type: application/json;charset=UTF-8
@@ -464,3 +376,8 @@ Connection: keep-alive
 Keep-Alive: timeout=5
 Request duration: 2.958812s
 #+END_SRC
+
+*** Get Givers
+GET {{baseUrl}}/giver/campaign/13 HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{token2}}

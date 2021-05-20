@@ -11,10 +11,10 @@ console.log(__dirname+"../infrastructure/orm/typeorm/models/**/*.ts")
 
 createConnection({
   type: "mysql",
-  host: "localhost",
-  database: "crowdfunding",
-  username: "root",
-  password: "password",
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
   synchronize: true,
   logging: false,
   entities: [
