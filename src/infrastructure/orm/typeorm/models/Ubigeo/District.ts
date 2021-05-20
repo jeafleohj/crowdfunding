@@ -13,6 +13,12 @@ export class DistrictEntity {
   })
   name: string
 
+  @Column({
+    length: 50,
+    type: "varchar",
+  })
+  clasification: string
+
   @ManyToOne(()=>ProvinceEntity, province=>province.districts)
   province: ProvinceEntity
 }
