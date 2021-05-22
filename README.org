@@ -1,5 +1,11 @@
 #+title: Crowdfunding
 #+PROPERTY: header-args :var base-url="http://localhost:4000" token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjIxMjEyMDgwLCJleHAiOjE2Mjk4NTIwODAsImp0aSI6IjJueGU0NHExdThoa29ydnRheXUifQ.jcXzH6NkmcsNeKlF14Jd0ND6eUaNaRVMa3C9d-pppQU"
+* Parchar multer
+Ejecutar el siguiente comando:
+#+begin_src sh
+patch -p0 < multer.patch
+#+end_src
+
 * DB
 - Run container :: ~docker-compose up~
 - Enter to container :: ~docker-compose exec mysql mysql -uroot -ppassword~
