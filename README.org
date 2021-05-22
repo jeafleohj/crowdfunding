@@ -5,7 +5,31 @@ Ejecutar el siguiente comando:
 #+begin_src sh
 patch -p0 < multer.patch
 #+end_src
+* Enviar archivos al servidor
+** Código demo en /html/ para el envio de un archivo al servidor
+#+name: multer:html
+#+begin_src html
+<form id="frmUploader" enctype="multipart/form-data"
+      action="http:/localhost:4000/user/test" method="post">
+  <input type="file" name="csv"  /> <br>
+  <input type="submit" name="submit" id="btnSubmit" value="Upload" />
+</form>
+#+end_src
+** Código demo en /js/ para el servicio en el servidor
+El input del /formdata/ tiene nombre _csv_ y este nombre se tiene que proporcionar en framework de ~multer~
+#+name: multer:js
+#+begin_src js
+import Router from 'koa-router'
+import multer from '@koa/multer'
+const userRouter = new Router()
 
+userRouter.prefix('/')
+userRouter
+  .post('/', upload.single('csv'), async (ctx: Context, next: Next) => {
+    console.log(ctx.file.buffer.toString('utf-8'))
+    ctx.status = 200
+  })
+#+end_src
 * DB
 - Run container :: ~docker-compose up~
 - Enter to container :: ~docker-compose exec mysql mysql -uroot -ppassword~
