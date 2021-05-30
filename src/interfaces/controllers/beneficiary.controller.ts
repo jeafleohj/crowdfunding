@@ -1,7 +1,7 @@
 import { CreateBeneficiary } from 'application/use_cases/beneficiary/CreateBeneficiary'
 import { RemoveBeneficiary } from 'application/use_cases/beneficiary/RemoveBeneficiary'
 import { UpdateBeneficiary } from 'application/use_cases/beneficiary/UpdateBeneficiary'
-import { GetDistrict } from 'application/use_cases/ubigeo'
+import { GetDistrict, GetProvince } from 'application/use_cases/ubigeo'
 import { Beneficiary } from 'domain/entity'
 import { Context, Next } from 'koa'
 import { BeneficiaryDTO } from 'utils/multipleBeneficiary/BeneficiaryDTO'
@@ -22,6 +22,16 @@ const createBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
     next()
 }
 
+const getLocation = async (districtId: number, ctx: Context): Promise<void> => {
+    const district = await GetDistrict(districtId, ctx)
+    if (district !== undefined){
+        console.log(district.provinceId)
+        // const provinceId = Number(district.provinceId)
+        // const province = await GetProvince(provinceId, ctx)
+        // console.log(`${district.id} ${province.id} ${province.regionId}`);
+    }
+}
+
 const multipleBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
 
     const filePath = ctx.file.path
@@ -40,7 +50,7 @@ const multipleBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
             else {
                 const newBeneficiary = validatedEl.newBeneficiary
                 const idDistrict = Number(newBeneficiary.district)
-                // let response = await GetDistrict(idDistrict, ctx)
+                const response = getLocation(idDistrict, ctx)
                 // console.log(response);
             }
         });

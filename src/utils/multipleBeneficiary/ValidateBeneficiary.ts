@@ -1,15 +1,4 @@
 import { BeneficiaryDTO } from "./BeneficiaryDTO"
-import { Context, Next } from 'koa'
-import { GetDistrict } from "application/use_cases/ubigeo"
-import { IUbigeoRepository } from 'domain/repository'
-
-function getLocation(id: number): any{
-    // const ubigeoRepository : IUbigeoRepository
-
-    // const response = ubigeoRepository.getDistrict(id)
-    // console.log(response);
-    
-}
   
 class BeneficiaryData {
     name: string
@@ -94,10 +83,7 @@ function validate(beneficiary: BeneficiaryDTO): BeneficiaryOut {
     else errors.push('El flag de discapacitado debe ser 1 si posee alguna discapacidad o 0 en caso contrario')
     if (validateAddress(beneficiary.DIRECCION)) newBeneficiary.address = beneficiary.DIRECCION
     else errors.push('La dirección debe tener solo letras y máximo 150 caracteres ')
-    if (validateDistrict(beneficiary.UBIGEO)) {
-        newBeneficiary.district = Number(beneficiary.UBIGEO)
-        getLocation(newBeneficiary.district)
-    }
+    if (validateDistrict(beneficiary.UBIGEO)) newBeneficiary.district = Number(beneficiary.UBIGEO)
     else errors.push('El ubigeo debe tener 6 dígitos')
     return { errors, newBeneficiary }
 }
