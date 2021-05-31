@@ -1,5 +1,7 @@
+import { Beneficiary } from './../../domain/entity/Beneficiary';
 import { BeneficiaryDTO } from "./BeneficiaryDTO"
-  
+import { UbigeoRepository } from 'infrastructure/repository';
+
 class BeneficiaryData {
     name: string
     lastname: string
@@ -18,7 +20,7 @@ class BeneficiaryData {
 
 class BeneficiaryOut {
     errors: Array<String>
-    newBeneficiary: BeneficiaryData
+    beneficiaryData: Beneficiary
 }
 
 function validateDNI(dni: string): Boolean {
@@ -61,7 +63,11 @@ function validateDistrict(distric: string): Boolean {
     return isValid
 }
 
-function validate(beneficiary: BeneficiaryDTO): BeneficiaryOut {
+// async function getLocation(districtId: Number): Number {
+    
+// }
+
+async function validate(beneficiary: BeneficiaryDTO): Promise<BeneficiaryOut> {
     let errors = Array<String>()
     let newBeneficiary = new BeneficiaryData()
 
@@ -83,9 +89,16 @@ function validate(beneficiary: BeneficiaryDTO): BeneficiaryOut {
     else errors.push('El flag de discapacitado debe ser 1 si posee alguna discapacidad o 0 en caso contrario')
     if (validateAddress(beneficiary.DIRECCION)) newBeneficiary.address = beneficiary.DIRECCION
     else errors.push('La dirección debe tener solo letras y máximo 150 caracteres ')
-    if (validateDistrict(beneficiary.UBIGEO)) newBeneficiary.district = Number(beneficiary.UBIGEO)
-    else errors.push('El ubigeo debe tener 6 dígitos')
-    return { errors, newBeneficiary }
+    if (validateDistrict(beneficiary.UBIGEO)) { 
+        const districId = Number(beneficiary.UBIGEO)
+        const ubigeoRepo = new UbigeoRepository()
+        const district = await ubigeoRepo.getDistrict(districId)
+        // console.log(district)
+    }
+    else errors.push('El ubigeo no existe')
+
+    let beneficiaryData = newBeneficiary as Beneficiary
+    return { errors, beneficiaryData }
 }
 
 export { validate }

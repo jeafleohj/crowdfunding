@@ -22,13 +22,14 @@ const createBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
     next()
 }
 
-const getLocation = async (districtId: number, ctx: Context): Promise<void> => {
-    const district = await GetDistrict(districtId, ctx)
-    if (district !== undefined){
-        console.log(district.provinceId)
-        // const provinceId = Number(district.provinceId)
-        // const province = await GetProvince(provinceId, ctx)
-        // console.log(`${district.id} ${province.id} ${province.regionId}`);
+async function validateBeneficiary(item: BeneficiaryDTO) {
+    let validatedEl = await validate(item)
+    if (validatedEl.errors.length > 0) {
+        return { error: item }
+    }
+    else {
+        const newBeneficiary = validatedEl.beneficiaryData
+        return { beneficiary: newBeneficiary}
     }
 }
 
@@ -36,26 +37,18 @@ const multipleBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
 
     const filePath = ctx.file.path
     const campaignId = ctx.params.id
-    let verifiedBenef = Array<Beneficiary>()
-    let errorBenef = Array<BeneficiaryDTO>()
+    var verifiedBenef = Array<Beneficiary>()
+    var errorBenef = Array<BeneficiaryDTO>()
 
-    csv({ delimiter: [";",","]})
-    .fromFile(filePath)
-    .then((beneficiaries: Array<BeneficiaryDTO>) => {
-        beneficiaries.forEach((element: BeneficiaryDTO) => {
-            let validatedEl = validate(element)
-            if (validatedEl.errors.length > 0) { 
-                errorBenef.push(element)
-            }
-            else {
-                const newBeneficiary = validatedEl.newBeneficiary
-                const idDistrict = Number(newBeneficiary.district)
-                const response = getLocation(idDistrict, ctx)
-                // console.log(response);
-            }
-        });
-        fs.unlinkSync(filePath);
-    })
+    csv({ delimiter: [";", ","] })
+        .fromFile(filePath)
+        .then(async (beneficiaries: Array<BeneficiaryDTO>) => {
+            const response = await Promise.all(
+                beneficiaries.map(validateBeneficiary)
+            )
+            console.log("beneficiarios validos-> ", response);
+            fs.unlinkSync(filePath);
+        })
 
     // console.log(ctx.file.buffer.toString('utf-8'))
     // const response = await CreateBeneficiary(data, ctx)
