@@ -12,7 +12,6 @@ export class ProvinceEntity {
 
   @Column({
     length: 50,
-    nullable: true,
     type: "varchar",
   })
   name: string
