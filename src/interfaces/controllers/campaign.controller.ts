@@ -4,6 +4,7 @@ import {
   GetAllCampaigns,
   ListBeneficiaries,
   GetCampaignById,
+  GetCover
 } from 'application/use_cases/campaign'
 import { UpdateCampaign } from 'application/use_cases/campaign/UpdateCampaign'
 import { Campaign } from 'domain/entity'
@@ -51,8 +52,8 @@ const updateCampaign = async (ctx: Context, next: Next) => {
 }
 
 const listBeneficaries = async (ctx: Context, next: Next) => {
-  let idCampaign = (ctx.request.query as any).idCampaign
-  let beneficiary = await ListBeneficiaries(idCampaign, ctx)
+  let campaignId = (ctx.request.query as any).idCampaign
+  let beneficiary = await ListBeneficiaries(campaignId, ctx)
   ctx.body = {
     error: false,
     data: beneficiary,
@@ -63,12 +64,18 @@ const listBeneficaries = async (ctx: Context, next: Next) => {
 }
 
 const getCampaignById = async (ctx: Context, next: Next) => {
-  let idCampaign = (ctx.request.query as any).id
-  const campaign = await GetCampaignById(idCampaign, ctx)
+  let campaignId = (ctx.request.query as any).id
+  const campaign = await GetCampaignById(campaignId, ctx)
   ctx.body = campaign
   ctx.status = 200
 }
 
+const getCover = async(ctx: Context) => {
+  const campaignId = ctx.params.id
+  const cover = await GetCover(campaignId, ctx)
+  ctx.body = cover
+  ctx.status = 200
+}
 
 export {
   createCampaign,
@@ -76,4 +83,5 @@ export {
   getCampaigns,
   listBeneficaries,
   updateCampaign,
+  getCover,
 }

@@ -2,6 +2,7 @@ import {
   createCampaign,
   getCampaignById,
   getCampaigns,
+  getCover,
   updateCampaign,
 } from 'interfaces/controllers/campaign.controller'
 import Router from 'koa-router'
@@ -14,6 +15,7 @@ campaignRouter
 
 campaignRouter
   .get('/', getCampaigns, getCampaignById)
+  .get('/cover/:id', getCover)
   .post('/', createCampaign)
   .put('/:id', updateCampaign)
 
