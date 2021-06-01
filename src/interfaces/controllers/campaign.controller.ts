@@ -4,7 +4,10 @@ import {
   GetAllCampaigns,
   ListBeneficiaries,
   GetCampaignById,
-  GetCover
+  GetCover,
+  GetDetails,
+  GetPublicCampaigns,
+
 } from 'application/use_cases/campaign'
 import { UpdateCampaign } from 'application/use_cases/campaign/UpdateCampaign'
 import { Campaign } from 'domain/entity'
@@ -77,11 +80,26 @@ const getCover = async(ctx: Context) => {
   ctx.status = 200
 }
 
+const getDetails = async(ctx: Context) => {
+  const campaignId = ctx.params.id
+  const cover = await GetDetails(campaignId, ctx)
+  ctx.body = cover
+  ctx.status = 200
+}
+
+const getPublicCampaigns = async(ctx: Context) => {
+  const campaigns = await GetPublicCampaigns(ctx)
+  ctx.body = campaigns
+  ctx.status = 200
+}
+
 export {
   createCampaign,
   getCampaignById,
   getCampaigns,
   listBeneficaries,
   updateCampaign,
+  getDetails,
   getCover,
+  getPublicCampaigns
 }

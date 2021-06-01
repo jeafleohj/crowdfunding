@@ -12,7 +12,6 @@ const campaignRouter = new Router()
 campaignRouter
   .prefix('/user/campaign')
 
-
 campaignRouter
   .get('/', getCampaigns, getCampaignById)
   .get('/cover/:id', getCover)

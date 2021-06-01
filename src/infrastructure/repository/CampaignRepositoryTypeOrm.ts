@@ -13,6 +13,16 @@ export class CampaignRepository implements ICampaignRepository {
   constructor() {
     this.repository = getRepository(CampaignEntity)
   }
+  
+  async getPublicCampaigns(): Promise<any> {
+    const campaigns = this.repository.find({ where: [
+        { status: campaignStatus.published },
+        { status: campaignStatus.distribution },
+        { status: campaignStatus.finalized },
+      ] 
+    })
+    return campaigns
+  }
 
   async addDonation(donation: Donation): Promise<any> {
 

@@ -8,9 +8,10 @@ import { logAuth  } from 'interfaces/routes/auth/logout'
 import { ubigeoRouter } from 'interfaces/routes/ubigeo'
 import { userRouter } from 'interfaces/routes/user'
 import { volunteerRouter } from 'interfaces/routes/volunteer'
-import jwt from 'koa-jwt'
+import { publicCampaignRouter } from 'interfaces/routes/publicCampaign'
 import { validateToken } from 'interfaces/controllers/tokenblacklisting.controller'
 import { giverRouter } from './giver'
+import jwt from 'koa-jwt'
 
 const Routes = new Router()
 
@@ -18,6 +19,7 @@ const public_routes = [
   authRouter,
   giverRouter,
   userRouter,
+  publicCampaignRouter,
 ]
 
 Routes.use(...public_routes.map(r=>r.routes()))
