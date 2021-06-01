@@ -1,5 +1,5 @@
 #+title: Crowdfunding
-#+PROPERTY: header-args :var base-url="http://localhost:4000" token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjIxMjEyMDgwLCJleHAiOjE2Mjk4NTIwODAsImp0aSI6IjJueGU0NHExdThoa29ydnRheXUifQ.jcXzH6NkmcsNeKlF14Jd0ND6eUaNaRVMa3C9d-pppQU"
+#+PROPERTY: header-args :var base-url="http://localhost:4000" token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjIyNTM2OTgxLCJleHAiOjE2MzExNzY5ODEsImp0aSI6IjFsNnpuMTNpaHBrcGRzbWo0YiJ9.q8p_mRF5Jj2RacIGW09KSrc4urq2ns9W5eE1HpBYnmg"
 * Parchar multer
 Ejecutar el siguiente comando:
 #+begin_src sh
@@ -37,7 +37,6 @@ userRouter
 ** Ubigeo
 - Fill /region/, /province/ and /district/ dbs run :: ~npm run seed~
 * Routes
-donanteId
 ** Ubigeo
 *** Regiones
 #+begin_src restclient
@@ -73,6 +72,29 @@ Content-Type: application/json;charset=UTF-8
 }
 #+end_src
 
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "name": "ariana",
+  "lastname": "perez",
+  "phone": "909823098123",
+  "email": "crowdfunding@gmail.com",
+  "document": null,
+  "createdAt": "2021-06-01T12:59:41.279Z",
+  "updateAt": "2021-06-01T12:59:41.279Z",
+  "id": 1
+}
+// POST http://localhost:4000/user
+// HTTP/1.1 200 OK
+// Vary: Origin
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 192
+// Date: Tue, 01 Jun 2021 07:59:41 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.227506s
+#+END_SRC
+
 ** Login
 #+begin_src restclient
 POST :base-url/auth
@@ -88,16 +110,16 @@ Content-Type: application/json;charset=UTF-8
 {
   "error": false,
   "data": {
-    "createdAt": "2021-05-17T05:41:06.416Z",
-    "updateAt": "2021-05-17T05:41:06.416Z",
-    "id": 2,
+    "createdAt": "2021-05-09T12:18:35.930Z",
+    "updateAt": "2021-05-09T12:18:36.285Z",
+    "id": 1,
     "name": "ariana",
     "lastname": "perez",
     "phone": "909823098123",
     "document": null,
     "email": "crowdfunding@gmail.com"
   },
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjIxMjEyMDgwLCJleHAiOjE2Mjk4NTIwODAsImp0aSI6IjJueGU0NHExdThoa29ydnRheXUifQ.jcXzH6NkmcsNeKlF14Jd0ND6eUaNaRVMa3C9d-pppQU",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjIyNTM2OTgxLCJleHAiOjE2MzExNzY5ODEsImp0aSI6IjFsNnpuMTNpaHBrcGRzbWo0YiJ9.q8p_mRF5Jj2RacIGW09KSrc4urq2ns9W5eE1HpBYnmg",
   "status": 200,
   "message": "ok"
 }
@@ -105,11 +127,11 @@ Content-Type: application/json;charset=UTF-8
 // HTTP/1.1 200 OK
 // Vary: Origin
 // Content-Type: application/json; charset=utf-8
-// Content-Length: 473
-// Date: Mon, 17 May 2021 00:41:20 GMT
+// Content-Length: 471
+// Date: Tue, 01 Jun 2021 08:43:01 GMT
 // Connection: keep-alive
 // Keep-Alive: timeout=5
-// Request duration: 0.127383s
+// Request duration: 0.143468s
 #+END_SRC
 
 #+begin_src restclient
@@ -191,9 +213,9 @@ Authorization: Bearer :token
     "description": null,
     "release": null,
     "ending": null,
-    "createdAt": "2021-05-17T05:41:57.889Z",
-    "updateAt": "2021-05-17T05:41:57.889Z",
-    "id": 1
+    "createdAt": "2021-06-01T13:43:37.348Z",
+    "updateAt": "2021-06-01T13:43:37.348Z",
+    "id": 29
   },
   "status": 200,
   "message": "ok"
@@ -202,11 +224,11 @@ Authorization: Bearer :token
 // HTTP/1.1 200 OK
 // Vary: Origin
 // Content-Type: application/json; charset=utf-8
-// Content-Length: 274
-// Date: Mon, 17 May 2021 00:41:57 GMT
+// Content-Length: 275
+// Date: Tue, 01 Jun 2021 08:43:37 GMT
 // Connection: keep-alive
 // Keep-Alive: timeout=5
-// Request duration: 0.020450s
+// Request duration: 0.118600s
 #+END_SRC
 
 *** Update campaing
@@ -435,54 +457,38 @@ Authorization: Bearer {{token2}}
 *** Register donation
 **** New event
 #+begin_src restclient
-POST :base-url/giver/1/donation/
+POST :base-url/giver/31/donation/
 Content-TypE: application/json;charset=UTF-8
 Authorization: Bearer :token
 {
-  "giverId": 12,
+  "campaignId": 29,
   "donations": [
      {
        "donationId": 14,
        "amount": 10
      }
   ],
-  "pickup": false,
+  "pickup": true,
   "event": {
-    "eventId": "12-16-20",
-    "date": "12-16-20",
-    "reference": "Al frente de tottus",
+    "startDate": "12-16-20",
+    "details": "Al frente de tottus",
     "address": "Av Predo Miot 512"
   }
 }
 #+end_src
 
 #+RESULTS:
-#+BEGIN_SRC js
-{
-  "giverId": 12,
-  "donations": [
-    {
-      "donationId": 14,
-      "amount": 10
-    }
-  ],
-  "pickup": false,
-  "event": {
-    "eventId": "12-16-20",
-    "date": "12-16-20",
-    "reference": "Al frente de tottus",
-    "address": "Av Predo Miot 512"
-  }
-}
-// POST http://localhost:4000/giver/1/donation/
-// HTTP/1.1 200 OK
-// Vary: Origin
-// Content-Type: application/json; charset=utf-8
-// Content-Length: 186
-// Date: Tue, 01 Jun 2021 05:39:53 GMT
-// Connection: keep-alive
-// Keep-Alive: timeout=5
-// Request duration: 0.026590s
+#+BEGIN_SRC text
+OK
+POST http://localhost:4000/giver/31/donation/
+HTTP/1.1 200 OK
+Vary: Origin
+Content-Type: text/plain; charset=utf-8
+Content-Length: 2
+Date: Tue, 01 Jun 2021 09:28:39 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Request duration: 0.363308s
 #+END_SRC
 
 **** Defined events 
@@ -500,7 +506,21 @@ Authorization: Bearer :token
   ],
   "pickup": false,
   "event": {
-    "eventId": 1
+    "id": 1
   }
 }
 #+end_src
+
+#+RESULTS:
+#+BEGIN_SRC text
+Method not implemented.
+POST http://localhost:4000/giver/1/donation/
+HTTP/1.1 500 Internal Server Error
+Vary: Origin
+Content-Type: text/plain; charset=utf-8
+Content-Length: 23
+Date: Tue, 01 Jun 2021 09:54:20 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Request duration: 0.039343s
+#+END_SRC
