@@ -1,6 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn} from 'typeorm'
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
 import { giverStatus } from 'domain/entity/Giver';
-import { CampaignEntity } from '.'
+import { CampaignEntity, GiverDonationEntity } from '.'
 import { SharedProps } from './SharedProps'
 
 @Entity('giver')
@@ -44,6 +44,9 @@ export class GiverEntity extends SharedProps {
     nullable: true
   })
   eventId: number
+
+  @OneToMany(() => GiverDonationEntity, giverdonation => giverdonation.giverId )
+  giverDonations!: GiverDonationEntity[]
 
   @ManyToOne(() => CampaignEntity, campaign => campaign.givers)
   campaign: number

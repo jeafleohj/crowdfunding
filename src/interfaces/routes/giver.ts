@@ -8,7 +8,7 @@ giverRouter.prefix('/giver')
 
 giverRouter
   .post('/', createGiver)
-  .post('/:giverId/donation/', addDonations)
+  .post('/:giverId/donation', addDonations)
   .get('/:id/campaign/:campaign', getGiver)
   .get('/campaign/:campaign', listGivers)
   // .put('/', updateDonation)

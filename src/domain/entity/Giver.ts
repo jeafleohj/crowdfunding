@@ -1,3 +1,4 @@
+import { GiverDonation } from 'domain/entity';
 import { Campaign } from "./Campaign"
 
 export enum giverStatus {
@@ -16,6 +17,7 @@ export class Giver {
   campaign: number
   eventId: number
   status: giverStatus
+  giverDonations: GiverDonation[]
 
   constructor(giver: Partial<Giver>) {
     const {

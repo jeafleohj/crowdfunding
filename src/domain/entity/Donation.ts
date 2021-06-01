@@ -1,3 +1,4 @@
+import { GiverDonation } from 'domain/entity';
 export class Donation {
   id: number
   name: string
@@ -7,6 +8,7 @@ export class Donation {
   collected: number
   total: number
   campaign: number
+  giverDonations: GiverDonation[]
 
   constructor({name,description, category, amountByBeneficiary, campaign, total}
               :Donation) {

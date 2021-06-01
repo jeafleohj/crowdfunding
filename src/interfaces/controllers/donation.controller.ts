@@ -56,7 +56,6 @@ const addDonations = async (ctx: Context, next: Next) => {
     donation.giverId = giverId
     return donation
   })
-  console.log(donations)
 
 //  Listo para insertar
   if ( !event.id && pickup ) {
@@ -72,8 +71,9 @@ const addDonations = async (ctx: Context, next: Next) => {
 
   }
 
-  await AddDonations(donations, ctx)
-
+  const response = await AddDonations(donations, ctx)
+  console.log(response);
+  
   ctx.status = 200
 }
 
