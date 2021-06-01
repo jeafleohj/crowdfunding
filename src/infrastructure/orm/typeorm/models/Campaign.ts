@@ -49,13 +49,12 @@ export class CampaignEntity extends SharedProps {
 
   @ManyToMany(() => BeneficiaryEntity, {
     cascade: true,
-    eager: true
   })
   @JoinTable()
   beneficiaries: BeneficiaryEntity[]
 
   @OneToMany(() => DonationEntity, donation => donation.campaign, {
-    cascade: true
+    cascade: true,
   })
   donations!: DonationEntity[]
 
