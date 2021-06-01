@@ -7,10 +7,11 @@ import { createConnection } from 'typeorm'
 import Routes from 'interfaces/routes'
 import {
   BeneficiaryRepository,
-  CampaignRepository,
-  GiverRepository,
   CampaignEventRepository,
+  CampaignRepository,
   DonationRepository,
+  GiverDonationRepository,
+  GiverRepository,
   TokenBlacklistingRepository,
   UbigeoRepository,
   UserRepository,
@@ -21,25 +22,27 @@ import {
   ICampaignRepository,
   ICampaingEventRepository,
   IDonationRepository,
+  IGiverDonationRepository,
+  IGiverRepository,
   ITokenBlacklistingRepository,
   IUbigeoRepository,
   IUserRepository,
   IVolunteerRepository,
-  IGiverRepository,
 } from 'domain/repository'
 import { mailing } from 'infrastructure/config/mailing'
 
 declare module "koa" {
   interface BaseContext {
     beneficiaryRepository: IBeneficiaryRepository
-    campaignRepository: ICampaignRepository
     campaignEventRepository: ICampaingEventRepository
+    campaignRepository: ICampaignRepository
     donationRepository: IDonationRepository
+    giverDonationRepository: IGiverDonationRepository
+    giverRepository: IGiverRepository
     tokenBlacklistingRepository: ITokenBlacklistingRepository
     ubigeoRepository: IUbigeoRepository
     userRepository: IUserRepository
     volunteerRepository: IVolunteerRepository
-    giverRepository: IGiverRepository
     mailing: Function
   }
 }
@@ -74,6 +77,7 @@ createConnection({
     app.context.volunteerRepository = new VolunteerRepository()
     app.context.campaignEventRepository =  new CampaignEventRepository()
     app.context.giverRepository =  new GiverRepository()
+    app.context.giverDonationRepository =  new GiverDonationRepository()
     app.context.mailing = mailing
   })
 

@@ -1,6 +1,7 @@
 export { GiverRepository } from './GiverRepository';
 export { BeneficiaryRepository } from './BeneficiaryRepository'
 export { CampaignRepository } from './CampaignRepositoryTypeOrm'
+export { GiverDonationRepository } from './GiverDonationRepositoryTypeOrm'
 export { CampaignEventRepository } from './CampaignEventRepositoryTypeOrm'
 export { DonationRepository } from './DonationRepository'
 export { TokenBlacklistingRepository } from './TokenBlacklistingRepositoryTypeOrm'
