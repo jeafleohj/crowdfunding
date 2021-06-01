@@ -37,6 +37,7 @@ userRouter
 ** Ubigeo
 - Fill /region/, /province/ and /district/ dbs run :: ~npm run seed~
 * Routes
+donanteId
 ** Ubigeo
 *** Regiones
 #+begin_src restclient
@@ -430,3 +431,76 @@ Request duration: 2.958812s
 GET {{baseUrl}}/giver/campaign/13 HTTP/1.1
 content-type: application/json
 Authorization: Bearer {{token2}}
+
+*** Register donation
+**** New event
+#+begin_src restclient
+POST :base-url/giver/1/donation/
+Content-TypE: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+  "giverId": 12,
+  "donations": [
+     {
+       "donationId": 14,
+       "amount": 10
+     }
+  ],
+  "pickup": false,
+  "event": {
+    "eventId": "12-16-20",
+    "date": "12-16-20",
+    "reference": "Al frente de tottus",
+    "address": "Av Predo Miot 512"
+  }
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "giverId": 12,
+  "donations": [
+    {
+      "donationId": 14,
+      "amount": 10
+    }
+  ],
+  "pickup": false,
+  "event": {
+    "eventId": "12-16-20",
+    "date": "12-16-20",
+    "reference": "Al frente de tottus",
+    "address": "Av Predo Miot 512"
+  }
+}
+// POST http://localhost:4000/giver/1/donation/
+// HTTP/1.1 200 OK
+// Vary: Origin
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 186
+// Date: Tue, 01 Jun 2021 05:39:53 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.026590s
+#+END_SRC
+
+**** Defined events 
+#+begin_src restclient
+POST :base-url/giver/1/donation/
+Content-TypE: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+  "giverId": 12,
+  "donations": [
+    {
+      "donationId": 14,
+      "amount": 10
+    }
+  ],
+  "pickup": false,
+  "event": {
+    "eventId": 1
+  }
+}
+#+end_src
