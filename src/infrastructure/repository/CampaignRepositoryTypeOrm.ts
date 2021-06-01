@@ -98,7 +98,6 @@ export class CampaignRepository implements ICampaignRepository {
         },
       }
     })
-    console.log(campaign)
     return campaign
   }
 
