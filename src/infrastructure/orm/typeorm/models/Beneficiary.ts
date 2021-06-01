@@ -50,7 +50,7 @@ export class BeneficiaryEntity extends SharedProps {
   province?: number
 
   @Column({
-    length: 50,
+    length: 150,
     type: 'varchar',
     nullable: true,
   })

@@ -12,7 +12,6 @@ export class RegionEntity {
   @Column({
     type: "varchar",
     length: 50,
-    nullable: true
   })
   name: string
 
