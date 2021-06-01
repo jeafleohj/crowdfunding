@@ -90,9 +90,6 @@ export class CampaignRepository implements ICampaignRepository {
 
   async listBeneficiaries(id: number): Promise<any> {
     let campaign = await this.repository.findOne({
-      select: [
-        'id', 'name'
-      ],
       where: [{id: id}],
       join: {
         alias: 'campaign',
