@@ -28,6 +28,12 @@ export class DonationEntity extends SharedProps {
   @Column()
   amountByBeneficiary: number
 
+  @Column()
+  collected: number
+
+  @Column()
+  total: number
+
   @ManyToOne(() => CampaignEntity, campaign => campaign.donations)
   campaign: number
 
