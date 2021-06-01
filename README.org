@@ -38,9 +38,27 @@ userRouter
 - Fill /region/, /province/ and /district/ dbs run :: ~npm run seed~
 * Routes
 ** Ubigeo
-- Departamentos :: GET ~/regions~
-- Provincias :: GET ~/provinces/:id~
-- Distritos :: GET ~/districts/:id~
+*** Regiones
+#+begin_src restclient
+GET :base-url/ubigeo/regions
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+#+end_src
+
+*** Provincias
+#+begin_src restclient
+GET :base-url/ubigeo/provinces/01
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+#+end_src
+
+*** Distrito
+#+begin_src restclient
+GET :base-url/ubigeo/districts/1803
+Content-TypE: application/json;charset=UTF-8
+Authorization: Bearer :token
+#+end_src
+
 ** Create user
 #+begin_src restclient
 POST :base-url/user
