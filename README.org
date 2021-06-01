@@ -22,6 +22,7 @@ El input del /formdata/ tiene nombre _csv_ y este nombre se tiene que proporcion
 import Router from 'koa-router'
 import multer from '@koa/multer'
 const userRouter = new Router()
+const upload = multer()
 
 userRouter.prefix('/')
 userRouter
