@@ -13,9 +13,9 @@ export class Beneficiary {
   nse: string
   document: string
   age: number
-  district?: number
-  province?: number
-  region?: number
+  district?: string
+  province?: string
+  region?: string
   address: string
   handicapped: boolean
   status: beneficiaryStatus
