@@ -1,6 +1,7 @@
 import { Beneficiary } from './../../domain/entity/Beneficiary';
 import { BeneficiaryDTO } from "./BeneficiaryDTO"
 import { UbigeoRepository } from 'infrastructure/repository';
+import { SimpleConsoleLogger } from 'typeorm';
 
 class BeneficiaryData {
     name: string
@@ -58,14 +59,16 @@ function validateHdc(handicapped: string): Boolean {
     return isValid
 }
 
-function validateDistrict(distric: string): Boolean {
-    const isValid = /^-?\d+$/.test(distric) && distric.length <= 6
+async function validateDistrict(distric: string): Promise<Boolean> {
+    let isValid = /^-?\d+$/.test(distric) && distric.length <= 6
+    const districId = Number(distric)
+    const ubigeoRepo = new UbigeoRepository()
+    const district = await ubigeoRepo.getDistrict(districId)
+    console.log(district);
+    
+    isValid = isValid && district !== undefined
     return isValid
 }
-
-// async function getLocation(districtId: Number): Number {
-    
-// }
 
 async function validate(beneficiary: BeneficiaryDTO): Promise<BeneficiaryOut> {
     let errors = Array<String>()
@@ -89,12 +92,7 @@ async function validate(beneficiary: BeneficiaryDTO): Promise<BeneficiaryOut> {
     else errors.push('El flag de discapacitado debe ser 1 si posee alguna discapacidad o 0 en caso contrario')
     if (validateAddress(beneficiary.DIRECCION)) newBeneficiary.address = beneficiary.DIRECCION
     else errors.push('La dirección debe tener solo letras y máximo 150 caracteres ')
-    if (validateDistrict(beneficiary.UBIGEO)) { 
-        const districId = Number(beneficiary.UBIGEO)
-        const ubigeoRepo = new UbigeoRepository()
-        const district = await ubigeoRepo.getDistrict(districId)
-        // console.log(district)
-    }
+    if (validateDistrict(beneficiary.UBIGEO)) newBeneficiary.district = Number(beneficiary.UBIGEO)
     else errors.push('El ubigeo no existe')
 
     let beneficiaryData = newBeneficiary as Beneficiary

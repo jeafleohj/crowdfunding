@@ -9,6 +9,9 @@ import { validate } from 'utils/multipleBeneficiary/ValidateBeneficiary'
 const csv = require('csvtojson')
 const fs = require('fs');
 
+var errorBenef = Array<BeneficiaryDTO>()
+var verifiedBenef = Array<Beneficiary>()
+
 const createBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
     let data = ctx.request.body
 
@@ -22,14 +25,15 @@ const createBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
     next()
 }
 
-async function validateBeneficiary(item: BeneficiaryDTO) {
+async function validateBeneficiary(ctx: Context, item: BeneficiaryDTO, campaignId: number) {
     let validatedEl = await validate(item)
     if (validatedEl.errors.length > 0) {
-        return { error: item }
+        errorBenef.push(item)
     }
     else {
         const newBeneficiary = validatedEl.beneficiaryData
-        return { beneficiary: newBeneficiary}
+        newBeneficiary.campaign = campaignId
+        // const response = await CreateBeneficiary(newBeneficiary, ctx)
     }
 }
 
@@ -37,22 +41,16 @@ const multipleBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
 
     const filePath = ctx.file.path
     const campaignId = ctx.params.id
-    var verifiedBenef = Array<Beneficiary>()
-    var errorBenef = Array<BeneficiaryDTO>()
 
     csv({ delimiter: [";", ","] })
         .fromFile(filePath)
         .then(async (beneficiaries: Array<BeneficiaryDTO>) => {
-            const response = await Promise.all(
-                beneficiaries.map(validateBeneficiary)
-            )
-            console.log("beneficiarios validos-> ", response);
+            const response = await Promise.all(beneficiaries.map(el => validateBeneficiary(ctx, el, campaignId)))
+            console.log("beneficiarios validos-> ", verifiedBenef);
+            // console.log("beneficiarios erroneos-> ", errorBenef);
             fs.unlinkSync(filePath);
         })
 
-    // console.log(ctx.file.buffer.toString('utf-8'))
-    // const response = await CreateBeneficiary(data, ctx)
-    // ctx.body = response.beneficiaries
     ctx.status = 200
     ctx.message = "Archivo cargado correctamente"
 }
