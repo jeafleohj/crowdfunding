@@ -36,7 +36,7 @@ export class UbigeoRepository implements IUbigeoRepository {
     return districts
   }
 
-  async getDistrict(id: number): Promise<District> {
+  async getDistrict(id: string): Promise<District> {
     const district = await this.districtRepository.findOne({
       where: [
         { id }
@@ -51,7 +51,7 @@ export class UbigeoRepository implements IUbigeoRepository {
     return district as DistrictEntity
   }
 
-  async getProvince(id: number): Promise<Province> {
+  async getProvince(id: string): Promise<Province> {
     const province = await this.provinceRepository.findOne(id)
     return province as ProvinceEntity
   }

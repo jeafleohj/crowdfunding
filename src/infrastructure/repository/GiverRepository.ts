@@ -18,6 +18,15 @@ export class GiverRepository implements IGiverRepository {
     return givers
   }
 
+  async getGiverDonations(giverId: number): Promise<any> {
+    const donations = await this.repository
+      .createQueryBuilder("giver")
+      .leftJoinAndSelect("giver.giverDonations", "giverdonation")
+      .where("giver.id = :giverId", { giverId: giverId })
+      .getMany()
+    return donations
+  }
+
   update(giver: Giver): Promise<any> {
     throw new Error('Method not implemented.');
   }

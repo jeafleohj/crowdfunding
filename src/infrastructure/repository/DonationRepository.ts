@@ -13,6 +13,7 @@ export class DonationRepository implements IDonationRepository {
   async getByCampaign(campaignId: number): Promise<Donation[]> {
     const donations = await this.repository
       .createQueryBuilder("donation")
+      .leftJoinAndSelect("donation.giverDonations", "giverdonation")
       .where("donation.campaignId = :campaignId", { campaignId: campaignId })
       .getMany()
     return donations

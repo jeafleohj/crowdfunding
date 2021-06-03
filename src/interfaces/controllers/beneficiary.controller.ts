@@ -33,6 +33,7 @@ async function validateBeneficiary(ctx: Context, item: BeneficiaryDTO, campaignI
     else {
         const newBeneficiary = validatedEl.beneficiaryData
         newBeneficiary.campaign = campaignId
+        verifiedBenef.push(newBeneficiary)
         // const response = await CreateBeneficiary(newBeneficiary, ctx)
     }
 }
@@ -46,7 +47,7 @@ const multipleBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
         .fromFile(filePath)
         .then(async (beneficiaries: Array<BeneficiaryDTO>) => {
             const response = await Promise.all(beneficiaries.map(el => validateBeneficiary(ctx, el, campaignId)))
-            console.log("beneficiarios validos-> ", verifiedBenef);
+            // console.log("beneficiarios validos-> ", verifiedBenef);
             // console.log("beneficiarios erroneos-> ", errorBenef);
             fs.unlinkSync(filePath);
         })
