@@ -42,6 +42,4 @@ export class DonationRepository implements IDonationRepository {
     return this.repository.remove(updated)
   }
 
-  
-
 }

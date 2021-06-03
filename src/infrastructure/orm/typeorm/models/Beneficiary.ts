@@ -41,13 +41,13 @@ export class BeneficiaryEntity extends SharedProps {
   age: number
 
   @Column({
-    length: 2,
+    length: 6,
     type: "char",
   })
   district?: string
 
   @Column({
-    length: 6,
+    length: 2,
     type: "char",
   })
   region?: string
