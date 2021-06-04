@@ -34,7 +34,7 @@ export class DonationEntity extends SharedProps {
   @Column()
   total: number
 
-  @OneToMany(() => GiverDonationEntity, giverdonation => giverdonation.donationId )
+  @OneToMany(() => GiverDonationEntity, giverdonation => giverdonation.donation )
   giverDonations: GiverDonationEntity[]
 
   @ManyToOne(() => CampaignEntity, campaign => campaign.donations)
