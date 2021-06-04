@@ -10,11 +10,11 @@ export class GiverDonationEntity extends SharedProps {
 
   @ManyToOne(() => DonationEntity, donation => donation.giverDonations )
   @JoinTable()
-  donationId: number
+  donation: number
 
   @ManyToOne(() => GiverEntity, giver => giver.giverDonations)
   @JoinTable()
-  giverId: number
+  giver: number
   
   @Column()
   amount: number

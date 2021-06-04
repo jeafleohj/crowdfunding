@@ -45,7 +45,7 @@ export class GiverEntity extends SharedProps {
   })
   eventId: number
 
-  @OneToMany(() => GiverDonationEntity, giverdonation => giverdonation.giverId )
+  @OneToMany(() => GiverDonationEntity, giverdonation => giverdonation.giver )
   giverDonations!: GiverDonationEntity[]
 
   @ManyToOne(() => CampaignEntity, campaign => campaign.givers)

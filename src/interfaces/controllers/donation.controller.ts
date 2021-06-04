@@ -53,7 +53,7 @@ const addDonations = async (ctx: Context, next: Next) => {
   let { campaignId, donations, event, pickup }  = data
 
   donations.map( donation => {
-    donation.giverId = giverId
+    donation.giver = giverId
     return donation
   })
 

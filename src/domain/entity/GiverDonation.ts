@@ -1,11 +1,11 @@
 export class GiverDonation {
   id: number
-  donationId: number
-  giverId: number
+  donation: number
+  giver: number
   amount: number
-  constructor({ giverId, donationId, amount } : GiverDonation ) {
-    this.giverId = giverId
-    this.donationId = donationId
+  constructor({ giver, donation, amount } : GiverDonation ) {
+    this.giver = giver
+    this.donation = donation
     this.amount = amount
   }
 }
