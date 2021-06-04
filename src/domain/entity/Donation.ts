@@ -10,6 +10,7 @@ export class Donation {
   campaign: number
   giverDonations: GiverDonation[]
 
+  constructor({})
   constructor({name,description, category, amountByBeneficiary, campaign, total}
               :Donation) {
     this.name = name

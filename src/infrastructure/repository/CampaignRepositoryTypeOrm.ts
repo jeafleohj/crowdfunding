@@ -2,10 +2,11 @@ import { getRepository, Repository } from 'typeorm'
 import { CampaignEntity } from 'infrastructure/orm/typeorm/models/Campaign'
 import { ICampaignRepository } from 'domain/repository/CampaignRepository'
 import { Beneficiary } from 'domain/entity/Beneficiary'
-import { Campaign, campaignStatus } from 'domain/entity/Campaign'
+import { Campaign, campaignStatus, campaignType } from 'domain/entity/Campaign'
 import { Donation } from 'domain/entity/Donation'
 import { ErrorHandler } from 'application/error'
 import { Giver } from 'domain/entity'
+import { BeneficiaryRepository } from '.'
 
 
 export class CampaignRepository implements ICampaignRepository {
@@ -28,7 +29,7 @@ export class CampaignRepository implements ICampaignRepository {
 
     let campaign = await this.repository.findOne({
       select: [
-        'id', 'name'
+        'id', 'name', 'type',
       ],
       where: [{id: donation.campaign}],
       join: {
@@ -39,6 +40,12 @@ export class CampaignRepository implements ICampaignRepository {
       }
     }) as CampaignEntity
 
+    if (campaign.type === campaignType.material) {
+      const campaignBenef = await this.listBeneficiaries(campaign.id)      
+      donation.total = campaignBenef.beneficiaries.length * donation.amountByBeneficiary
+      console.log(donation.total)
+    }
+    
     if (campaign.donations === undefined) {
       campaign.donations = [donation]
     } else {

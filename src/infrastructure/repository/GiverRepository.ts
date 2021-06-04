@@ -33,18 +33,6 @@ export class GiverRepository implements IGiverRepository {
   }
 
   async getById(giverId: number, campaignId: number): Promise<any> {
-    // const giver = await this.repository.findOne({
-    //   select: [
-    //     'id', 'name', 'lastname'
-    //   ],
-    //   where: [{ id: giverId }],
-    //   join: {
-    //     alias: 'giver',
-    //     leftJoinAndSelect: {
-    //       campaign: 'giver.campaign',
-    //     },
-    //   }
-    // })
     const stageRecolection = CampaignEventType.collection
 
     const giver = await this.repository

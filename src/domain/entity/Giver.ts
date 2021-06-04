@@ -4,7 +4,8 @@ import { Campaign } from "./Campaign"
 export enum giverStatus {
   initial = 'registrado', //cuando se registra en la web
   pending = 'pendiente',  //cuando se registra sus donaciones desde el link del correo
-  complete = 'completo'   //cuando se ha realizado la recepción de donaciones
+  // incomplete = 'incompleto', //cuando se ha realizado la recepción de donaciones pero no las ha completado
+  complete = 'completo'   //cuando se ha realizado la recepción de donaciones y las ha completado
 }
 
 export class Giver {
