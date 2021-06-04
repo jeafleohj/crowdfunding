@@ -41,4 +41,9 @@ export class BeneficiaryRepository implements IBeneficiaryRepository {
     return this.repository.save(updated)
   }
 
+  async getTotalByCampaign(campaignId: number): Promise<number> {
+    let total = await this.repository.count({ where: { campaignId: campaignId } })
+    return total
+  }
+
 }

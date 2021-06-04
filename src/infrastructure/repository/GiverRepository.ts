@@ -23,6 +23,7 @@ export class GiverRepository implements IGiverRepository {
     const donations = await this.repository
       .createQueryBuilder("giver")
       .leftJoinAndSelect("giver.giverDonations", "giverdonation")
+      .leftJoinAndSelect("giverdonation.donationId", "donation")
       .where("giver.id = :giverId", { giverId: giverId })
       .getMany()
     return donations
@@ -33,18 +34,6 @@ export class GiverRepository implements IGiverRepository {
   }
 
   async getById(giverId: number, campaignId: number): Promise<any> {
-    // const giver = await this.repository.findOne({
-    //   select: [
-    //     'id', 'name', 'lastname'
-    //   ],
-    //   where: [{ id: giverId }],
-    //   join: {
-    //     alias: 'giver',
-    //     leftJoinAndSelect: {
-    //       campaign: 'giver.campaign',
-    //     },
-    //   }
-    // })
     const stageRecolection = CampaignEventType.collection
 
     const giver = await this.repository
