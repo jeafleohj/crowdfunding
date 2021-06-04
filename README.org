@@ -34,6 +34,8 @@ userRouter
 * DB
 - Run container :: ~docker-compose up~
 - Enter to container :: ~docker-compose exec mysql mysql -uroot -ppassword~
+- Create backup :: ~docker-compose exec mysql  mysqldump -uroot -ppassword --databases crowdfunding > file.sql~
+- Restore backup :: ~docker-compose exec -T mysql mysql -uroot -ppassword crowdfunding < file.sql~
 ** Ubigeo
 - Fill /region/, /province/ and /district/ dbs run :: ~npm run seed~
 * Routes
