@@ -278,10 +278,50 @@ Authorization: Bearer :token
 #+end_src
 
 *** Get beneficiary by campaign
+
+GET {{baseUrl}}/beneficiary?idCampaign=13
 #+begin_src restclient
-GET :base-url/beneficiary?idCampaign=2
+GET :base-url/beneficiary?idCampaign=13
 Authorization: Bearer :token
 #+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "error": false,
+  "data": [
+    {
+      "createdAt": "2021-06-01T12:28:15.290Z",
+      "updateAt": "2021-06-01T12:31:10.000Z",
+      "id": 10,
+      "name": "asdads",
+      "lastname": "asdads",
+      "maternal_lastname": "asdads",
+      "sex": "Femenino",
+      "nse": "NSE A",
+      "document": "42103549",
+      "age": 12,
+      "district": "",
+      "region": "",
+      "province": "0102",
+      "address": "asdadsa",
+      "handicapped": false,
+      "status": "asociado"
+    }
+  ],
+  "status": 200,
+  "message": "ok"
+}
+// GET http://localhost:4000/beneficiary?idCampaign=13
+// HTTP/1.1 200 OK
+// Vary: Origin
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 370
+// Date: Tue, 01 Jun 2021 20:02:46 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.012523s
+#+END_SRC
 
 *** Update beneficiary
 #+begin_src restclient
