@@ -23,6 +23,7 @@ export class GiverRepository implements IGiverRepository {
     const donations = await this.repository
       .createQueryBuilder("giver")
       .leftJoinAndSelect("giver.giverDonations", "giverdonation")
+      .leftJoinAndSelect("giverdonation.donationId", "donation")
       .where("giver.id = :giverId", { giverId: giverId })
       .getMany()
     return donations
