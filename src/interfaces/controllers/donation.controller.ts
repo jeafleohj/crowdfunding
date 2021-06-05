@@ -46,7 +46,7 @@ const addDonations = async (ctx: Context, next: Next) => {
   const giverId = ctx.params.giverId as number
   const data = ctx.request.body as {
     campaignId: number,
-    donations: GiverDonation[],
+    donations: Array<GiverDonation & {donationId?: number}>,
     event: CampaignEvent,
     pickup: boolean,
   }
@@ -55,6 +55,8 @@ const addDonations = async (ctx: Context, next: Next) => {
 
   donations.map( donation => {
     donation.giver = giverId
+    donation.donation = donation.donationId || 0
+    delete donation.donationId
     return donation
   })
 
