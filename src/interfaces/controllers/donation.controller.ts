@@ -10,6 +10,7 @@ import { CampaignEventType } from 'domain/entity/CampaignEvent'
 import { Context, Next } from 'koa'
 import * as UGiver from 'application/use_cases/giver'
 import { AddDonations } from 'application/use_cases/giverDonation'
+import { giverStatus } from 'domain/entity/Giver'
 
 
 const createDonation = async (ctx: Context, next: Next): Promise<void> => {
@@ -57,7 +58,6 @@ const addDonations = async (ctx: Context, next: Next) => {
     return donation
   })
 
-//  Listo para insertar
   if ( !event.id && pickup ) {
     const giver = await UGiver.GetById(giverId, campaignId, ctx) as Giver
     event.name = `${giver.name} ${giver.lastname} `
@@ -68,12 +68,14 @@ const addDonations = async (ctx: Context, next: Next) => {
     const newEvent = new CampaignEvent(event)
     const responseEvent = await CreateEvent(newEvent, ctx)
     event.id = responseEvent.id
-
   }
 
   const response = await AddDonations(donations, ctx)
-  console.log(response);
-  
+
+  await UGiver.UpdateGiver(giverId, {
+    status: giverStatus.initial
+  }, ctx)
+
   ctx.status = 200
 }
 
