@@ -1,9 +1,13 @@
 import { Context, Next } from 'koa'
 import uniqid from 'uniqid'
 import jwt from 'jsonwebtoken'
+import * as UGiver from 'application/use_cases/giver'
 import {
   CreateGiver, GetById, ListGivers, GetGiverDonations
 } from 'application/use_cases/giver/'
+import { giverStatus } from 'domain/entity/Giver'
+import { CollectDonations } from 'application/use_cases/giverDonation'
+import { GiverDonation } from 'domain/entity'
 
 async function generateUrl(payload: any): Promise<string> {
   const jid = uniqid()
@@ -58,9 +62,22 @@ const getGiverDonations = async (ctx: Context, next: Next): Promise<void> => {
   ctx.body = response
 }
 
+const collectGiverDonations = async (ctx: Context): Promise<void> => {
+  const giverId = ctx.params.giverId
+  const donations = ctx.request.body as Array<GiverDonation>
+  const response = await CollectDonations(donations, ctx)
+
+  await UGiver.UpdateGiver(giverId, {
+    status: giverStatus.complete},
+    ctx)
+
+  ctx.status = 200
+}
+
 export {
   createGiver,
   getGiver,
   listGivers,
-  getGiverDonations
+  getGiverDonations,
+  collectGiverDonations,
 }
