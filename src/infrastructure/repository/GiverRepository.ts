@@ -14,6 +14,8 @@ export class GiverRepository implements IGiverRepository {
   async getByCampaign(campaignId: number): Promise<any> {
     const givers = await this.repository
       .createQueryBuilder("giver")
+      .leftJoinAndSelect("giver.giverDonations", "giverdonation")
+      .leftJoinAndSelect("giverdonation.donation", "donation")
       .where("giver.campaignId = :campaignId", { campaignId: campaignId })
       .getMany()
     return givers
