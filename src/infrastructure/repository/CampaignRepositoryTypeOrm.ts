@@ -140,7 +140,16 @@ export class CampaignRepository implements ICampaignRepository {
   }
 
   async merge(payload: Partial<Campaign>): Promise<CampaignEntity> {
-    let campaign = await this.repository.findOne(payload.id as number) as CampaignEntity
+    let campaign = await this.repository
+      .findOne({
+        where: [{
+          id: payload.id
+        }],
+        relations: [
+          'beneficiaries'
+        ]
+      }) as CampaignEntity
+
     if ( campaign.beneficiaries.length === 0  ) {
       throw new ErrorHandler({
         status: 401,

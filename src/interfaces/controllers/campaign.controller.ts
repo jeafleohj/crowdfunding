@@ -49,7 +49,6 @@ const updateCampaign = async (ctx: Context, next: Next) => {
     image_url: ctx.request.body.image_url,
     description: ctx.request.body.description,
   }
-  //verify if beneficiary is empty
   const response =  await UpdateCampaign(payload, ctx)
   ctx.body = response
 }
