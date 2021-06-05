@@ -75,7 +75,7 @@ const addDonations = async (ctx: Context, next: Next) => {
   const response = await AddDonations(donations, ctx)
 
   await UGiver.UpdateGiver(giverId, {
-    status: giverStatus.initial
+    status: giverStatus.pending
   }, ctx)
 
   ctx.status = 200
