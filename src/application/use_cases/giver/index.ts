@@ -1,5 +1,5 @@
-export { GetGiverDonations } from './GetGiverDonations'
 export { CreateGiver } from './CreateGiver'
 export { GetById } from './GetById'
+export { GetGiverDonations } from './GetGiverDonations'
 export { ListGivers } from './ListGivers'
-
+export { UpdateGiver } from './UpdateGiver'

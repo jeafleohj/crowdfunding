@@ -2,3 +2,4 @@ node_modules
 dist
 .log
 database.sqlite
+tmp/csv/*

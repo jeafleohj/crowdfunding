@@ -31,8 +31,13 @@ export class GiverRepository implements IGiverRepository {
     return donations
   }
 
-  update(giver: Giver): Promise<any> {
-    throw new Error('Method not implemented.');
+  update(giverId: number, giver: Partial<Giver>): Promise<any> {
+    return this.repository
+      .createQueryBuilder()
+      .update()
+      .set(giver)
+      .where('id = :id', {id: giverId})
+      .execute()
   }
 
   async getById(giverId: number, campaignId: number): Promise<any> {
@@ -46,7 +51,7 @@ export class GiverRepository implements IGiverRepository {
       .where("giver.id = :id", { id: giverId })
       .andWhere("campaignEvent.stage = :stage", { stage: stageRecolection })
       .getOne()
- 
+
     return giver
   }
 }

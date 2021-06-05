@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc && tsc-alias",
     "start": "NODE_ENV=production node -r ./env.js dist/index.js",
-    "watch": "nodemon -e ts -w ./src --ignore ./src/seeder -x 'ts-node -r tsconfig-paths/register -r ./env.js src/index.ts --inspect'",
+    "watch": "nodemon -e ts -w ./src --ignore ./src/seeder -x 'ts-node --files -r tsconfig-paths/register -r ./env.js  src/index.ts --inspect'",
     "seed": "ts-node -r tsconfig-paths/register -r ./env.js src/seeder/seed.ts --inspect"
   },
   "author": "",
