@@ -138,18 +138,18 @@ export class CampaignRepository implements ICampaignRepository {
     return this.repository.save(new_campaign)
   }
 
-  async merge(payload: Partial<Campaign>): Promise<CampaignEntity> {
+  async merge(payload: Partial<Campaign>): Promise<any> {
     let campaign = await this.repository
       .findOne({
         where: [{
           id: payload.id
         }],
         relations: [
-          'beneficiaries'
+          'beneficiaryCampaign'
         ]
-      }) as CampaignEntity
+      }) as any
 
-    if ( campaign.beneficiaries.length === 0  ) {
+    if ( campaign.beneficiaryCampaign.length === 0  ) {
       throw new ErrorHandler({
         status: 401,
         message: 'Se tiene que agregar beneficiarios a la campaña',
