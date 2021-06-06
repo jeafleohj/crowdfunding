@@ -1,5 +1,6 @@
 import {
   IBeneficiaryCampaignRepository,
+  IBeneficiaryDonationRepository,
   IBeneficiaryRepository,
   ICampaignRepository,
   ICampaingEventRepository,
@@ -15,6 +16,7 @@ import {
 declare global {
   declare interface MyRepository {
     beneficiaryCampaignRepository: IBeneficiaryCampaignRepository
+    beneficiaryDonationRepository: IBeneficiaryDonationRepository
     beneficiaryRepository: IBeneficiaryRepository
     campaignEventRepository: ICampaingEventRepository
     campaignRepository: ICampaignRepository

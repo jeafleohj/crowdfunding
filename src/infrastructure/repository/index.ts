@@ -1,10 +1,10 @@
-export { BeneficiaryCamapaignRepository } from './BeneficiaryCampaignRepository';
-export { BeneficiaryRepository } from './BeneficiaryRepository'
+export { BeneficiaryCamapaignRepository } from './BeneficiaryCampaignRepositoryTypeOrm'
+export { BeneficiaryRepository } from './BeneficiaryRepositoryTypeOrm'
 export { CampaignEventRepository } from './CampaignEventRepositoryTypeOrm'
 export { CampaignRepository } from './CampaignRepositoryTypeOrm'
-export { DonationRepository } from './DonationRepository'
+export { DonationRepository } from './DonationRepositoryTypeOrm'
 export { GiverDonationRepository } from './GiverDonationRepositoryTypeOrm'
-export { GiverRepository } from './GiverRepository';
+export { GiverRepository } from './GiverRepositoryTypeOrm'
 export { TokenBlacklistingRepository } from './TokenBlacklistingRepositoryTypeOrm'
 export { UbigeoRepository } from './UbigeoRepositoryTypeOrm'
 export { UserRepository } from './UserRepositoryTypeOrm'

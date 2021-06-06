@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { CampaignEntity, GiverDonationEntity } from '.'
+import { BeneficiaryDonationEntity } from './BeneficiaryDonation'
 import { SharedProps } from './SharedProps'
 
 @Entity('donation')
@@ -39,5 +40,12 @@ export class DonationEntity extends SharedProps {
 
   @ManyToOne(() => CampaignEntity, campaign => campaign.donations)
   campaign: number
+
+
+  @OneToMany(
+    () => BeneficiaryDonationEntity,
+    beneficiaryDonation=> beneficiaryDonation.donation
+  )
+  beneficiaryDonation?: BeneficiaryDonationEntity
 
 }

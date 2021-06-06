@@ -1,4 +1,5 @@
 export { IBeneficiaryCampaignRepository } from './BeneficiaryCampaignRepository'
+export { IBeneficiaryDonationRepository } from './BeneficiaryDonationRepository'
 export { IBeneficiaryRepository } from './BeneficiaryRepository'
 export { ICampaignRepository } from './CampaignRepository'
 export { ICampaingEventRepository } from './CampaignEventRepository'
