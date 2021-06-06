@@ -19,6 +19,7 @@ import {
   VolunteerRepository,
 } from 'infrastructure/repository'
 import { mailing } from 'infrastructure/config/mailing'
+import { BeneficiaryDonationRepository } from 'infrastructure/repository/BeneficiaryDonationRepositoryTypeOrm'
 
 const app = new koa()
 
@@ -43,6 +44,7 @@ createConnection({
   .then((): void=>{
     app.context.beneficiaryCampaignRepository = new BeneficiaryCamapaignRepository()
     app.context.beneficiaryRepository = new BeneficiaryRepository()
+    app.context.beneficiaryDonationRepository = new BeneficiaryDonationRepository()
     app.context.campaignEventRepository =  new CampaignEventRepository()
     app.context.campaignRepository = new CampaignRepository()
     app.context.donationRepository = new DonationRepository()
