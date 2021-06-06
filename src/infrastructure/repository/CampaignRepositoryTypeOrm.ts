@@ -99,11 +99,12 @@ export class CampaignRepository implements ICampaignRepository {
       join: {
         alias: 'campaign',
         leftJoinAndSelect: {
-          beneficiaries: 'campaign.beneficiaries',
+          beneficiarycampaign: 'campaign.beneficiaryCampaign',
+          Beneficiaries: 'beneficiarycampaign.beneficiary',
         },
       }
-    })
-    return campaign
+    }) as CampaignEntity
+    return campaign.beneficiaryCampaign
   }
 
   async addBeneficiary(data: Beneficiary): Promise<any> {

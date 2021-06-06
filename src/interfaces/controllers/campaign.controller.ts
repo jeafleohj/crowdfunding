@@ -10,7 +10,7 @@ import {
 
 } from 'application/use_cases/campaign'
 import { UpdateCampaign } from 'application/use_cases/campaign/UpdateCampaign'
-import { Campaign } from 'domain/entity'
+import { Beneficiary, Campaign } from 'domain/entity'
 
 const getCampaigns = async (ctx: Context, next: Next) => {
   const query = ctx.request.query
@@ -53,16 +53,21 @@ const updateCampaign = async (ctx: Context, next: Next) => {
   ctx.body = response
 }
 
-const listBeneficaries = async (ctx: Context, next: Next) => {
+const listBeneficaries = async (ctx: Context) => {
   let campaignId = (ctx.request.query as any).idCampaign
-  let beneficiary = await ListBeneficiaries(campaignId, ctx)
+  let campaignBeneficiary = await ListBeneficiaries(campaignId, ctx)
+  let beneficiary = campaignBeneficiary.map( (cb: any) => {
+    delete cb.beneficiary.createdAt
+    delete cb.beneficiary.updateAt
+    return cb.beneficiary
+  })
+
   ctx.body = {
     error: false,
     data: beneficiary,
     status: 200,
     message: 'ok'
   }
-  next()
 }
 
 const getCampaignById = async (ctx: Context, next: Next) => {
