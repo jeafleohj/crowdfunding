@@ -6,6 +6,7 @@ import cors from '@koa/cors'
 import { createConnection } from 'typeorm'
 import Routes from 'interfaces/routes'
 import {
+  BeneficiaryCamapaignRepository,
   BeneficiaryRepository,
   CampaignEventRepository,
   CampaignRepository,
@@ -40,16 +41,17 @@ createConnection({
   ],
 })
   .then((): void=>{
+    app.context.beneficiaryCampaignRepository = new BeneficiaryCamapaignRepository()
     app.context.beneficiaryRepository = new BeneficiaryRepository()
+    app.context.campaignEventRepository =  new CampaignEventRepository()
     app.context.campaignRepository = new CampaignRepository()
     app.context.donationRepository = new DonationRepository()
+    app.context.giverDonationRepository =  new GiverDonationRepository()
+    app.context.giverRepository =  new GiverRepository()
     app.context.tokenBlacklistingRepository = new TokenBlacklistingRepository()
     app.context.ubigeoRepository = new UbigeoRepository()
     app.context.userRepository = new UserRepository()
     app.context.volunteerRepository = new VolunteerRepository()
-    app.context.campaignEventRepository =  new CampaignEventRepository()
-    app.context.giverRepository =  new GiverRepository()
-    app.context.giverDonationRepository =  new GiverDonationRepository()
     app.context.mailing = mailing
   })
 

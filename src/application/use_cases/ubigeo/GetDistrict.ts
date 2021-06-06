@@ -1,8 +1,6 @@
 import { District } from 'domain/entity/ubigeo'
-import { IUbigeoRepository } from 'domain/repository'
 
-const GetDistrict = (id: string,
-                      {ubigeoRepository}:{ubigeoRepository: IUbigeoRepository}) : Promise<District> => {
+const GetDistrict = (id: string, { ubigeoRepository }: MyRepository) : Promise<District> => {
   return ubigeoRepository.getDistrict(id)
 }
 

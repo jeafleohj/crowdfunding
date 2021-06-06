@@ -1,28 +1,23 @@
 import { CreateBeneficiary } from 'application/use_cases/beneficiary/CreateBeneficiary'
 import { RemoveBeneficiary } from 'application/use_cases/beneficiary/RemoveBeneficiary'
 import { UpdateBeneficiary } from 'application/use_cases/beneficiary/UpdateBeneficiary'
-import { GetDistrict, GetProvince } from 'application/use_cases/ubigeo'
 import { Beneficiary } from 'domain/entity'
 import { Context, Next } from 'koa'
 import { BeneficiaryDTO } from 'utils/multipleBeneficiary/BeneficiaryDTO'
 import { validate } from 'utils/multipleBeneficiary/ValidateBeneficiary'
-const csv = require('csvtojson')
-const fs = require('fs');
+import csv from 'csvtojson'
+import fs from 'fs'
+import { AddBeneficiaryToCampaign } from 'application/use_cases/beneficiaryCampaign'
 
 var errorBenef = Array<BeneficiaryDTO>()
 var verifiedBenef = Array<Beneficiary>()
 
 const createBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
-    let data = ctx.request.body
-
-    const response = await CreateBeneficiary(data, ctx)
-    ctx.body = {
-        error: false,
-        data: response.beneficiaries,
-        status: 200,
-        message: 'ok'
-    }
-    next()
+  const data = ctx.request.body
+  const {id: beneficiaryId} = await CreateBeneficiary(data, ctx)
+  const campaignId = data.campaign
+  await AddBeneficiaryToCampaign(beneficiaryId, campaignId, ctx)
+  ctx.status = 200
 }
 
 async function validateBeneficiary(ctx: Context, item: BeneficiaryDTO, campaignId: number) {
@@ -42,7 +37,6 @@ const multipleBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
 
     const filePath = ctx.file.path
     const campaignId = ctx.params.id
-
     csv({ delimiter: [";", ","] })
         .fromFile(filePath)
         .then(async (beneficiaries: Array<BeneficiaryDTO>) => {

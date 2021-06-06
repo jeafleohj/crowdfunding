@@ -1,9 +1,3 @@
-export enum beneficiaryStatus {
-  associated = 'asociado',
-  selected = 'pendiente',
-  attended = 'atendido',
-}
-
 export class Beneficiary {
   id: number
   name: string
@@ -18,7 +12,6 @@ export class Beneficiary {
   region?: string
   address: string
   handicapped: boolean
-  status: beneficiaryStatus
   campaign?: number
 
   constructor({name, lastname, maternal_lastname, province, region, sex, nse, document, age, district, address, handicapped, campaign}
@@ -35,7 +28,6 @@ export class Beneficiary {
     this.region = region
     this.address = address
     this.handicapped = handicapped
-    this.status = beneficiaryStatus.associated
     this.campaign = campaign
   }
 }

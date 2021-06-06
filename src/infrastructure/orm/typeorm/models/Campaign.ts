@@ -7,6 +7,7 @@ import { VolunteerEntity } from './Volunteer';
 import { SharedProps } from './SharedProps';
 import { GiverEntity } from './Giver';
 import { CampaignEventEntity } from './CampaignEvent';
+import { BeneficiaryCampaignEntity } from './BeneficiaryCampaign';
 
 @Entity('campaign')
 export class CampaignEntity extends SharedProps {
@@ -47,6 +48,7 @@ export class CampaignEntity extends SharedProps {
   @ManyToOne(()=>UserEntity, user=>user.id)
   user: number
 
+  //Eliminar esto
   @ManyToMany(() => BeneficiaryEntity, {
     cascade: true,
   })
@@ -75,4 +77,9 @@ export class CampaignEntity extends SharedProps {
   })
   image_url?: string
 
+  @OneToMany(
+    () => BeneficiaryCampaignEntity,
+    beneficiaryCampaignEntity => beneficiaryCampaignEntity.campaign
+  )
+  beneficiaryCampaign: BeneficiaryCampaignEntity;
 }

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { BeneficiaryCampaignEntity } from './BeneficiaryCampaign'
 import { SharedProps } from './SharedProps'
 
 @Entity('beneficiary')
@@ -68,6 +69,9 @@ export class BeneficiaryEntity extends SharedProps {
   @Column()
   handicapped: boolean
 
-  @Column()
-  status: string //Check this
+  @OneToMany(
+    () => BeneficiaryCampaignEntity,
+    beneficiaryCampaignEntity => beneficiaryCampaignEntity.beneficiary
+  )
+  beneficiaryCampaign: BeneficiaryCampaignEntity[];
 }

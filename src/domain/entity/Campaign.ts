@@ -1,7 +1,10 @@
-import { User, Volunteer } from 'domain/entity';
-import { Giver } from './Giver';
-import { Donation } from './Donation';
-import { Beneficiary } from "./Beneficiary"
+import {
+  Beneficiary,
+  BeneficiaryCampaign,
+  Donation,
+  Giver,
+  Volunteer,
+} from 'domain/entity'
 
 export enum campaignType {
   material = 'materiales',
@@ -30,6 +33,7 @@ export class Campaign {
   givers: Giver[]
   donations: Donation[]
   volunteers: Volunteer[]
+  beneficiaryCampaign: BeneficiaryCampaign
 
   constructor({name, type, user, image_url}: Campaign) {
     this.name = name

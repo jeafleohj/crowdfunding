@@ -6,8 +6,6 @@ import { Campaign, campaignStatus, campaignType } from 'domain/entity/Campaign'
 import { Donation } from 'domain/entity/Donation'
 import { ErrorHandler } from 'application/error'
 import { Giver } from 'domain/entity'
-import { BeneficiaryRepository } from '.'
-
 
 export class CampaignRepository implements ICampaignRepository {
   private repository: Repository<CampaignEntity>
@@ -41,11 +39,11 @@ export class CampaignRepository implements ICampaignRepository {
     }) as CampaignEntity
 
     if (campaign.type === campaignType.material) {
-      const campaignBenef = await this.listBeneficiaries(campaign.id)      
+      const campaignBenef = await this.listBeneficiaries(campaign.id)
       donation.total = campaignBenef.beneficiaries.length * donation.amountByBeneficiary
       console.log(donation.total)
     }
-    
+
     if (campaign.donations === undefined) {
       campaign.donations = [donation]
     } else {
