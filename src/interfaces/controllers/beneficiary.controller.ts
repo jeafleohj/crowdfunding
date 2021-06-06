@@ -9,7 +9,7 @@ import csv from 'csvtojson'
 import fs from 'fs'
 import { AddBeneficiaryToCampaign } from 'application/use_cases/beneficiaryCampaign'
 
-var errorBenef = Array<BeneficiaryDTO>()
+var errorBenef = Array<any>()
 var verifiedBenef = Array<Beneficiary>()
 
 const createBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
@@ -23,7 +23,7 @@ const createBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
 async function validateBeneficiary(ctx: Context, item: BeneficiaryDTO, campaignId: number) {
     let validatedEl = await validate(item)
     if (validatedEl.errors.length > 0) {
-        errorBenef.push(item)
+        errorBenef.push({ ...item, errors: validatedEl.errors })
     }
     else {
         const newBeneficiary = validatedEl.beneficiaryData
@@ -47,6 +47,7 @@ const multipleBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
             fs.unlinkSync(filePath);
         })
 
+    ctx.body = errorBenef
     ctx.status = 200
     ctx.message = "Archivo cargado correctamente"
 }
