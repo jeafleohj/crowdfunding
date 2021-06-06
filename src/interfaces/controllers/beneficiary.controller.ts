@@ -38,14 +38,9 @@ const multipleBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
 
     const filePath = ctx.file.path
     const campaignId = ctx.params.id
-    csv({ delimiter: [";", ","] })
-        .fromFile(filePath)
-        .then(async (beneficiaries: Array<BeneficiaryDTO>) => {
-            const response = await Promise.all(beneficiaries.map(el => validateBeneficiary(ctx, el, campaignId)))
-            // console.log("beneficiarios validos-> ", verifiedBenef);
-            // console.log("beneficiarios erroneos-> ", errorBenef);
-            fs.unlinkSync(filePath);
-        })
+    const rawcsv = await csv({ delimiter: [";", ","] }).fromFile(filePath)
+    const response = await Promise.all(rawcsv.map(el => validateBeneficiary(ctx, el, campaignId)))
+    fs.unlinkSync(filePath);
 
     ctx.body = errorBenef
     ctx.status = 200
