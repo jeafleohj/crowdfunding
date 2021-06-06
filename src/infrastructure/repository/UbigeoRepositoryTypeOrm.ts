@@ -44,7 +44,8 @@ export class UbigeoRepository implements IUbigeoRepository {
       join: {
         alias: 'district',
         leftJoinAndSelect: {
-          Province: 'district.province',
+          province: 'district.province',
+          region: 'province.region',
         },
       }
     })

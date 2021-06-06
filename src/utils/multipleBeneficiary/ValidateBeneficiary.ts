@@ -58,14 +58,6 @@ function validateHdc(handicapped: string): Boolean {
     return isValid
 }
 
-async function validateDistrict(distric: string): Promise<Boolean> {
-    let isValid = /^-?\d+$/.test(distric) && distric.length <= 6
-    // const ubigeoRepo = new UbigeoRepository()
-    // const district = await ubigeoRepo.getDistrict(distric)
-    
-    return isValid
-}
-
 async function validate(beneficiary: BeneficiaryDTO): Promise<BeneficiaryOut> {
     let errors = Array<String>()
     let newBeneficiary = new BeneficiaryData()
@@ -88,21 +80,18 @@ async function validate(beneficiary: BeneficiaryDTO): Promise<BeneficiaryOut> {
     else errors.push('El flag de discapacitado debe ser 1 si posee alguna discapacidad o 0 en caso contrario')
     if (validateAddress(beneficiary.DIRECCION)) newBeneficiary.address = beneficiary.DIRECCION
     else errors.push('La dirección debe tener solo letras y máximo 150 caracteres ')
-    if (validateDistrict(beneficiary.UBIGEO)) {
-        const ubigeo = beneficiary.UBIGEO
-        const ubigeoRepo = new UbigeoRepository()
-        const district = await ubigeoRepo.getDistrict(ubigeo)
-        
-        if (district) {
-            const prov = district.provinceId!
-            console.log(prov)
-            const province = await ubigeoRepo.getProvince(prov)
-            const reg = province.regionId!
 
-            newBeneficiary.district = beneficiary.UBIGEO
-            newBeneficiary.province = prov
-            newBeneficiary.region = reg 
-        }    
+    const ubigeo = beneficiary.UBIGEO
+    const ubigeoRepo = new UbigeoRepository()
+    const district = await ubigeoRepo.getDistrict(ubigeo) as any
+
+    if (district !== undefined) {
+        const province = district.province.id
+        const region = district.province.region.id
+
+        newBeneficiary.district = beneficiary.UBIGEO
+        newBeneficiary.province = province
+        newBeneficiary.region = region
     }
     else errors.push('El ubigeo no existe')
 

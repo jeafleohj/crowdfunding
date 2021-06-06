@@ -29,7 +29,8 @@ async function validateBeneficiary(ctx: Context, item: BeneficiaryDTO, campaignI
         const newBeneficiary = validatedEl.beneficiaryData
         newBeneficiary.campaign = campaignId
         verifiedBenef.push(newBeneficiary)
-        // const response = await CreateBeneficiary(newBeneficiary, ctx)
+        const {id: beneficiaryId} = await CreateBeneficiary(newBeneficiary, ctx)
+        await AddBeneficiaryToCampaign(beneficiaryId, campaignId, ctx)
     }
 }
 
