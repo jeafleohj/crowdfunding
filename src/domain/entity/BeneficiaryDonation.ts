@@ -1,11 +1,11 @@
-export class BeneficiaryCampaignDonation {
+export class BeneficiaryDonation {
   id: number
   beneficiaryId: number
   campaignId: number
   donationId: number
   amount: number
 
-  constructor(bcd : Partial<BeneficiaryCampaignDonation>) {
+  constructor(bcd : Partial<BeneficiaryDonation>) {
     this.id = bcd.id || 0
     this.beneficiaryId = bcd.beneficiaryId || 0
     this.campaignId = bcd.campaignId || 0

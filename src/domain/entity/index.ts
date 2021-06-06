@@ -1,5 +1,6 @@
 export { Beneficiary } from './Beneficiary'
 export { BeneficiaryCampaign } from './BeneficiaryCampaign'
+export { BeneficiaryDonation } from './BeneficiaryDonation'
 export { Campaign } from './Campaign'
 export { CampaignEvent } from './CampaignEvent'
 export { Donation } from './Donation'

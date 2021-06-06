@@ -1,12 +1,7 @@
-import { Beneficiary } from './Beneficiary'
-import { Campaign } from './Campaign'
-
-// Mover status de beneficiario
-// Transición no lo hare, mas facil es mover el backup
 export enum  StatusBeneficiaryCampaign {
-  associated = 'asociado', //
-  selected = 'pendiente', //
-  attended = 'atendido', //
+  associated = 'asociado',
+  selected = 'pendiente',
+  attended = 'atendido',
 }
 
 export class BeneficiaryCampaign {
