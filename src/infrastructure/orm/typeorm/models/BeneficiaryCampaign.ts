@@ -1,9 +1,10 @@
 import { StatusBeneficiaryCampaign } from 'domain/entity/BeneficiaryCampaign'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique } from 'typeorm'
 import { BeneficiaryEntity } from './Beneficiary'
 import { CampaignEntity } from './Campaign'
 
 @Entity('beneficiary_campaign')
+@Unique('UNQ_KEYS', ['beneficiaryId', 'campaignId'])
 export class BeneficiaryCampaignEntity {
   @PrimaryGeneratedColumn()
   id: number
