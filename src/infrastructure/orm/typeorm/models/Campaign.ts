@@ -74,5 +74,6 @@ export class CampaignEntity extends SharedProps {
     () => BeneficiaryCampaignEntity,
     beneficiaryCampaignEntity => beneficiaryCampaignEntity.campaign
   )
+
   beneficiaryCampaign: BeneficiaryCampaignEntity;
 }
