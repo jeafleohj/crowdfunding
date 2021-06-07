@@ -22,7 +22,10 @@ export class BeneficiaryCamapaignRepository implements IBeneficiaryCampaignRepos
     throw new Error("Method not implemented.");
   }
 
-  remove(id: number): Promise<boolean> {
-    throw new Error("Method not implemented.");
+  remove(beneficiaryId: number, campaignId: number): Promise<any> {
+    return this.repository.delete({
+      beneficiaryId,
+      campaignId,
+    })
   }
 }

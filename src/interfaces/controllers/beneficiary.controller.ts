@@ -1,5 +1,5 @@
 import { CreateBeneficiary } from 'application/use_cases/beneficiary/CreateBeneficiary'
-import { RemoveBeneficiary } from 'application/use_cases/beneficiary/RemoveBeneficiary'
+import { RemoveBeneficiaryFromCampaign } from 'application/use_cases/beneficiaryCampaign'
 import { UpdateBeneficiary } from 'application/use_cases/beneficiary/UpdateBeneficiary'
 import { Beneficiary } from 'domain/entity'
 import { Context, Next } from 'koa'
@@ -59,10 +59,11 @@ const updateBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
 
 const removeBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
   let data = ctx.request.body
-  const response = await RemoveBeneficiary(data, ctx)
+  const beneficiaryId = data.id
+  const campaignId = data.campaign
+  const response = await RemoveBeneficiaryFromCampaign(beneficiaryId, campaignId, ctx)
   ctx.body = response
   ctx.status = 200
-  next()
 }
 
 export {

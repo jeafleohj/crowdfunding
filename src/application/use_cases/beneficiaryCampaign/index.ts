@@ -1,1 +1,2 @@
-export {AddBeneficiaryToCampaign} from './Create'
+export { AddBeneficiaryToCampaign } from './Create'
+export { RemoveBeneficiaryFromCampaign } from './Remove'
