@@ -1,6 +1,7 @@
 export enum  StatusBeneficiaryCampaign {
   associated = 'asociado',
   selected = 'pendiente',
+  rejected = 'sin asignar',
   attended = 'atendido',
 }
 

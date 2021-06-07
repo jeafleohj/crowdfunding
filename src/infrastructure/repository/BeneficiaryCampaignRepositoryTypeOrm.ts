@@ -18,8 +18,20 @@ export class BeneficiaryCamapaignRepository implements IBeneficiaryCampaignRepos
     return insertion
   }
 
-  merge(payload: Partial<BeneficiaryCampaign>): void {
-    throw new Error("Method not implemented.");
+  async merge(payload: Partial<BeneficiaryCampaign>): Promise<any> {
+    const {campaignId, beneficiaryId } = payload
+    delete payload.beneficiaryId
+    delete payload.campaignId
+
+    const response = await this.repository
+      .createQueryBuilder()
+      .update()
+      .set(payload)
+      .where('beneficiaryId = :beneficiaryId', {beneficiaryId})
+      .andWhere('campaignId = :campaignId', {campaignId})
+      .execute()
+
+    return response
   }
 
   remove(beneficiaryId: number, campaignId: number): Promise<any> {
