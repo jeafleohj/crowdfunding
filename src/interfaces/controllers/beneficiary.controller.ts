@@ -14,58 +14,60 @@ var verifiedBenef = Array<Beneficiary>()
 
 const createBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
   const data = ctx.request.body
-  const {id: beneficiaryId} = await CreateBeneficiary(data, ctx)
+  const { id: beneficiaryId } = await CreateBeneficiary(data, ctx)
   const campaignId = data.campaign
   await AddBeneficiaryToCampaign(beneficiaryId, campaignId, ctx)
   ctx.status = 200
 }
 
 async function validateBeneficiary(ctx: Context, item: BeneficiaryDTO, campaignId: number) {
-    let validatedEl = await validate(item)
-    if (validatedEl.errors.length > 0) {
-        errorBenef.push({ ...item, errors: validatedEl.errors })
-    }
-    else {
-        const newBeneficiary = validatedEl.beneficiaryData
-        newBeneficiary.campaign = campaignId
-        verifiedBenef.push(newBeneficiary)
-        const {id: beneficiaryId} = await CreateBeneficiary(newBeneficiary, ctx)
-        await AddBeneficiaryToCampaign(beneficiaryId, campaignId, ctx)
-    }
+  let validatedEl = await validate(item)
+  if (validatedEl.errors.length > 0) {
+    errorBenef.push({ ...item, errors: validatedEl.errors })
+  }
+  else {
+    const newBeneficiary = validatedEl.beneficiaryData
+    newBeneficiary.campaign = campaignId
+    verifiedBenef.push(newBeneficiary)
+    const {id: beneficiaryId} = await CreateBeneficiary(newBeneficiary, ctx)
+    await AddBeneficiaryToCampaign(beneficiaryId, campaignId, ctx)
+  }
 }
 
 const multipleBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
 
-    const filePath = ctx.file.path
-    const campaignId = ctx.params.id
-    const rawcsv = await csv({ delimiter: [";", ","] }).fromFile(filePath)
-    const response = await Promise.all(rawcsv.map(el => validateBeneficiary(ctx, el, campaignId)))
-    fs.unlinkSync(filePath);
+  errorBenef = []
+  verifiedBenef = []
+  const filePath = ctx.file.path
+  const campaignId = ctx.params.id
+  const rawcsv = await csv({ delimiter: [";", ","] }).fromFile(filePath)
+  const response = await Promise.all(rawcsv.map(el => validateBeneficiary(ctx, el, campaignId)))
+  fs.unlinkSync(filePath);
 
-    ctx.body = errorBenef
-    ctx.status = 200
-    ctx.message = "Archivo cargado correctamente"
+  ctx.body = errorBenef
+  ctx.status = 200
+  ctx.message = `Registros exitosos: ${verifiedBenef.length}. Registros con mal formato: ${errorBenef.length}`
 }
 
 const updateBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
-    let data = ctx.request.body
-    const response = await UpdateBeneficiary(data, ctx)
-    ctx.body = response
-    ctx.status = 200
-    next()
+  let data = ctx.request.body
+  const response = await UpdateBeneficiary(data, ctx)
+  ctx.body = response
+  ctx.status = 200
+  next()
 }
 
 const removeBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
-    let data = ctx.request.body
-    const response = await RemoveBeneficiary(data, ctx)
-    ctx.body = response
-    ctx.status = 200
-    next()
+  let data = ctx.request.body
+  const response = await RemoveBeneficiary(data, ctx)
+  ctx.body = response
+  ctx.status = 200
+  next()
 }
 
 export {
-    createBeneficiary,
-    updateBeneficiary,
-    removeBeneficiary,
-    multipleBeneficiary
+  createBeneficiary,
+  updateBeneficiary,
+  removeBeneficiary,
+  multipleBeneficiary
 }
