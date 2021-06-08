@@ -102,7 +102,7 @@ export class CampaignRepository implements ICampaignRepository {
           beneficiarycampaign: 'campaign.beneficiaryCampaign',
           Beneficiaries: 'beneficiarycampaign.beneficiary',
         },
-      }
+      },
     }) as CampaignEntity
     return campaign.beneficiaryCampaign
   }

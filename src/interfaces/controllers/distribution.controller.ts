@@ -89,15 +89,36 @@ const generateDistribution = async (ctx: Context) => {
 
 }
 
-const getDistribution = async (ctx: Context) => {
+const getDistributionBeneficiary = async (ctx: Context) => {
   const { id: campaignId, beneficiaryId } = ctx.params
   const response = await GetDistribution(campaignId, beneficiaryId, ctx) //donaciones asignadas por beneficiario
   ctx.body = response
   ctx.status = 200
 }
 
+const getDistribution = async (ctx: Context) => {
+  const { id: campaignId } = ctx.params
+  let campaignBeneficiary = await ListBeneficiaries(campaignId, ctx)
+  let beneficiary = campaignBeneficiary.flatMap( (cb: any) => {
+    delete cb.beneficiary.createdAt
+    delete cb.beneficiary.updateAt
+    let { beneficiary } = cb
+    delete cb.beneficiary
+    return { ...cb, ...beneficiary }
+  })
+
+  ctx.body = {
+    error: false,
+    data: beneficiary,
+    status: 200,
+    message: 'ok'
+  }
+
+}
+
 export {
   createDistribution,
   generateDistribution,
   getDistribution,
+  getDistributionBeneficiary,
 }

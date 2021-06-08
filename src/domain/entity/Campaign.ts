@@ -15,7 +15,7 @@ export enum campaignType {
 export enum campaignStatus {
   created = 'creada',
   published = 'publicada',
-  distribution = 'distribution',
+  distribution = 'distribución',
   finalized = 'finalizada',
 }
 
