@@ -1,8 +1,9 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique } from 'typeorm'
 import { DonationEntity } from '.'
 import { SharedProps } from './SharedProps'
 
 @Entity('beneficiary_donation')
+@Unique('UNQ_KEYS', ['beneficiaryId', 'campaignId', 'donationId'])
 export class BeneficiaryDonationEntity extends SharedProps {
   @PrimaryGeneratedColumn()
   id: number

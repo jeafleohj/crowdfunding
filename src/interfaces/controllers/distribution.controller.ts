@@ -1,5 +1,5 @@
 import { UpdateBeneficiaryToCampaign } from 'application/use_cases/beneficiaryCampaign'
-import { CreateDistribution } from 'application/use_cases/beneficiaryDonation'
+import { CreateDistribution, GetDistribution } from 'application/use_cases/beneficiaryDonation'
 import { ListBeneficiaries } from 'application/use_cases/campaign'
 import { ListDonations } from 'application/use_cases/donation'
 import { GetDistrict } from 'application/use_cases/ubigeo'
@@ -70,7 +70,7 @@ const generateDistribution = async (ctx: Context) => {
     }
     beneficiaries.push(payload)
     console.log(payload)
-    // return await UpdateBeneficiaryToCampaign(payload, ctx)
+    return await UpdateBeneficiaryToCampaign(payload, ctx)
   })
 
   let plain = beneficiaries.flatMap( arr => {
@@ -84,13 +84,21 @@ const generateDistribution = async (ctx: Context) => {
     })
   }) as Array<BeneficiaryDonation>
 
-  // await CreateDistribution(plain, ctx)
+  await CreateDistribution(plain, ctx)
 
   ctx.status = 200
 
 }
 
+const getDistribution = async (ctx: Context) => {
+  const { id: campaignId, beneficiaryId } = ctx.params
+  const response = await GetDistribution(campaignId, beneficiaryId, ctx) //donaciones asignadas por beneficiario
+  ctx.body = response
+  ctx.status = 200
+}
+
 export {
   createDistribution,
   generateDistribution,
+  getDistribution,
 }

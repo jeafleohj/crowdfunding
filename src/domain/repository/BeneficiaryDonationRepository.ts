@@ -7,4 +7,5 @@ export interface IBeneficiaryDonationRepository {
   remove(id: number): Promise<boolean>
   getByCampaign(id: number): Promise<any>
   getByBeneficiary(id: number): Promise<any>
+  getDistribution(campaignId: number, beneficiaryId: number): Promise<any>
 }

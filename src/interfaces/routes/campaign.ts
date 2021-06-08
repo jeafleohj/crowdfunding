@@ -5,7 +5,7 @@ import {
   getCover,
   updateCampaign,
 } from 'interfaces/controllers/campaign.controller'
-import { createDistribution, generateDistribution } from 'interfaces/controllers/distribution.controller'
+import { createDistribution, generateDistribution, getDistribution } from 'interfaces/controllers/distribution.controller'
 import Router from 'koa-router'
 
 const campaignRouter = new Router()
@@ -19,6 +19,7 @@ campaignRouter
   .post('/', createCampaign)
   .post('/:id/beneficiary/:beneficiaryId', createDistribution )
   .post('/:id/distribution', generateDistribution )
+  .get('/:id/distribution/:beneficiaryId', getDistribution )
   .put('/:id', updateCampaign)
 
 export {

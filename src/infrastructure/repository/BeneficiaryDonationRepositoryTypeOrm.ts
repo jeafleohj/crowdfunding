@@ -38,4 +38,14 @@ export class BeneficiaryDonationRepository implements IBeneficiaryDonationReposi
   getByBeneficiary(id: number): Promise<any> {
     throw new Error('Method not implemented.');
   }
+
+  getDistribution(campaignId: number, beneficiaryId: number): Promise<any> {
+    return this.repository
+      .createQueryBuilder('beneficiaryDonation')
+      .leftJoinAndSelect('beneficiaryDonation.donation', 'donation')
+      .where("beneficiaryDonation.beneficiaryId = :beneficiaryId", { beneficiaryId })
+      .andWhere("beneficiaryDonation.campaignId = :campaignId", { campaignId })
+      .getMany()
+  }
+
 }

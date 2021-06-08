@@ -7,4 +7,3 @@ export { GetDetails } from './GetDetails'
 export { GetPublicCampaigns } from './GetPublicCampaigns'
 
 
-
