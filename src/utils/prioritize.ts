@@ -38,22 +38,38 @@ const prioritize = function (beneficiary: Beneficiary, clasification: string): n
   }
 
   switch(gender){
-    case ('F' || 'Femenino'): {
+    case ('F'): {
       g = 4;
       break;
     }
-    case ('M' || 'Masculino'): {
+    case ('Femenino'): {
+      g = 4;
+      break;
+    }
+    case ('M'): {
       g = 2;
+      break;
+    }
+    case ('Masculino'): {
+      g = 2;
+      break;
+    }
+    default: {
+      g = 1;
       break;
     }
   }
 
   switch(handicapped){
-    case (false): {
+    case (true): {
       h = 5;
       break;
     }
-    case (true): {
+    case (false): {
+      h = 1;
+      break;
+    }
+    default: {
       h = 1;
       break;
     }
@@ -64,7 +80,15 @@ const prioritize = function (beneficiary: Beneficiary, clasification: string): n
       ns = 1;
       break;
     }
+    case ('NSE A'): {
+      ns = 1;
+      break;
+    }
     case ('B'): {
+      ns = 2;
+      break;
+    }
+    case ('NSE B'): {
       ns = 2;
       break;
     }
@@ -72,12 +96,28 @@ const prioritize = function (beneficiary: Beneficiary, clasification: string): n
       ns = 3;
       break;
     }
+    case ('NSE C'): {
+      ns = 3;
+      break;
+    }
     case ('D'): {
+      ns = 4;
+      break;
+    }
+    case ('NSE D'): {
       ns = 4;
       break;
     }
     case ('E'): {
       ns = 5;
+      break;
+    }
+    case ('NSE E'): {
+      ns = 5;
+      break;
+    }
+    default: {
+      ns = 1;
       break;
     }
   }
@@ -95,9 +135,14 @@ const prioritize = function (beneficiary: Beneficiary, clasification: string): n
       u = 1;
       break;
     }
+    default: {
+      u = 1;
+      break;
+    }
   }
-
-  return e * g * h * ns * u
+  let total = e * g * h * ns * u
+  // console.log(`e: ${age}, g: ${gender}, h: ${handicapped}, ns: ${nse}, u: ${clasification}, total: ${total}`)
+  return total
 }
 
 export { prioritize }
