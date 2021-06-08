@@ -1,6 +1,7 @@
 import { UpdateBeneficiaryToCampaign } from 'application/use_cases/beneficiaryCampaign'
 import { CreateDistribution, GetDistribution } from 'application/use_cases/beneficiaryDonation'
 import { ListBeneficiaries } from 'application/use_cases/campaign'
+import { DistributedCampaign } from 'application/use_cases/campaign/DistributedCampaign'
 import { ListDonations } from 'application/use_cases/donation'
 import { GetDistrict } from 'application/use_cases/ubigeo'
 import { Beneficiary, BeneficiaryDonation } from 'domain/entity'
@@ -62,14 +63,12 @@ const generateDistribution = async (ctx: Context) => {
       })
     })
     const payload = {
-      beneficiaryId: el.id,
+      beneficiaryId: el.beneficiary.id,
       campaignId: parseInt(campaignId),
       priority: el.priority,
       status,
-      donations,
     }
-    beneficiaries.push(payload)
-    console.log(payload)
+    beneficiaries.push({...payload, donations})
     return await UpdateBeneficiaryToCampaign(payload, ctx)
   })
 
@@ -85,7 +84,7 @@ const generateDistribution = async (ctx: Context) => {
   }) as Array<BeneficiaryDonation>
 
   await CreateDistribution(plain, ctx)
-
+  await DistributedCampaign(campaignId, ctx)
   ctx.status = 200
 
 }

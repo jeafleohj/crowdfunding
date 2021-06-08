@@ -20,4 +20,5 @@ export interface ICampaignRepository {
   listGivers(id: number): Promise<any>
   removeBeneficiary(beneficiary: Beneficiary): Promise<any>
   getPublicCampaigns(): Promise<Campaign[]>
+  disributedCampaign(id: number): Promise<any>
 }

@@ -161,6 +161,13 @@ export class CampaignRepository implements ICampaignRepository {
     return this.repository.save(campaign)
   }
 
+  async disributedCampaign(id: number): Promise<any> {
+    //falta validar que no hayan mas fechas para recolectar donaciones
+    let campaign = await this.repository.findOne(id) as CampaignEntity
+    campaign.status = campaignStatus.distribution
+    return this.repository.save(campaign)
+  }
+
   remove(id: number): void {
     throw new Error('Method not implemented.');
   }
