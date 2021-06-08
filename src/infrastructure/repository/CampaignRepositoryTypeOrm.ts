@@ -94,16 +94,13 @@ export class CampaignRepository implements ICampaignRepository {
   }
 
   async listBeneficiaries(id: number): Promise<any> {
-    let campaign = await this.repository.findOne({
-      where: [{id: id}],
-      join: {
-        alias: 'campaign',
-        leftJoinAndSelect: {
-          beneficiarycampaign: 'campaign.beneficiaryCampaign',
-          Beneficiaries: 'beneficiarycampaign.beneficiary',
-        },
-      },
-    }) as CampaignEntity
+    let campaign = await this.repository
+    .createQueryBuilder('campaign')
+    .innerJoinAndSelect('campaign.beneficiaryCampaign', 'beneficiaryCampaign')
+    .leftJoinAndSelect('beneficiaryCampaign.beneficiary', 'beneficiary')
+    .where('campaign.id = :id', { id })
+    .orderBy('beneficiaryCampaign.priority', 'DESC')
+    .getOne() as CampaignEntity
     return campaign.beneficiaryCampaign
   }
 

@@ -1,3 +1,4 @@
+import { StatusBeneficiaryDonation } from 'domain/entity/BeneficiaryDonation'
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique } from 'typeorm'
 import { DonationEntity } from '.'
 import { SharedProps } from './SharedProps'
@@ -27,5 +28,12 @@ export class BeneficiaryDonationEntity extends SharedProps {
     donation => donation.beneficiaryDonation,
   )
   donation: DonationEntity
+
+  @Column({
+    type: 'enum',
+    enum: StatusBeneficiaryDonation,
+    default: StatusBeneficiaryDonation.initial
+  })
+  status: StatusBeneficiaryDonation
 
 }

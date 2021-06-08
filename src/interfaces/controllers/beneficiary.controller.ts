@@ -1,13 +1,15 @@
 import { CreateBeneficiary } from 'application/use_cases/beneficiary/CreateBeneficiary'
-import { RemoveBeneficiaryFromCampaign } from 'application/use_cases/beneficiaryCampaign'
+import { RemoveBeneficiaryFromCampaign, UpdateBeneficiaryToCampaign } from 'application/use_cases/beneficiaryCampaign'
 import { UpdateBeneficiary } from 'application/use_cases/beneficiary/UpdateBeneficiary'
-import { Beneficiary } from 'domain/entity'
+import { Beneficiary, BeneficiaryDonation } from 'domain/entity'
 import { Context, Next } from 'koa'
 import { BeneficiaryDTO } from 'utils/multipleBeneficiary/BeneficiaryDTO'
 import { validate } from 'utils/multipleBeneficiary/ValidateBeneficiary'
 import csv from 'csvtojson'
 import fs from 'fs'
 import { AddBeneficiaryToCampaign } from 'application/use_cases/beneficiaryCampaign'
+import { DeliverDonations } from 'application/use_cases/beneficiaryDonation/DeliverDonation'
+import { StatusBeneficiaryCampaign } from 'domain/entity/BeneficiaryCampaign'
 
 var errorBenef = Array<any>()
 var verifiedBenef = Array<Beneficiary>()
@@ -66,9 +68,25 @@ const removeBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
   ctx.status = 200
 }
 
+const deliverBeneficiaryDonations = async (ctx: Context): Promise<void> => {
+  const beneficiaryId = ctx.params.beneficiaryId
+  const campaignId = ctx.params.campaignId
+  const donations = ctx.request.body as Array<BeneficiaryDonation>
+  const response = await DeliverDonations(donations, ctx)
+
+  await UpdateBeneficiaryToCampaign({
+      beneficiaryId,
+      campaignId,
+      status: StatusBeneficiaryCampaign.attended,
+    }, ctx)
+
+  ctx.status = 200
+}
+
 export {
   createBeneficiary,
   updateBeneficiary,
   removeBeneficiary,
-  multipleBeneficiary
+  multipleBeneficiary,
+  deliverBeneficiaryDonations
 }

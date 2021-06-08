@@ -8,4 +8,5 @@ export interface IBeneficiaryDonationRepository {
   getByCampaign(id: number): Promise<any>
   getByBeneficiary(id: number): Promise<any>
   getDistribution(campaignId: number, beneficiaryId: number): Promise<any>
+  deliverMany(donation: Array<BeneficiaryDonation>): Promise<BeneficiaryDonation>
 }

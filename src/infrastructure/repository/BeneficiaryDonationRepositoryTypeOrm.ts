@@ -1,4 +1,5 @@
 import { BeneficiaryDonation } from 'domain/entity'
+import { StatusBeneficiaryDonation } from 'domain/entity/BeneficiaryDonation'
 import { IBeneficiaryDonationRepository } from 'domain/repository'
 import { BeneficiaryDonationEntity } from 'infrastructure/orm/typeorm/models/BeneficiaryDonation'
 import { getRepository, Repository } from 'typeorm'
@@ -46,6 +47,16 @@ export class BeneficiaryDonationRepository implements IBeneficiaryDonationReposi
       .where("beneficiaryDonation.beneficiaryId = :beneficiaryId", { beneficiaryId })
       .andWhere("beneficiaryDonation.campaignId = :campaignId", { campaignId })
       .getMany()
+  }
+
+  deliverMany(donation: BeneficiaryDonation[]): Promise<any> {
+    const beneficiaryDonationsIds = donation.map(el => el.id)
+    const response = this.repository.createQueryBuilder()
+    .update()
+    .set({ status: StatusBeneficiaryDonation.delivered })
+    .whereInIds(beneficiaryDonationsIds)
+    .execute()
+    return response
   }
 
 }

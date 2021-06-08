@@ -1,7 +1,6 @@
 export enum giverDonationStatus {
   initial = 'registrado', //cuando se registra
   collected = 'recolectado',  //cuando se ha recibido del donante
-  delivered = 'entregado'   //cuando se ha entregado a los beneficiarios
 }
 
 export class GiverDonation {
