@@ -1,13 +1,16 @@
+import multer from '@koa/multer'
 import {
   createCampaign,
   getCampaignById,
   getCampaigns,
   getCover,
   updateCampaign,
+  createResource,
 } from 'interfaces/controllers/campaign.controller'
 import { createDistribution, generateDistribution, getDistribution, getDistributionBeneficiary } from 'interfaces/controllers/distribution.controller'
 import Router from 'koa-router'
 
+const upload = multer({ dest: 'tmp/csv' })
 const campaignRouter = new Router()
 
 campaignRouter
@@ -21,6 +24,7 @@ campaignRouter
   .post('/:id/distribution', generateDistribution )
   .get('/:id/distribution', getDistribution )
   .get('/:id/distribution/:beneficiaryId', getDistributionBeneficiary )
+  .post('/:id/resources', upload.single('file'), createResource )
   .put('/:id', updateCampaign)
 
 export {

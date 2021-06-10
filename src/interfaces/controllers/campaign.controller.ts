@@ -11,6 +11,7 @@ import {
 } from 'application/use_cases/campaign'
 import { UpdateCampaign } from 'application/use_cases/campaign/UpdateCampaign'
 import { Beneficiary, Campaign } from 'domain/entity'
+import fs from 'fs'
 
 const getCampaigns = async (ctx: Context, next: Next) => {
   const query = ctx.request.query
@@ -70,6 +71,13 @@ const listBeneficaries = async (ctx: Context) => {
   }
 }
 
+const createResource = async (ctx: Context) => {
+  const file = ctx.file
+  console.log(file)
+  fs.unlinkSync(file.path);
+  ctx.status = 200
+}
+
 const getCampaignById = async (ctx: Context, next: Next) => {
   let campaignId = (ctx.request.query as any).id
   const campaign = await GetCampaignById(campaignId, ctx)
@@ -105,5 +113,6 @@ export {
   updateCampaign,
   getDetails,
   getCover,
-  getPublicCampaigns
+  getPublicCampaigns,
+  createResource,
 }
