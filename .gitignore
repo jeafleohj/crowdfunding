@@ -1,5 +1,7 @@
 node_modules
 dist
 .log
+env.js
+package-lock.json
 database.sqlite
 tmp/csv/*

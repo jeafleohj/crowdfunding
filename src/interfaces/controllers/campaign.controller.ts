@@ -12,6 +12,7 @@ import {
 import { UpdateCampaign } from 'application/use_cases/campaign/UpdateCampaign'
 import { Beneficiary, Campaign } from 'domain/entity'
 import fs from 'fs'
+const aws = require("aws-sdk");
 
 const getCampaigns = async (ctx: Context, next: Next) => {
   const query = ctx.request.query

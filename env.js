@@ -7,6 +7,7 @@ let env = {
   DB_NAME: 'crowdfunding',
   DB_USER: 'root',
   DB_PASS: 'password',
+  AWS_ACCESS_KEY_ID: 'ASIAWFVGZBBSZJQOMLTX',
 }
 
 for(const key in env) {
