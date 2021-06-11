@@ -10,8 +10,9 @@ import {
 
 } from 'application/use_cases/campaign'
 import { UpdateCampaign } from 'application/use_cases/campaign/UpdateCampaign'
-import { Beneficiary, Campaign } from 'domain/entity'
+import { Beneficiary, Campaign, Resource } from 'domain/entity'
 import fs from 'fs'
+import { CreateResource } from 'application/use_cases/resource/CreateResource'
 const aws = require("aws-sdk");
 
 const getCampaigns = async (ctx: Context, next: Next) => {
@@ -51,14 +52,14 @@ const updateCampaign = async (ctx: Context, next: Next) => {
     image_url: ctx.request.body.image_url,
     description: ctx.request.body.description,
   }
-  const response =  await UpdateCampaign(payload, ctx)
+  const response = await UpdateCampaign(payload, ctx)
   ctx.body = response
 }
 
 const listBeneficaries = async (ctx: Context) => {
   let campaignId = (ctx.request.query as any).idCampaign
   let campaignBeneficiary = await ListBeneficiaries(campaignId, ctx)
-  let beneficiary = campaignBeneficiary.map( (cb: any) => {
+  let beneficiary = campaignBeneficiary.map((cb: any) => {
     delete cb.beneficiary.createdAt
     delete cb.beneficiary.updateAt
     return cb.beneficiary
@@ -73,9 +74,37 @@ const listBeneficaries = async (ctx: Context) => {
 }
 
 const createResource = async (ctx: Context) => {
-  const file = ctx.file
-  console.log(file)
-  fs.unlinkSync(file.path);
+  const campaignId = ctx.params.id
+  const filePath = ctx.file.path
+  const fileName = ctx.file.originalname
+  let result = null
+
+  const s3 = new aws.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  });
+
+  const fileContent = fs.readFileSync(filePath);
+
+  s3.upload(
+    {
+      // You'll input your bucket name here
+      Bucket: process.env.AWS_S3_NAME,
+      Body: fileContent,
+      Key: fileName,
+    },
+    async function (err: any, data: any) {
+      if (err) {
+        result = err
+      } else if (data) {
+        result = { name: data.Key, location: data.Location, campaign: campaignId } as Resource
+        const resource = await CreateResource(result, ctx)
+      }
+    }
+  )
+
+  fs.unlinkSync(filePath);
+  ctx.data = result
   ctx.status = 200
 }
 
@@ -86,21 +115,21 @@ const getCampaignById = async (ctx: Context, next: Next) => {
   ctx.status = 200
 }
 
-const getCover = async(ctx: Context) => {
+const getCover = async (ctx: Context) => {
   const campaignId = ctx.params.id
   const cover = await GetCover(campaignId, ctx)
   ctx.body = cover
   ctx.status = 200
 }
 
-const getDetails = async(ctx: Context) => {
+const getDetails = async (ctx: Context) => {
   const campaignId = ctx.params.id
   const cover = await GetDetails(campaignId, ctx)
   ctx.body = cover
   ctx.status = 200
 }
 
-const getPublicCampaigns = async(ctx: Context) => {
+const getPublicCampaigns = async (ctx: Context) => {
   const campaigns = await GetPublicCampaigns(ctx)
   ctx.body = campaigns
   ctx.status = 200

@@ -11,6 +11,7 @@ import {
   IUbigeoRepository,
   IUserRepository,
   IVolunteerRepository,
+  IResourceRepository,
 } from 'domain/repository'
 
 declare global {
@@ -27,6 +28,7 @@ declare global {
     ubigeoRepository: IUbigeoRepository
     userRepository: IUserRepository
     volunteerRepository: IVolunteerRepository
+    resourceRepository: IResourceRepository
     mailing: Function
   }
 }

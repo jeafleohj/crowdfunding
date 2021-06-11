@@ -3,6 +3,7 @@ import {
   BeneficiaryCampaign,
   Donation,
   Giver,
+  Resource,
   Volunteer,
 } from 'domain/entity'
 
@@ -33,6 +34,7 @@ export class Campaign {
   givers: Giver[]
   donations: Donation[]
   volunteers: Volunteer[]
+  resources: Resource[]
   beneficiaryCampaign: BeneficiaryCampaign
 
   constructor({name, type, user, image_url}: Campaign) {

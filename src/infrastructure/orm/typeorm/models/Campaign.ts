@@ -8,6 +8,7 @@ import { SharedProps } from './SharedProps';
 import { GiverEntity } from './Giver';
 import { CampaignEventEntity } from './CampaignEvent';
 import { BeneficiaryCampaignEntity } from './BeneficiaryCampaign';
+import { ResourceEntity } from './Resource';
 
 @Entity('campaign')
 export class CampaignEntity extends SharedProps {
@@ -74,6 +75,9 @@ export class CampaignEntity extends SharedProps {
     () => BeneficiaryCampaignEntity,
     beneficiaryCampaignEntity => beneficiaryCampaignEntity.campaign
   )
-
   beneficiaryCampaign: BeneficiaryCampaignEntity;
+
+  @OneToMany(() => ResourceEntity, resource => resource.campaign )
+  @JoinTable()
+  resources?: ResourceEntity[]
 }

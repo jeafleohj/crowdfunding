@@ -9,3 +9,4 @@ export { TokenBlacklistingRepository } from './TokenBlacklistingRepositoryTypeOr
 export { UbigeoRepository } from './UbigeoRepositoryTypeOrm'
 export { UserRepository } from './UserRepositoryTypeOrm'
 export { VolunteerRepository } from './VolunteerRepositoryTypeOrm'
+export { ResourceRepository } from './ResourceRepositoryTypeOrm'

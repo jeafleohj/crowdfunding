@@ -17,6 +17,7 @@ import {
   UbigeoRepository,
   UserRepository,
   VolunteerRepository,
+  ResourceRepository,
 } from 'infrastructure/repository'
 import { mailing } from 'infrastructure/config/mailing'
 import { BeneficiaryDonationRepository } from 'infrastructure/repository/BeneficiaryDonationRepositoryTypeOrm'
@@ -54,6 +55,7 @@ createConnection({
     app.context.ubigeoRepository = new UbigeoRepository()
     app.context.userRepository = new UserRepository()
     app.context.volunteerRepository = new VolunteerRepository()
+    app.context.resourceRepository = new ResourceRepository()
     app.context.mailing = mailing
   })
 

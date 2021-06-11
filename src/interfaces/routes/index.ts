@@ -11,6 +11,7 @@ import { volunteerRouter } from 'interfaces/routes/volunteer'
 import { publicCampaignRouter } from 'interfaces/routes/publicCampaign'
 import { validateToken } from 'interfaces/controllers/tokenblacklisting.controller'
 import { giverRouter } from './giver'
+import { resourceRouter } from './resource'
 import jwt from 'koa-jwt'
 
 const Routes = new Router()
@@ -29,6 +30,7 @@ const private_routes = [
   campaignRouter,
   campaignEventRouter,
   donationRouter,
+  resourceRouter,
   logAuth,
   ubigeoRouter,
   volunteerRouter,
