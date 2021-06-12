@@ -148,14 +148,15 @@ const closeCampaign = async (ctx: Context) => {
 
   await forEachAsync(givers, async (el: Giver) => {
     const html = `Hola ${el.name}, la campaña <b>${campaign.name}</b> ha finalizado.<br>` +
-      `Ingrese a este <a href="${link}" target="_blank">link</a> para visualizar los resultados.`
-
+      `Su código de donante es CODN${el.id} <br>` +
+      `Ingrese su código en este <a href="${link}" target="_blank">enlace</a> para visualizar los resultados.`
     const mailInfo = {
       to: el.email,
       subject: `La campaña ${campaign.name} ha finalizado`,
       html
     }
     const sendMessage = await ctx.mailing(mailInfo)
+    console.log(sendMessage)
   })
 
   const payload: Partial<Campaign> = {
