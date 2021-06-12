@@ -6,6 +6,7 @@ import {
   getCover,
   updateCampaign,
   createResource,
+  closeCampaign,
 } from 'interfaces/controllers/campaign.controller'
 import { createDistribution, generateDistribution, getDistribution, getDistributionBeneficiary } from 'interfaces/controllers/distribution.controller'
 import Router from 'koa-router'
@@ -25,6 +26,7 @@ campaignRouter
   .get('/:id/distribution', getDistribution )
   .get('/:id/distribution/:beneficiaryId', getDistributionBeneficiary )
   .post('/:id/resources', upload.single('file'), createResource )
+  .post('/:id/close', closeCampaign )
   .put('/:id', updateCampaign)
 
 export {

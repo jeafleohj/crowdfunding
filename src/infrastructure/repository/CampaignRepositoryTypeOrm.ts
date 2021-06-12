@@ -146,7 +146,7 @@ export class CampaignRepository implements ICampaignRepository {
         ]
       }) as any
 
-    if ( campaign.beneficiaryCampaign.length === 0  ) {
+    if ( campaign.type === campaignType.material && campaign.beneficiaryCampaign.length === 0  ) {
       throw new ErrorHandler({
         status: 401,
         message: 'Se tiene que agregar beneficiarios a la campaña',
@@ -179,4 +179,11 @@ export class CampaignRepository implements ICampaignRepository {
     return campaign
   }
 
+  async closeCampaign(data: Partial<Campaign>): Promise<any> {
+    return this.repository.createQueryBuilder()
+    .update('campaign')
+    .set(data)
+    .where("campaign.id = :id", { id: data.id })
+    .execute();
+  }
 }

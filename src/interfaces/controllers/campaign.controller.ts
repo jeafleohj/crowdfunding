@@ -7,12 +7,16 @@ import {
   GetCover,
   GetDetails,
   GetPublicCampaigns,
+  CloseCampaign,
 
 } from 'application/use_cases/campaign'
 import { UpdateCampaign } from 'application/use_cases/campaign/UpdateCampaign'
-import { Beneficiary, Campaign, Resource } from 'domain/entity'
+import { Beneficiary, Campaign, Giver, Resource } from 'domain/entity'
 import fs from 'fs'
 import { CreateResource } from 'application/use_cases/resource/CreateResource'
+import { campaignStatus } from 'domain/entity/Campaign'
+import { ListGivers } from 'application/use_cases/giver'
+import { forEachAsync } from 'utils/forAsync'
 const aws = require("aws-sdk");
 
 const getCampaigns = async (ctx: Context, next: Next) => {
@@ -135,6 +139,33 @@ const getPublicCampaigns = async (ctx: Context) => {
   ctx.status = 200
 }
 
+const closeCampaign = async (ctx: Context) => {
+  const campaignId = ctx.params.id
+
+  const campaign = await GetCampaignById(campaignId, ctx)
+  const givers = await ListGivers(campaignId, ctx)
+  const link = `${process.env.HOSTNAME}/giver/consultar`
+
+  await forEachAsync(givers, async (el: Giver) => {
+    const html = `Hola ${el.name}, la campaña <b>${campaign.name}</b> ha finalizado.<br>` +
+      `Ingrese a este <a href="${link}" target="_blank">link</a> para visualizar los resultados.`
+
+    const mailInfo = {
+      to: el.email,
+      subject: `La campaña ${campaign.name} ha finalizado`,
+      html
+    }
+    const sendMessage = await ctx.mailing(mailInfo)
+  })
+
+  const payload: Partial<Campaign> = {
+    id: campaignId,
+    status: campaignStatus.finalized,
+  }
+  const response = await CloseCampaign(payload, ctx)
+  ctx.status = 200
+}
+
 export {
   createCampaign,
   getCampaignById,
@@ -145,4 +176,5 @@ export {
   getCover,
   getPublicCampaigns,
   createResource,
+  closeCampaign,
 }
