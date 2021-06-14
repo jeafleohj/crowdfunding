@@ -7,4 +7,5 @@ export interface ICampaingEventRepository {
   removeEvent(event: CampaignEvent): Promise<any>
   getAll(): Promise<CampaignEvent[]>
   getByCampaign(campaignId: number): Promise<CampaignEvent[]>
+  getEventById(id: number): Promise<any>
 }

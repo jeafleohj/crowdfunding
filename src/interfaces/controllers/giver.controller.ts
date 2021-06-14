@@ -3,11 +3,13 @@ import uniqid from 'uniqid'
 import jwt from 'jsonwebtoken'
 import * as UGiver from 'application/use_cases/giver'
 import {
-  CreateGiver, GetById, ListGivers, GetGiverDonations
+  CreateGiver, GetById, ListGivers, GetGiverDonations, GetGiverCampaigns
 } from 'application/use_cases/giver/'
 import { giverStatus } from 'domain/entity/Giver'
 import { CollectDonations } from 'application/use_cases/giverDonation'
 import { GiverDonation } from 'domain/entity'
+import { GetResults } from 'application/use_cases/campaign'
+import { GetEventById } from 'application/use_cases/campaignevent/GetEventById'
 
 async function generateUrl(payload: any): Promise<string> {
   const jid = uniqid()
@@ -43,11 +45,34 @@ const createGiver = async (ctx: Context, next: Next): Promise<void> => {
   ctx.status = 200
 }
 
-const getGiver = async (ctx: Context, next: Next): Promise<void> => {
+const getGiver = async (ctx: Context): Promise<void> => {
   const giverId = ctx.params.id
   const campaignId = ctx.params.campaign
   const response = await GetById(giverId, campaignId, ctx)
   ctx.body = response
+}
+
+const getGiverResult = async (ctx: Context): Promise<void> => {
+  const giverId = ctx.params.giverId
+  const campaignId = ctx.params.campaignId
+  const giver = await GetGiverDonations(giverId, ctx)
+  const event = await GetEventById(giver.eventId, ctx)
+  const result = await GetResults(campaignId, ctx)
+  ctx.body = {
+    ...giver, result, event
+  }
+}
+
+const getGiverCampaigns = async (ctx: Context): Promise<void> => {
+  const code = ctx.params.code
+  const giverId = code.replace('CODN', '')
+  const giver = await GetGiverDonations(giverId, ctx)
+  if (giver === undefined) {
+    ctx.message = 'El código no existe'
+  } else {
+    const response = await GetGiverCampaigns(giver.email, ctx)
+    ctx.body = response
+  }
 }
 
 const listGivers = async (ctx: Context, next: Next): Promise<void> => {
@@ -80,4 +105,6 @@ export {
   listGivers,
   getGiverDonations,
   collectGiverDonations,
+  getGiverResult,
+  getGiverCampaigns,
 }

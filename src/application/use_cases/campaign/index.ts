@@ -6,4 +6,4 @@ export { GetCover } from './GetCover'
 export { GetDetails } from './GetDetails'
 export { GetPublicCampaigns } from './GetPublicCampaigns'
 export { CloseCampaign } from './CloseCampaign'
-
+export { GetResults } from './GetResult'

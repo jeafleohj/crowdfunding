@@ -27,7 +27,7 @@ export class GiverRepository implements IGiverRepository {
       .leftJoinAndSelect("giver.giverDonations", "giverdonation")
       .leftJoinAndSelect("giverdonation.donation", "donation")
       .where("giver.id = :giverId", { giverId: giverId })
-      .getMany()
+      .getOne()
     return donations
   }
 
@@ -53,5 +53,16 @@ export class GiverRepository implements IGiverRepository {
       .getOne()
 
     return giver
+  }
+
+  async getGiverCampaigns(email: string): Promise<any> {
+    const campaigns = await this.repository
+    .createQueryBuilder('giver')
+    .innerJoinAndSelect("giver.campaign", "campaign")
+    .where("giver.email = :email", { email })
+    .getMany()
+
+    return campaigns
+
   }
 }

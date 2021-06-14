@@ -6,6 +6,7 @@ import { Campaign, campaignStatus, campaignType } from 'domain/entity/Campaign'
 import { Donation } from 'domain/entity/Donation'
 import { ErrorHandler } from 'application/error'
 import { Giver } from 'domain/entity'
+import { StatusBeneficiaryCampaign } from 'domain/entity/BeneficiaryCampaign'
 
 export class CampaignRepository implements ICampaignRepository {
   private repository: Repository<CampaignEntity>
@@ -186,4 +187,16 @@ export class CampaignRepository implements ICampaignRepository {
     .where("campaign.id = :id", { id: data.id })
     .execute();
   }
+
+  async getResults(id: number): Promise<any> {
+    const status = StatusBeneficiaryCampaign.attended
+    return this.repository
+    .createQueryBuilder('campaign')
+    .innerJoinAndSelect('campaign.beneficiaryCampaign', 'beneficiaryCampaign')
+    .leftJoinAndSelect('campaign.donations', 'donation')
+    .where('campaign.id = :id', { id })
+    .andWhere('beneficiaryCampaign.status = :status', { status })
+    .getOne()
+  }
+
 }

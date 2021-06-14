@@ -8,6 +8,7 @@ export class CampaignEventRepository implements ICampaingEventRepository {
   constructor() {
     this.repository = getRepository(CampaignEventEntity)
   }
+
   async updateEvent(event: CampaignEvent): Promise<any> {
     let updated = await this.repository.findOne({ id: event.id }) as CampaignEventEntity
     updated = event
@@ -23,6 +24,11 @@ export class CampaignEventRepository implements ICampaingEventRepository {
       campaign: campaign
     }]})
     return events
+  }
+
+  getEventById(id: number): Promise<any> {
+    let event = this.repository.findOne(id)
+    return event
   }
 
   persist(payload: CampaignEvent): Promise<CampaignEvent> {

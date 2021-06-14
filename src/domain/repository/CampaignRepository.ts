@@ -22,4 +22,5 @@ export interface ICampaignRepository {
   getPublicCampaigns(): Promise<Campaign[]>
   disributedCampaign(id: number): Promise<any>
   closeCampaign(data: Partial<Campaign>): Promise<any>
+  getResults(id: number): Promise<any>
 }
