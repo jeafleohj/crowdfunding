@@ -12,6 +12,7 @@ import { publicCampaignRouter } from 'interfaces/routes/publicCampaign'
 import { validateToken } from 'interfaces/controllers/tokenblacklisting.controller'
 import { giverRouter } from './giver'
 import { resourceRouter } from './resource'
+import { publicGiverRouter } from './publicGiver'
 import jwt from 'koa-jwt'
 
 const Routes = new Router()
@@ -21,6 +22,7 @@ const public_routes = [
   giverRouter,
   userRouter,
   publicCampaignRouter,
+  publicGiverRouter,
 ]
 
 Routes.use(...public_routes.map(r=>r.routes()))

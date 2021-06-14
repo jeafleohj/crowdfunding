@@ -10,6 +10,7 @@ import { CollectDonations } from 'application/use_cases/giverDonation'
 import { GiverDonation } from 'domain/entity'
 import { GetResults } from 'application/use_cases/campaign'
 import { GetEventById } from 'application/use_cases/campaignevent/GetEventById'
+import { ErrorHandler } from 'application/error'
 
 async function generateUrl(payload: any): Promise<string> {
   const jid = uniqid()
@@ -68,7 +69,10 @@ const getGiverCampaigns = async (ctx: Context): Promise<void> => {
   const giverId = code.replace('CODN', '')
   const giver = await GetGiverDonations(giverId, ctx)
   if (giver === undefined) {
-    ctx.message = 'El código no existe'
+    throw new ErrorHandler({
+      status: 400,
+      message: 'El código no existe',
+    })
   } else {
     const response = await GetGiverCampaigns(giver.email, ctx)
     ctx.body = response

@@ -1,5 +1,5 @@
 import { addDonations } from 'interfaces/controllers/donation.controller'
-import { collectGiverDonations, createGiver, getGiver, getGiverCampaigns, getGiverDonations, getGiverResult, listGivers } from 'interfaces/controllers/giver.controller'
+import { collectGiverDonations, createGiver, getGiver, getGiverDonations, listGivers } from 'interfaces/controllers/giver.controller'
 import Router from 'koa-router'
 
 const giverRouter = new Router()
@@ -13,8 +13,6 @@ giverRouter
   .get('/:id/campaign/:campaign', getGiver)
   .get('/campaign/:campaign', listGivers)
   .put('/:giverId/donation', collectGiverDonations)
-  .get('/:giverId/result/:campaignId', getGiverResult)
-  .get('/:code/campaigns', getGiverCampaigns)
   // .put('/remove', removeDonation)
 
 export {
