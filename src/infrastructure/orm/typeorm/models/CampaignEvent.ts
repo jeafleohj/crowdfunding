@@ -6,7 +6,7 @@ import { SharedProps } from './SharedProps'
 @Entity('campaignEvent')
 export class CampaignEventEntity extends SharedProps {
   @PrimaryGeneratedColumn()
-  id: number
+  id?: number
 
   @Column()
   name: string
