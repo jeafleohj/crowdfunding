@@ -40,9 +40,8 @@ export class CampaignRepository implements ICampaignRepository {
     }) as CampaignEntity
 
     if (campaign.type === campaignType.material) {
-      const campaignBenef = await this.listBeneficiaries(campaign.id)
-      donation.total = campaignBenef.beneficiaries.length * donation.amountByBeneficiary
-      console.log(donation.total)
+      const beneficiaries = await this.listBeneficiaries(campaign.id)
+      donation.total = beneficiaries.length * donation.amountByBeneficiary
     }
 
     if (campaign.donations === undefined) {
@@ -101,8 +100,9 @@ export class CampaignRepository implements ICampaignRepository {
     .leftJoinAndSelect('beneficiaryCampaign.beneficiary', 'beneficiary')
     .where('campaign.id = :id', { id })
     .orderBy('beneficiaryCampaign.priority', 'DESC')
+    .addOrderBy('beneficiaryCampaign.status', 'ASC')
     .getOne() as CampaignEntity
-    return campaign.beneficiaryCampaign
+    return campaign ? campaign.beneficiaryCampaign : []
   }
 
   async addBeneficiary(data: Beneficiary): Promise<any> {

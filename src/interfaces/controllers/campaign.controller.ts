@@ -144,7 +144,7 @@ const closeCampaign = async (ctx: Context) => {
 
   const campaign = await GetCampaignById(campaignId, ctx)
   const givers = await ListGivers(campaignId, ctx)
-  const link = `${process.env.HOSTNAME}/giver/consultar`
+  const link = `${process.env.HOSTNAME}/giver`
 
   await forEachAsync(givers, async (el: Giver) => {
     const html = `Hola ${el.name}, la campaña <b>${campaign.name}</b> ha finalizado.<br>` +
