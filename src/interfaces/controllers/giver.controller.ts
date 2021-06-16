@@ -11,6 +11,9 @@ import { CampaignEvent, GiverDonation } from 'domain/entity'
 import { GetResults } from 'application/use_cases/campaign'
 import { GetEventById } from 'application/use_cases/campaignevent/GetEventById'
 import { ErrorHandler } from 'application/error'
+import { ListResources } from 'application/use_cases/resource/ListResources'
+import { UpdateDonation } from 'application/use_cases/donation'
+import { forEachAsync } from 'utils/forAsync'
 import { CampaignEventType } from 'domain/entity/CampaignEvent'
 import { CreateEvent } from 'application/use_cases/campaignevent'
 import { giverDonationStatus } from 'domain/entity/GiverDonation'
@@ -62,8 +65,9 @@ const getGiverResult = async (ctx: Context): Promise<void> => {
   const giver = await GetGiverDonations(giverId, ctx)
   const event = await GetEventById(giver.eventId, ctx)
   const result = await GetResults(campaignId, ctx)
+  const resources = await ListResources(campaignId,ctx)
   ctx.body = {
-    ...giver, result, event
+    ...giver, result, event, resources
   }
 }
 
@@ -98,6 +102,12 @@ const collectGiverDonations = async (ctx: Context): Promise<void> => {
   const giverId = ctx.params.giverId
   const donations = ctx.request.body as Array<GiverDonation>
   const response = await CollectDonations(donations, ctx)
+
+  await forEachAsync(donations, async (el: GiverDonation) => {
+    let donation = el.donation as any
+    donation.collected += el.amount
+    await UpdateDonation(donation, ctx)
+  })
 
   await UGiver.UpdateGiver(giverId, {
     status: giverStatus.complete},
