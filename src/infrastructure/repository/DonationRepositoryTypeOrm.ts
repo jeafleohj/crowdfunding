@@ -5,6 +5,7 @@ import { getRepository, Repository } from 'typeorm'
 
 
 export class DonationRepository implements IDonationRepository {
+
   private repository: Repository<DonationEntity>
   constructor() {
     this.repository = getRepository(DonationEntity)
@@ -36,6 +37,16 @@ export class DonationRepository implements IDonationRepository {
     let updated = await this.repository.findOne({ id: donation.id }) as DonationEntity
     updated = donation
     return this.repository.save(updated)
+  }
+
+  async updateCollectedDonation(id: number, amount: number): Promise<any> {
+    return this.repository.createQueryBuilder()
+      .update()
+      .set({
+        collected: () => `collected + ${amount}`
+      })
+      .where('id = :id', {id})
+      .execute()
   }
 
   async removeDonation(donation: Donation): Promise<any> {

@@ -12,7 +12,7 @@ import { GetResults } from 'application/use_cases/campaign'
 import { GetEventById } from 'application/use_cases/campaignevent/GetEventById'
 import { ErrorHandler } from 'application/error'
 import { ListResources } from 'application/use_cases/resource/ListResources'
-import { UpdateDonation } from 'application/use_cases/donation'
+import { UpdateCollectedDonation, UpdateDonation } from 'application/use_cases/donation'
 import { forEachAsync } from 'utils/forAsync'
 import { CampaignEventType } from 'domain/entity/CampaignEvent'
 import { CreateEvent } from 'application/use_cases/campaignevent'
@@ -157,6 +157,10 @@ const addGiver = async (ctx: Context): Promise<void> => {
   })
 
   const response = await AddDonations(donations, ctx)
+
+  await forEachAsync(donations, async (donation: GiverDonation) => {
+    await UpdateCollectedDonation(donation.donation, donation.amount, ctx)
+  })
 
   ctx.status = 200
 }

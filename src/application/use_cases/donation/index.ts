@@ -1,4 +1,5 @@
-export { ListDonations } from './ListDonations'
 export { CreateDonation } from './CreateDonation'
+export { ListDonations } from './ListDonations'
 export { RemoveDonation } from './RemoveDonation'
+export { UpdateCollectedDonation } from './UpdateCollectedDonation'
 export { UpdateDonation } from './UpdateDonation'
