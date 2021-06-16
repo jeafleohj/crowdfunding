@@ -13,6 +13,7 @@ import { GetEventById } from 'application/use_cases/campaignevent/GetEventById'
 import { ErrorHandler } from 'application/error'
 import { CampaignEventType } from 'domain/entity/CampaignEvent'
 import { CreateEvent } from 'application/use_cases/campaignevent'
+import { giverDonationStatus } from 'domain/entity/GiverDonation'
 
 async function generateUrl(payload: any): Promise<string> {
   const jid = uniqid()
@@ -121,7 +122,7 @@ const addGiver = async (ctx: Context): Promise<void> => {
   const today = new Date();
 
   const newEvent = new CampaignEvent({
-    name: `${giver.name} ${giver.lastname} `,
+    name: `${giver.name} ${giver.lastname}`,
     address: '',
     details: '',
     campaign: campaignId,
@@ -140,6 +141,7 @@ const addGiver = async (ctx: Context): Promise<void> => {
   donations.map( donation => {
     donation.giver = giverId
     donation.donation = donation.donationId || 0
+    donation.status = giverDonationStatus.collected
     delete donation.donationId
     return donation
   })
