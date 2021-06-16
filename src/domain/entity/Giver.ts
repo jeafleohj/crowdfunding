@@ -1,5 +1,4 @@
 import { GiverDonation } from 'domain/entity';
-import { Campaign } from "./Campaign"
 
 export enum giverStatus {
   initial = 'registrado', //cuando se registra en la web
@@ -28,6 +27,8 @@ export class Giver {
       lastname = '',
       name = '',
       phone = '',
+      status = giverStatus.initial,
+      eventId = 0,
     } = giver
 
     this.name = name
@@ -36,7 +37,8 @@ export class Giver {
     this.document = document
     this.phone = phone
     this.campaign = campaign
-    this.status = giverStatus.initial
+    this.status = status
+    this.eventId = eventId
 
   }
 }

@@ -5,15 +5,17 @@ import * as UGiver from 'application/use_cases/giver'
 import {
   CreateGiver, GetById, ListGivers, GetGiverDonations, GetGiverCampaigns
 } from 'application/use_cases/giver/'
-import { giverStatus } from 'domain/entity/Giver'
-import { CollectDonations } from 'application/use_cases/giverDonation'
-import { GiverDonation } from 'domain/entity'
+import { Giver, giverStatus } from 'domain/entity/Giver'
+import { AddDonations, CollectDonations } from 'application/use_cases/giverDonation'
+import { CampaignEvent, GiverDonation } from 'domain/entity'
 import { GetResults } from 'application/use_cases/campaign'
 import { GetEventById } from 'application/use_cases/campaignevent/GetEventById'
 import { ErrorHandler } from 'application/error'
 import { ListResources } from 'application/use_cases/resource/ListResources'
 import { UpdateDonation } from 'application/use_cases/donation'
 import { forEachAsync } from 'utils/forAsync'
+import { CampaignEventType } from 'domain/entity/CampaignEvent'
+import { CreateEvent } from 'application/use_cases/campaignevent'
 
 async function generateUrl(payload: any): Promise<string> {
   const jid = uniqid()
@@ -113,12 +115,57 @@ const collectGiverDonations = async (ctx: Context): Promise<void> => {
   ctx.status = 200
 }
 
+const addGiver = async (ctx: Context): Promise<void> => {
+  const { campaignId } = ctx.params
+  let {giver: giverData, donations} = ctx.request.body as {
+    giver: Partial<Giver>,
+    donations: Array<GiverDonation & {donationId?: number}>,
+  }
+
+  const giver = new Giver({
+    ...giverData,
+    campaign: campaignId,
+    status: giverStatus.complete
+  })
+
+  const today = new Date();
+
+  const newEvent = new CampaignEvent({
+    name: `${giver.name} ${giver.lastname} `,
+    address: '',
+    details: '',
+    campaign: campaignId,
+    stage: CampaignEventType.pickup,
+    startDate: new Date(),
+    endingDate: new Date(),
+    startTime: today.getHours() + ":" + today.getMinutes(),
+    endingTime: today.getHours() + ":" + today.getMinutes(),
+  })
+
+  const campaignEvent = await CreateEvent(newEvent, ctx)
+  giver.eventId = campaignEvent.id
+
+  const {giverId} = await CreateGiver(giver, ctx)
+
+  donations.map( donation => {
+    donation.giver = giverId
+    donation.donation = donation.donationId || 0
+    delete donation.donationId
+    return donation
+  })
+
+  const response = await AddDonations(donations, ctx)
+
+  ctx.status = 200
+}
+
 export {
+  addGiver,
+  collectGiverDonations,
   createGiver,
   getGiver,
-  listGivers,
-  getGiverDonations,
-  collectGiverDonations,
-  getGiverResult,
   getGiverCampaigns,
+  getGiverDonations,
+  getGiverResult,
+  listGivers,
 }

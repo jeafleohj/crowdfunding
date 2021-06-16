@@ -5,7 +5,7 @@ export enum CampaignEventType {
 }
 
 export class CampaignEvent {
-  id: number
+  id?: number
   name: string
   address: string
   details: string
