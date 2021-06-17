@@ -21,7 +21,6 @@ const Routes = new Router()
 const public_routes = [
   authRouter,
   giverRouter,
-  userRouter,
   publicCampaignRouter,
   publicGiverRouter,
   publicUserRouter,
