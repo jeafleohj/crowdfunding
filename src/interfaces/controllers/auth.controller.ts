@@ -1,9 +1,9 @@
 import {Context} from 'koa'
 import jwt from 'jsonwebtoken'
 import uniqid from 'uniqid'
-import { ValidateLogin } from 'application/use_cases/Login'
 import { ErrorHandler } from 'application/error'
 import { User } from 'domain/entity'
+import { ValidateLogin } from 'application/use_cases/user'
 
 async function generateToken(payload: any): Promise<string> {
   const jid = uniqid()

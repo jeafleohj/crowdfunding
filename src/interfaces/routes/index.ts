@@ -14,6 +14,7 @@ import { giverRouter } from './giver'
 import { resourceRouter } from './resource'
 import { publicGiverRouter } from './publicGiver'
 import jwt from 'koa-jwt'
+import { publicUserRouter } from './publicUser'
 
 const Routes = new Router()
 
@@ -23,6 +24,7 @@ const public_routes = [
   userRouter,
   publicCampaignRouter,
   publicGiverRouter,
+  publicUserRouter,
 ]
 
 Routes.use(...public_routes.map(r=>r.routes()))
@@ -34,6 +36,7 @@ const private_routes = [
   donationRouter,
   resourceRouter,
   logAuth,
+  userRouter,
   ubigeoRouter,
   volunteerRouter,
 ]

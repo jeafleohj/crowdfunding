@@ -3,16 +3,13 @@ import { createUser, getUsers, updateUser, changePassword } from 'interfaces/con
 import multer from '@koa/multer'
 import { Context } from 'koa'
 
-const upload = multer()
-const userRouter = new Router()
+const publicUserRouter = new Router()
 
-userRouter.prefix('/user')
+publicUserRouter.prefix('/register')
 
-userRouter
-  .get('/', getUsers)
-  .put('/', updateUser)
-  .put('/password', changePassword)
+publicUserRouter
+  .post('/', createUser)
 
 export {
-  userRouter
+  publicUserRouter
 }

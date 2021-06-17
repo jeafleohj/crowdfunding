@@ -9,6 +9,11 @@ export class UserRepository implements IUserRepository {
     this.repository = getRepository(UserEntity)
   }
 
+  async getById(id: number): Promise<User> {
+    const user = await this.repository.findOne({id}) as UserEntity
+    return user
+  }
+
   async persist(domainUser: UserEntity): Promise<UserEntity> {
     const new_user = this.repository.create(domainUser)
     return this.repository.save(new_user)
@@ -29,6 +34,15 @@ export class UserRepository implements IUserRepository {
   async getByEmail(email: string): Promise<any> {
     const user = await this.repository.findOne({email}) as UserEntity
     return user
+  }
+
+  updateUser(id: number, data: Partial<User>): Promise<any> {
+    return this.repository
+      .createQueryBuilder()
+      .update()
+      .set(data)
+      .where('id = :id', {id})
+      .execute()
   }
 
   find(): void {

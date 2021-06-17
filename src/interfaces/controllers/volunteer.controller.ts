@@ -1,4 +1,4 @@
-import { CreateUser } from 'application/use_cases/CreateUser'
+import { CreateUser } from 'application/use_cases/user'
 import { AddVolunteer } from 'application/use_cases/volunteer/AddVolunteer'
 import { GetByCampaign } from 'application/use_cases/volunteer/GetByCampaign'
 import { GetCampaigns } from 'application/use_cases/volunteer/GetCampaigns'
