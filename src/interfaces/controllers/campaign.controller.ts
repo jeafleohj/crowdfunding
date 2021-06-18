@@ -11,7 +11,7 @@ import {
 
 } from 'application/use_cases/campaign'
 import { UpdateCampaign } from 'application/use_cases/campaign/UpdateCampaign'
-import { Beneficiary, Campaign, Giver, Resource } from 'domain/entity'
+import { Campaign, Giver, Resource } from 'domain/entity'
 import fs from 'fs'
 import { CreateResource } from 'application/use_cases/resource/CreateResource'
 import { campaignStatus } from 'domain/entity/Campaign'
@@ -53,7 +53,7 @@ const createCampaign = async (ctx: Context, next: Next) => {
 
 const updateCampaign = async (ctx: Context, next: Next) => {
   const payload: Partial<Campaign> = {
-    id: ctx.params.id,
+    id: ctx.params.campaignId,
     image_url: ctx.request.body.image_url,
     description: ctx.request.body.description,
   }
@@ -79,7 +79,7 @@ const listBeneficaries = async (ctx: Context) => {
 }
 
 const createResource = async (ctx: Context) => {
-  const campaignId = ctx.params.id
+  const { campaignId } = ctx.params
   const filePath = ctx.file.path
   const fileName = ctx.file.originalname
   let result = null
@@ -121,14 +121,14 @@ const getCampaignById = async (ctx: Context, next: Next) => {
 }
 
 const getCover = async (ctx: Context) => {
-  const campaignId = ctx.params.id
+  const { campaignId } = ctx.params
   const cover = await GetCover(campaignId, ctx)
   ctx.body = cover
   ctx.status = 200
 }
 
 const getDetails = async (ctx: Context) => {
-  const campaignId = ctx.params.id
+  const { campaignId } = ctx.params
   const cover = await GetDetails(campaignId, ctx)
   ctx.body = cover
   ctx.status = 200
@@ -141,7 +141,7 @@ const getPublicCampaigns = async (ctx: Context) => {
 }
 
 const closeCampaign = async (ctx: Context) => {
-  const campaignId = ctx.params.id
+  const { campaignId }= ctx.params
 
   const campaign = await GetCampaignById(campaignId, ctx)
   const givers = await ListGivers(campaignId, ctx)
@@ -171,7 +171,8 @@ const closeCampaign = async (ctx: Context) => {
 const checkCampaignStatus = async (ctx :Context, next :Next) => {
   const {method} = ctx
   if ( method === 'POST' || method === 'PUT') {
-    const campaignId = ctx.params.id
+    const data = ctx.request.body
+    const campaignId = ctx.params.campaignId || data.campaign
     const campaign = await GetCampaignById(campaignId, ctx)
     if ( campaign.status === campaignStatus.finalized) {
       throw new ErrorHandler({

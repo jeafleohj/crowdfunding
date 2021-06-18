@@ -19,19 +19,19 @@ campaignRouter
   .prefix('/user/campaign')
 
 campaignRouter
-  .use('/:id', checkCampaignStatus)
+  .use('/:campaignId', checkCampaignStatus)
 
 campaignRouter
   .get('/', getCampaigns, getCampaignById)
   .get('/cover/:id', getCover)
   .post('/', createCampaign)
-  .post('/:id/beneficiary/:beneficiaryId', createDistribution )
-  .post('/:id/distribution', generateDistribution )
-  .get('/:id/distribution', getDistribution )
-  .get('/:id/distribution/:beneficiaryId', getDistributionBeneficiary )
-  .post('/:id/resources', upload.single('file'), createResource )
-  .post('/:id/close', closeCampaign )
-  .put('/:id', updateCampaign)
+  .post('/:campaignId/beneficiary/:beneficiaryId', createDistribution )
+  .post('/:campaignId/distribution', generateDistribution )
+  .get('/:campaignId/distribution', getDistribution )
+  .get('/:campaignId/distribution/:beneficiaryId', getDistributionBeneficiary )
+  .post('/:campaignId/resources', upload.single('file'), createResource )
+  .post('/:campaignId/close', closeCampaign )
+  .put('/:campaignId', updateCampaign)
 
 export {
   campaignRouter
