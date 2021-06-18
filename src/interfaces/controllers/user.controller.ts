@@ -5,6 +5,7 @@ import { CreateUser, GetAll } from 'application/use_cases/user'
 import { UpdateUser } from 'application/use_cases/user/UpdateUser'
 import { ValidatePassword } from 'application/use_cases/user/ValidatePassword'
 import bcrypt from 'bcryptjs'
+import { passwordRegexValidate } from 'utils/password'
 
 const getUsers = async (ctx: Context, next: Next) => {
   const users = await GetAll(ctx)
@@ -37,12 +38,18 @@ const updateUser = async (ctx: Context, next: Next) => {
 }
 
 const changePassword = async (ctx: Context) => {
-  console.log(ctx.state)
   const userId = ctx.state.user.id
-  const data = ctx.request.body
-  const valid = await ValidatePassword(userId, data.password, ctx)
-  if (valid) {
-    const passwordModel = bcrypt.hashSync(data.newPassword, bcrypt.genSaltSync())
+  const { password, newPassword, confirmPassword } = ctx.request.body
+  const valid = await ValidatePassword(userId, password, ctx)
+
+  if( !passwordRegexValidate(newPassword) || newPassword !== confirmPassword ) {
+    throw new ErrorHandler({
+      status: 400,
+      message: 'Las contraseñas no coinciden',
+    })
+
+  } else if ( valid ) {
+    const passwordModel = bcrypt.hashSync(newPassword, bcrypt.genSaltSync())
     const users = await UpdateUser(userId, { password: passwordModel }, ctx)
     ctx.status = 200
   } else {
