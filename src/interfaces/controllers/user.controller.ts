@@ -42,7 +42,13 @@ const changePassword = async (ctx: Context) => {
   const { password, newPassword, confirmPassword } = ctx.request.body
   const valid = await ValidatePassword(userId, password, ctx)
 
-  if( !passwordRegexValidate(newPassword) || newPassword !== confirmPassword ) {
+  if( !passwordRegexValidate(newPassword) ) {
+    throw new ErrorHandler({
+      status: 400,
+      message: 'La contraseña debe tener mínimo 8 carácteres',
+    })
+
+  } else if ( newPassword !== confirmPassword ) {
     throw new ErrorHandler({
       status: 400,
       message: 'Las contraseñas no coinciden',
