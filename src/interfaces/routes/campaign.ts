@@ -7,6 +7,7 @@ import {
   updateCampaign,
   createResource,
   closeCampaign,
+  checkCampaignStatus,
 } from 'interfaces/controllers/campaign.controller'
 import { createDistribution, generateDistribution, getDistribution, getDistributionBeneficiary } from 'interfaces/controllers/distribution.controller'
 import Router from 'koa-router'
@@ -16,6 +17,9 @@ const campaignRouter = new Router()
 
 campaignRouter
   .prefix('/user/campaign')
+
+campaignRouter
+  .use('/:id', checkCampaignStatus)
 
 campaignRouter
   .get('/', getCampaigns, getCampaignById)

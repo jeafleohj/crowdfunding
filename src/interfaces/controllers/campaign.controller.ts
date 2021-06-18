@@ -17,7 +17,8 @@ import { CreateResource } from 'application/use_cases/resource/CreateResource'
 import { campaignStatus } from 'domain/entity/Campaign'
 import { ListGivers } from 'application/use_cases/giver'
 import { forEachAsync } from 'utils/forAsync'
-const aws = require("aws-sdk");
+import aws from "aws-sdk"
+import { ErrorHandler } from 'application/error'
 
 const getCampaigns = async (ctx: Context, next: Next) => {
   const query = ctx.request.query
@@ -167,15 +168,31 @@ const closeCampaign = async (ctx: Context) => {
   ctx.status = 200
 }
 
+const checkCampaignStatus = async (ctx :Context, next :Next) => {
+  const {method} = ctx
+  if ( method === 'POST' || method === 'PUT') {
+    const campaignId = ctx.params.id
+    const campaign = await GetCampaignById(campaignId, ctx)
+    if ( campaign.status === campaignStatus.finalized) {
+      throw new ErrorHandler({
+        status: 406,
+        message: 'No se puede modificar una campaña finalizada',
+      })
+    }
+  }
+  await next()
+}
+
 export {
+  checkCampaignStatus,
+  closeCampaign,
   createCampaign,
+  createResource,
   getCampaignById,
   getCampaigns,
+  getCover,
+  getDetails,
+  getPublicCampaigns,
   listBeneficaries,
   updateCampaign,
-  getDetails,
-  getCover,
-  getPublicCampaigns,
-  createResource,
-  closeCampaign,
 }
