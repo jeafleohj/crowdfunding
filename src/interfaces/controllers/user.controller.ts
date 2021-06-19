@@ -6,15 +6,12 @@ import { UpdateUser } from 'application/use_cases/user/UpdateUser'
 import { ValidatePassword } from 'application/use_cases/user/ValidatePassword'
 import bcrypt from 'bcryptjs'
 import { passwordRegexValidate } from 'utils/password'
+import { generateToken } from 'utils/generateToken'
 
-const getUsers = async (ctx: Context, next: Next) => {
+const getUsers = async (ctx: Context) => {
   const users = await GetAll(ctx)
-  ctx.body = {
-    error: false,
-    data: users,
-    status: 200,
-    message: 'ok'
-  }
+  ctx.body = users
+  ctx.status = 200
 }
 
 const createUser = async (ctx: Context, next: Next) => {
@@ -25,9 +22,16 @@ const createUser = async (ctx: Context, next: Next) => {
       message: 'El email ya ha sido utilizado'
     })
   }
+
   delete user.password
+
+  const token = await generateToken({
+    id: user.id,
+    email: user.email
+  })
+
+  ctx.body = token
   ctx.status = 200
-  ctx.body = user
 }
 
 const updateUser = async (ctx: Context, next: Next) => {
