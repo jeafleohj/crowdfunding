@@ -35,9 +35,14 @@ export class CampaignEventRepository implements ICampaingEventRepository {
     return this.repository.save(payload)
   }
 
-  merge(payload: Partial<CampaignEvent>): void {
-    throw new Error('Method not implemented.');
-  }
+  merge(eventId: number, payload: Partial<CampaignEvent>): Promise<any> {
+    console.log(payload)
+    return this.repository.createQueryBuilder()
+    .update()
+    .set(payload)
+    .where('id = :id', {id: eventId})
+    .execute()
+}
 
   remove(stageId: number): void {
     throw new Error('Method not implemented.');

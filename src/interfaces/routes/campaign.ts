@@ -18,8 +18,8 @@ const campaignRouter = new Router()
 campaignRouter
   .prefix('/user/campaign')
 
-campaignRouter
-  .use('/:campaignId', checkCampaignStatus)
+// campaignRouter
+//   .use('/:campaignId', checkCampaignStatus)
 
 campaignRouter
   .post('/', createCampaign)
