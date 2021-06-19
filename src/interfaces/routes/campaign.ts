@@ -22,15 +22,15 @@ campaignRouter
   .use('/:campaignId', checkCampaignStatus)
 
 campaignRouter
-  .get('/', getCampaigns, getCampaignById)
-  .get('/cover/:id', getCover)
   .post('/', createCampaign)
-  .post('/:campaignId/beneficiary/:beneficiaryId', createDistribution )
-  .post('/:campaignId/distribution', generateDistribution )
-  .get('/:campaignId/distribution', getDistribution )
-  .get('/:campaignId/distribution/:beneficiaryId', getDistributionBeneficiary )
-  .post('/:campaignId/resources', upload.single('file'), createResource )
-  .post('/:campaignId/close', closeCampaign )
+  .get('/', getCampaigns, getCampaignById)
+  .get('/cover/:campaignId', getCover)
+  .post('/:campaignId/beneficiary/:beneficiaryId', createDistribution)
+  .post('/:campaignId/distribution', generateDistribution)
+  .get('/:campaignId/distribution', getDistribution)
+  .get('/:campaignId/distribution/:beneficiaryId', getDistributionBeneficiary)
+  .post('/:campaignId/resources', upload.single('file'), createResource)
+  .post('/:campaignId/close', closeCampaign)
   .put('/:campaignId', updateCampaign)
 
 export {

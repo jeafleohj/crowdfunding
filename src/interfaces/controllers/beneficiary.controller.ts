@@ -41,7 +41,8 @@ const multipleBeneficiary = async (ctx: Context, next: Next): Promise<void> => {
   errorBenef = []
   verifiedBenef = []
   const filePath = ctx.file.path
-  const campaignId = ctx.params.id
+  const campaignId = ctx.params.campaignId
+  console.log('cenefociary controller ->', campaignId)
   const rawcsv = await csv({ delimiter: [";", ","] }).fromFile(filePath)
   const response = await Promise.all(rawcsv.map(el => validateBeneficiary(ctx, el, campaignId)))
   fs.unlinkSync(filePath);

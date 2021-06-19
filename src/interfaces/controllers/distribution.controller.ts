@@ -12,7 +12,7 @@ import { prioritize } from 'utils/prioritize'
 import { quickSort } from 'utils/quickSort'
 
 const createDistribution = async (ctx: Context) => {
-  const { id: campaignId, beneficiaryId } = ctx.params
+  const { campaignId, beneficiaryId } = ctx.params
   const amounts = ctx.request.body as Array<{
     id: number,
     amount: number,
@@ -34,7 +34,7 @@ const createDistribution = async (ctx: Context) => {
 
 const generateDistribution = async (ctx: Context) => {
 
-  const { id: campaignId } = ctx.params
+  const { campaignId } = ctx.params
 
   let initbeneficiaries = await ListBeneficiaries(campaignId, ctx)
   let initdonations = await ListDonations(campaignId, ctx)
@@ -90,14 +90,14 @@ const generateDistribution = async (ctx: Context) => {
 }
 
 const getDistributionBeneficiary = async (ctx: Context) => {
-  const { id: campaignId, beneficiaryId } = ctx.params
+  const { campaignId, beneficiaryId } = ctx.params
   const response = await GetDistribution(campaignId, beneficiaryId, ctx) //donaciones asignadas por beneficiario
   ctx.body = response
   ctx.status = 200
 }
 
 const getDistribution = async (ctx: Context) => {
-  const { id: campaignId } = ctx.params
+  const { campaignId } = ctx.params
   let campaignBeneficiary = await ListBeneficiaries(campaignId, ctx)
   let beneficiary = campaignBeneficiary.flatMap( (cb: any) => {
     delete cb.beneficiary.createdAt
