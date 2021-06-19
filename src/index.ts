@@ -63,8 +63,15 @@ app.use(async (ctx, next) => {
 	try {
 		await next()
   } catch (err) {
-    ctx.status = err.status || 500
-    ctx.body = err.message || 'Error interno'
+    console.log(err)
+    console.log(err.sqlState)
+    if(err.sqlState) {
+      ctx.status = 500
+      ctx.body = 'Error interno'
+    } else {
+      ctx.status = err.status || 500
+      ctx.body = err.message || 'Error interno'
+    }
     console.log(err)
   }
 })
