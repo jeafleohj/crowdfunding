@@ -122,6 +122,7 @@ const getCampaignById = async (ctx: Context, next: Next) => {
 
 const getCover = async (ctx: Context) => {
   const { campaignId } = ctx.params
+  console.log(campaignId)
   const cover = await GetCover(campaignId, ctx)
   ctx.body = cover
   ctx.status = 200
@@ -170,8 +171,10 @@ const closeCampaign = async (ctx: Context) => {
 
 const checkCampaignStatus = async (ctx :Context, next :Next) => {
   const {method} = ctx
+  console.log('campañaa status before ->', ctx.params)
   if ( method === 'POST' || method === 'PUT') {
     const data = ctx.request.body
+    console.log('campañaa status after ->', ctx.params)
     const campaignId = ctx.params.campaignId || data.campaign
     const campaign = await GetCampaignById(campaignId, ctx)
     if ( campaign.status === campaignStatus.finalized) {

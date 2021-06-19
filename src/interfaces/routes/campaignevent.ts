@@ -9,7 +9,7 @@ campaignEventRouter
 campaignEventRouter
   .post('/:id/stage', createCampaignEvent)
   .get('/:id/stage', getByCampaign)
-  .put('/stage', updateEvent)
+  .put('/stage/update', updateEvent)
   .put('/stage/remove', removeEvent)
 
 export {

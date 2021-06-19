@@ -10,7 +10,7 @@ publicCampaignRouter
   .prefix('/campaign')
 
   publicCampaignRouter
-  .get('/public/:id', getDetails)
+  .get('/public/:campaignId', getDetails)
   .get('/public', getPublicCampaigns)
 
 export {

@@ -31,7 +31,8 @@ const getByCampaign = async (ctx: Context, next: Next) => {
 }
 
 const updateEvent = async (ctx: Context, next: Next): Promise<void> => {
-  let data = ctx.request.body
+  const data = ctx.request.body
+  console.log(data)
   const response = await UpdateEvent(data, ctx)
   ctx.body = response
   ctx.status = 200
