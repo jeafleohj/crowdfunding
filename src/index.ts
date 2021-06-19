@@ -7,20 +7,20 @@ import { createConnection } from 'typeorm'
 import Routes from 'interfaces/routes'
 import {
   BeneficiaryCamapaignRepository,
+  BeneficiaryDonationRepository,
   BeneficiaryRepository,
   CampaignEventRepository,
   CampaignRepository,
   DonationRepository,
   GiverDonationRepository,
   GiverRepository,
+  ResourceRepository,
   TokenBlacklistingRepository,
   UbigeoRepository,
   UserRepository,
   VolunteerRepository,
-  ResourceRepository,
 } from 'infrastructure/repository'
 import { mailing } from 'infrastructure/config/mailing'
-import { BeneficiaryDonationRepository } from 'infrastructure/repository/BeneficiaryDonationRepositoryTypeOrm'
 
 const app = new koa()
 
