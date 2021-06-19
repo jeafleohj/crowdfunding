@@ -1,0 +1,587 @@
+#+title: Routes
+#+PROPERTY: header-args :var base-url="http://localhost:4000" token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJjcm93ZGZ1bmRpbmdAZ21haWwuY29tIiwiaWF0IjoxNjIzOTQ5NjYwLCJleHAiOjE2MzI1ODk2NjAsImp0aSI6IjI3b2IwcDYyOWl6a3ExNXA1bHoifQ.UYole7EgmueaFfWhRJbLbeyGRjVaq-f58Ho0GMXUdLs"
+* Public
+** User
+*** Sign up
+#+begin_src restclient
+POST :base-url/register
+Content-Type: application/json;charset=UTF-8
+{
+    "email":"crowdfunding@gmail.com",
+    "name":"Ariana",
+    "lastname":"Perez",
+    "phone":"987654321",
+    "password":"roblox"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "name": "ariana",
+  "lastname": "perez",
+  "phone": "987654321",
+  "email": "crowdfunding@gmail.com",
+  "document": null,
+  "createdAt": "2021-06-17T22:07:31.078Z",
+  "updateAt": "2021-06-17T22:07:31.078Z",
+  "id": 3
+}
+// POST http://localhost:4000/register
+// HTTP/1.1 200 OK
+// Vary: Origin
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 189
+// Date: Thu, 17 Jun 2021 17:07:31 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.213113s
+#+END_SRC
+
+*** Sign in
+#+begin_src restclient
+POST :base-url/auth
+Content-Type: application/json;charset=UTF-8
+{
+    "email":"crowdfunding@gmail.com",
+    "password":"roblox"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC text
+Contraseña incorrecta
+POST http://localhost:4000/auth
+HTTP/1.1 401 Unauthorized
+Vary: Origin
+Content-Type: text/plain; charset=utf-8
+Content-Length: 22
+Date: Thu, 17 Jun 2021 17:12:03 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Request duration: 0.104169s
+#+END_SRC
+
+** Giver
+*** Create
+#+begin_src restclient
+POST :base-url/giver
+Content-Type: application/json;charset=UTF-8
+{
+    "name" : "Valeria Nadine",
+    "lastname" : "Vicuña",
+    "email" : "valeria.vicuna@pucp.edu.pe",
+    "document" : "119",
+    "phone" : "976337742",
+    "campaign" : 1
+}
+#+end_src
+
+*** Register donation
+**** Home
+#+begin_src restclient
+POST :base-url/giver/31/donation/
+Content-TypE: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+  "campaignId": 13,
+  "donations": [
+     {
+       "donationId": 22,
+       "amount": 10
+     }
+  ],
+  "pickup": true,
+  "event": {
+    "startDate": "12-16-20",
+    "details": "Al frente de tottus",
+    "address": "Av Predo Miot 512"
+  }
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC text
+Cannot read property 'name' of undefined
+POST http://localhost:4000/giver/31/donation/
+HTTP/1.1 500 Internal Server Error
+Vary: Origin
+Content-Type: text/plain; charset=utf-8
+Content-Length: 40
+Date: Tue, 15 Jun 2021 22:31:53 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Request duration: 0.049359s
+#+END_SRC
+
+**** Authorized Place
+#+begin_src restclient
+POST :base-url/giver/1/donation/
+Content-TypE: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+  "giverId": 12,
+  "donations": [
+    {
+      "donationId": 14,
+      "amount": 10
+    }
+  ],
+  "pickup": false,
+  "event": {
+    "id": 1
+  }
+}
+#+end_src
+** Campaign
+*** List
+* Private
+** Ubigeo
+*** Regiones
+#+begin_src restclient
+GET :base-url/ubigeo/regions
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+#+end_src
+
+*** Provincias
+#+begin_src restclient
+GET :base-url/ubigeo/provinces/01
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+#+end_src
+
+*** Distrito
+#+begin_src restclient
+GET :base-url/ubigeo/districts/1803
+Content-TypE: application/json;charset=UTF-8
+Authorization: Bearer :token
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "error": false,
+  "data": [
+    {
+      "id": "180301",
+      "name": "OXAPAMPA",
+      "clasification": "NO POBRE"
+    },
+    {
+      "id": "180302",
+      "name": "CHONTABAMBA",
+      "clasification": "NO POBRE"
+    },
+    {
+      "id": "180303",
+      "name": "HUANCABAMBA",
+      "clasification": "NO POBRE"
+    },
+    {
+      "id": "180304",
+      "name": "PUERTO BERMUDEZ",
+      "clasification": "POBRE EXTREMO"
+    },
+    {
+      "id": "180305",
+      "name": "VILLA RICA",
+      "clasification": "NO POBRE"
+    },
+    {
+      "id": "180306",
+      "name": "POZUZO",
+      "clasification": "NO POBRE"
+    },
+    {
+      "id": "180307",
+      "name": "PALCAZU",
+      "clasification": "POBRE EXTREMO"
+    },
+    {
+      "id": "180308",
+      "name": "CONSTITUCIÓN",
+      "clasification": "POBRE EXTREMO"
+    }
+  ],
+  "status": 200,
+  "message": "ok"
+}
+// GET http://localhost:4000/ubigeo/districts/1803
+// HTTP/1.1 200 OK
+// Vary: Origin
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 572
+// Date: Sun, 06 Jun 2021 01:57:50 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.010202s
+#+END_SRC
+
+** Campaign
+*** Create campaign
+#+begin_src restclient
+POST :base-url/user/campaign
+Content-Type: application/json
+Authorization: Bearer :token
+{
+    "name":"Regalando Sonrisas",
+    "type":"materiales"
+}
+#+end_src
+*** Update campaing
+#+begin_src restclient :exports both
+PUT :base-url/user/campaign/1
+Content-Type: application/json
+Authorization: Bearer :token
+{
+    "status": "creada",
+    "image_url": "imagen",
+    "description": "esto es una demo",
+    "id": 10
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "createdAt": "2021-06-05T09:13:25.712Z",
+  "updateAt": "2021-06-18T10:09:07.000Z",
+  "id": 1,
+  "name": "Regalando sonrisas",
+  "description": "esto es una demo",
+  "type": "materiales",
+  "release": null,
+  "ending": null,
+  "status": "publicada",
+  "image_url": "imagen",
+  "beneficiaryCampaign": [
+    {
+      "id": 1,
+      "status": "asociado",
+      "priority": null,
+      "beneficiaryId": 1,
+      "campaignId": 1
+    },
+    {
+      "id": 2,
+      "status": "asociado",
+      "priority": null,
+      "beneficiaryId": 4,
+      "campaignId": 1
+    }
+  ]
+}
+// PUT http://localhost:4000/user/campaign/1
+// HTTP/1.1 200 OK
+// Vary: Origin
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 417
+// Date: Fri, 18 Jun 2021 05:41:07 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.090379s
+#+END_SRC
+
+*** List all campaigns by user
+#+begin_src restclient
+:base-url = http://localhost:4000/user/campaign
+GET :base-url
+Content-Type: application/json
+Authorization: Bearer :token
+#+end_src
+** Beneficiary
+*** Create beneficiary
+#+begin_src restclient
+POST :base-url/beneficiary
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+    "name": "Carmelolll",
+    "lastname": "Gallo",
+     "maternal_lastname": "Valiente",
+    "sex": "m",
+    "nse": "NSE-A",
+    "document": "00011100",
+    "age": 45,
+    "district": "010101",
+    "address": "laskdjf",
+    "status": "lsakdjf",
+    "region": "01",
+    "district": "010101",
+    "province": "0101",
+    "handicapped": false,
+    "campaign": 13
+}
+#+end_src
+
+*** Get beneficiary by campaign
+
+#+begin_src restclient
+GET :base-url/beneficiary?idCampaign=1
+Authorization: Bearer :token
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "error": false,
+  "data": [
+    {
+      "id": 1,
+      "name": "Roberto",
+      "lastname": "Carlos",
+      "maternal_lastname": "Carlos",
+      "sex": "Masculino",
+      "nse": "NSE A",
+      "document": "32132112",
+      "age": 55,
+      "district": "030405",
+      "region": "03",
+      "province": "0304",
+      "address": "Av siempre viva",
+      "handicapped": false
+    },
+    {
+      "id": 4,
+      "name": "Valeria Nadiné",
+      "lastname": "V",
+      "maternal_lastname": "Z",
+      "sex": "Femenino",
+      "nse": "NSE C",
+      "document": "99999999",
+      "age": 99,
+      "district": "040504",
+      "region": "04",
+      "province": "0405",
+      "address": "HHH",
+      "handicapped": false
+    },
+    {
+      "id": 5,
+      "name": "Kiko",
+      "lastname": "KI",
+      "maternal_lastname": "KO",
+      "sex": "Masculino",
+      "nse": "NSE D",
+      "document": "98899988",
+      "age": 100,
+      "district": "040203",
+      "region": "04",
+      "province": "0402",
+      "address": "LITRO",
+      "handicapped": false
+    }
+  ],
+  "status": 200,
+  "message": "ok"
+}
+// GET http://localhost:4000/beneficiary?idCampaign=1
+// HTTP/1.1 200 OK
+// Vary: Origin
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 731
+// Date: Sun, 06 Jun 2021 01:04:05 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.033783s
+#+END_SRC
+
+#+RESULTS:
+
+*** Update beneficiary
+#+begin_src restclient
+PUT :base-url/beneficiary
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+    "id": 5,
+    "name": "Carmela",
+    "lastname": "Gallo",
+     "maternal_lastname": "Valiente",
+    "sex": "m",
+    "nse": "__",
+    "document": "65465412",
+    "age": 45,
+    "district": 20,
+    "address": "laskdjf",
+    "handicapped":true,
+    "campaign": 13
+}
+#+end_src
+
+*** Delete beneficiary
+#+begin_src restclient
+PUT :base-url/beneficiary/remove
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+    "id": 12,
+    "name": "Carmelo",
+    "lastname": "Torres",
+     "maternal_lastname": "Valiente",
+    "sex": "m",
+    "nse": "__",
+    "document": "65465412",
+    "age": 45,
+    "district": 20,
+    "address": "laskdjf",
+    "handicapped":true,
+    "campaign": 13
+}
+#+end_src
+
+** Donation
+*** Create donation
+#+begin_src restclient
+POST :base-url/donation
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+  "name": "Lentejas",
+  "description": "Bolsas de 1kg",
+  "category": "Viveres",
+  "amountByBeneficiary": 2,
+  "campaign": "2",
+}
+#+end_src
+
+*** Get donations by campaign
+#+begin_src restclient
+GET :base-url/donation?idCampaign=2
+Authorization: Bearer :token
+#+end_src
+
+*** Update donation
+#+begin_src restclient
+PUT :base-url/donation
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+    "id": 5,
+    "name": "Lentejes",
+    "description": "Bolsas de 1kg",
+    "category": "Viveres",
+    "amountByBeneficiary": 2,
+    "campaign": "2",
+}
+#+end_src
+
+*** Delete donation
+#+begin_src restclient
+PUT :base-url/donation/remove
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+    "id": 12,
+    "name": "Lentejas",
+    "description": "Bolsas de 1kg",
+    "category": "Viveres",
+    "amountByBeneficiary": 2,
+    "campaign": "2",
+}
+#+end_src
+
+** Volunteer
+*** Add volunteer
+#+begin_src restclient
+POST :base-url/volunteer
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+    "name": "Carmelolll",
+    "lastname": "Gallo perez",
+    "phone": "0982374098324",
+    "email": "vv@gmail.com",
+    "campaign": 2
+}
+#+end_src
+
+*** Get by campaign
+#+begin_src restclient
+GET :base-url/volunteer/2
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+#+end_src
+
+** Giver
+*** Get Givers
+GET {{baseUrl}}/giver/campaign/13 HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{token2}}
+** Distribution
+#+begin_src restclient
+POST :base-url/user/campaign/1/beneficiary/1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+[{
+  "id": 1,
+  "amount": 10
+ },
+ {
+  "id": 2,
+  "amount": 200
+}] 
+#+end_src
+** User
+*** Update password
+#+begin_src restclient
+PUT :base-url/user/password
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+  "password": "roblox",
+  "newPassword": "roblox2",
+  "confirmPassword": "roblox2"
+}
+
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC text
+OK
+PUT http://localhost:4000/user/password
+HTTP/1.1 200 OK
+Vary: Origin
+Content-Type: text/plain; charset=utf-8
+Content-Length: 2
+Date: Thu, 17 Jun 2021 17:11:52 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Request duration: 0.556823s
+#+END_SRC
+
+** Create givey by campaign's owner
+#+begin_src restclient
+POST :base-url/giver/campaign/1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer :token
+{
+  "giver": {
+    "name": "Giovanna",
+    "lastname": "Sanchez",
+    "phone": "98765432",
+    "email": "lala@hotmail.com"
+  },
+  "donations": [
+     { 
+      "donationId": "1",
+      "amount": "21"
+     }
+  ]
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC text
+OK
+POST http://localhost:4000/giver/campaign/1
+HTTP/1.1 200 OK
+Vary: Origin
+Content-Type: text/plain; charset=utf-8
+Content-Length: 2
+Date: Wed, 16 Jun 2021 17:45:05 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Request duration: 0.527113s
+#+END_SRC
