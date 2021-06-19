@@ -1,9 +1,9 @@
 import { CampaignEvent } from 'domain/entity'
 import { ICampaingEventRepository } from 'domain/repository'
 
-const UpdateEvent = ( id: number, data: Partial<CampaignEvent>,
+const UpdateEvent = (data: CampaignEvent,
   { campaignEventRepository }: {campaignEventRepository : ICampaingEventRepository }): Promise<any> => {
-  return campaignEventRepository.merge(id,data)
+  return campaignEventRepository.updateEvent(data)
 }
 
 export {

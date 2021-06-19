@@ -36,7 +36,6 @@ export class CampaignEventRepository implements ICampaingEventRepository {
   }
 
   merge(eventId: number, payload: Partial<CampaignEvent>): Promise<any> {
-    console.log(payload)
     return this.repository.createQueryBuilder()
     .update()
     .set(payload)
