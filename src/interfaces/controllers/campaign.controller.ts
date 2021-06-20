@@ -82,35 +82,44 @@ const createResource = async (ctx: Context) => {
   const { campaignId } = ctx.params
   const filePath = ctx.file.path
   const fileName = ctx.file.originalname
-  let result = null
-
-  const s3 = new aws.S3({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-  });
-
-  const fileContent = fs.readFileSync(filePath);
-
-  s3.upload(
-    {
-      // You'll input your bucket name here
-      Bucket: process.env.AWS_S3_NAME,
-      Body: fileContent,
-      Key: fileName,
-    },
-    async function (err: any, data: any) {
-      if (err) {
-        result = err
-      } else if (data) {
-        result = { name: data.Key, location: data.Location, campaign: campaignId } as Resource
-        const resource = await CreateResource(result, ctx)
-      }
-    }
-  )
+  const fileType = ctx.file.mimetype
+  let response = await uploadFile(fileName, filePath, fileType);
+  let file = response as { key: string, url: string }
+  const result = { name: file.key, location: file.url, campaign: campaignId } as Resource
+  await CreateResource(result, ctx)
 
   fs.unlinkSync(filePath);
-  ctx.data = result
+
   ctx.status = 200
+}
+
+const uploadFile = async (fileName: string, filePath: string, fileType: string) => {
+  return new Promise((resolve, reject) => {
+
+    const s3 = new aws.S3({
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    });
+
+    const fileContent = fs.readFileSync(filePath);
+
+    s3.upload(
+      {
+        ACL: "public-read",
+        Bucket: process.env.AWS_S3_NAME,
+        Body: fileContent,
+        Key: fileName,
+        ContentType: fileType,
+      },
+      function (err: any, data: any) {
+        if (err) {
+          reject(err);
+        } else if (data) {
+          resolve({ key: data.Key, url: data.Location });
+        }
+      }
+    )
+  })
 }
 
 const getCampaignById = async (ctx: Context, next: Next) => {
