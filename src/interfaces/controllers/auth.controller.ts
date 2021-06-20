@@ -33,11 +33,10 @@ const login = async (ctx: Context) => {
 
 const loginGoogle = async (ctx: Context) => {
   const { code } = ctx.request.body
-  const redirectUrl = 'http://localhost:3000'
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    redirectUrl
+    process.env.GOOGLE_REDIRECT_URL,
   );
 
   const { tokens } = await oauth2Client.getToken(code)

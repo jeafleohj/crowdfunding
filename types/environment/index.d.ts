@@ -15,6 +15,7 @@ declare module 'process' {
         AWS_SECRET_ACCESS_KEY: string,
         GOOGLE_CLIENT_ID: string,
         GOOGLE_CLIENT_SECRET: string,
+        GOOGLE_REDIRECT_URL: string,
       }
     }
   }
