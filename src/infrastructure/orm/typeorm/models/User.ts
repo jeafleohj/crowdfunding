@@ -15,7 +15,9 @@ export class UserEntity extends SharedProps {
   @Column()
   lastname: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   phone?: string
 
   @Column({

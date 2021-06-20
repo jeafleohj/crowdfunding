@@ -11,6 +11,10 @@ declare module 'process' {
         DB_USER: string,
         DB_PASS: string,
         AWS_S3_NAME: string,
+        AWS_ACCESS_KEY_ID: string,
+        AWS_SECRET_ACCESS_KEY: string,
+        GOOGLE_CLIENT_ID: string,
+        GOOGLE_CLIENT_SECRET: string,
       }
     }
   }
