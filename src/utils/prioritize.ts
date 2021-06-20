@@ -140,7 +140,8 @@ const prioritize = function (beneficiary: Beneficiary, clasification: string): n
       break;
     }
   }
-  let total = e * g * h * ns * u
+  let max = 2500
+  let total = (e * g * h * ns * u)/max * 5
   // console.log(`e: ${age}, g: ${gender}, h: ${handicapped}, ns: ${nse}, u: ${clasification}, total: ${total}`)
   return total
 }

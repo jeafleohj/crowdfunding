@@ -2,6 +2,7 @@ import { CreateUser } from 'application/use_cases/user'
 import { AddVolunteer } from 'application/use_cases/volunteer/AddVolunteer'
 import { GetByCampaign } from 'application/use_cases/volunteer/GetByCampaign'
 import { GetCampaigns } from 'application/use_cases/volunteer/GetCampaigns'
+import { RemoveVolunteer } from 'application/use_cases/volunteer/RemoveVolunteer'
 import { Context, Next } from 'koa'
 
 const addVolunteer = async (ctx: Context, next: Next): Promise<void> => {
@@ -32,8 +33,16 @@ const getCampaigns = async (ctx: Context, next: Next): Promise<void> => {
 
 }
 
+const removeVolunteer = async (ctx: Context): Promise<void> => {
+  let data = ctx.request.body
+  const response = await RemoveVolunteer(data.volunteerId, ctx)
+  ctx.body = response
+  ctx.status = 200
+}
+
 export {
   addVolunteer,
   getByCampaign,
-  getCampaigns
+  getCampaigns,
+  removeVolunteer
 }

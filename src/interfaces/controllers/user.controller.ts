@@ -30,7 +30,7 @@ const createUser = async (ctx: Context, next: Next) => {
     email: user.email
   })
 
-  ctx.body = token
+  ctx.body = { data: user, token }
   ctx.status = 200
 }
 

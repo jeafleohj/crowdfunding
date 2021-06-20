@@ -57,7 +57,7 @@ const loginGoogle = async (ctx: Context) => {
     tokendata.id = user.id
   }
   tokendata.email = resp.email
-  let token = generateToken(tokendata)
+  let token = await generateToken(tokendata)
   ctx.body = { token, data: user }
   ctx.status = 200
 }
