@@ -7,6 +7,7 @@ import { ValidatePassword } from 'application/use_cases/user/ValidatePassword'
 import bcrypt from 'bcryptjs'
 import { passwordRegexValidate } from 'utils/password'
 import { generateToken } from 'utils/generateToken'
+import { FindByQuery } from 'application/use_cases/user/FindbyQuery'
 
 const getUsers = async (ctx: Context) => {
   const users = await GetAll(ctx)
@@ -70,9 +71,31 @@ const changePassword = async (ctx: Context) => {
   }
 }
 
+async function userSuggestions(ctx :Context) {
+  const word = ctx.query.search as string
+  let keys = ['name','lastname','email']
+
+  let projection = keys.map( current => {
+    return `user.${current}`
+  })
+
+  let where = projection.reduce((acc, current) => {
+    return `${acc},' ',${current} `
+  })
+
+  projection.push('user.id')
+
+  let users = await FindByQuery(projection, where, word ,ctx)
+
+  ctx.status = 200
+  ctx.body = users
+
+}
+
 export {
-  getUsers,
-  createUser,
-  updateUser,
   changePassword,
+  createUser,
+  getUsers,
+  updateUser,
+  userSuggestions,
 }

@@ -1,7 +1,8 @@
 import { UserEntity } from 'infrastructure/orm/typeorm/models/User'
 import { IUserRepository } from 'domain/repository/UserRepository'
-import { getRepository, Repository } from 'typeorm'
+import { getRepository, Like, Repository } from 'typeorm'
 import { User } from 'domain/entity'
+import { KeyObject } from 'node:crypto'
 
 export class UserRepository implements IUserRepository {
   private repository: Repository<UserEntity>
@@ -47,6 +48,19 @@ export class UserRepository implements IUserRepository {
 
   find(): void {
     throw new Error('Method not implemented.');
+  }
+
+  getByQuery(projection: Array<string>,
+             where: string,
+             pattern: string): Promise<{}> {
+    const response = this.repository
+      .createQueryBuilder('user')
+      .select(projection)
+      .where(`concat(${where}) like :pattern`, {pattern: `%${pattern}%`})
+      .orderBy('name')
+      .getMany()
+
+    return response
   }
 
 }
