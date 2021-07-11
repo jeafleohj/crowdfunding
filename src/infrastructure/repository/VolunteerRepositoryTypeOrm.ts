@@ -46,9 +46,15 @@ export class VolunteerRepository implements IVolunteerRepository {
     const volunteers = response.map(volunteer => {
       let user: Partial<User> = new User(volunteer.user as User)
       delete user.password
-      return user
+      return { ...user, volunteerId: volunteer.volunteerId, campaignId: volunteer.campaignId }
     })
 
     return volunteers
   }
+
+  async remove(volunteerId: number): Promise<any> {
+    const updated = await this.repository.findOne({ volunteerId }) as VolunteerEntity;
+    return this.repository.remove(updated)
+  }
+
 }
