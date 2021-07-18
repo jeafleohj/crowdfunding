@@ -1,4 +1,5 @@
 import { BeneficiaryCampaign } from 'domain/entity'
+import { StatusBeneficiaryCampaign } from 'domain/entity/BeneficiaryCampaign';
 import { IBeneficiaryCampaignRepository } from 'domain/repository/BeneficiaryCampaignRepository'
 import { BeneficiaryCampaignEntity } from 'infrastructure/orm/typeorm/models/BeneficiaryCampaign';
 import { getRepository, Repository } from 'typeorm'
@@ -40,4 +41,10 @@ export class BeneficiaryCamapaignRepository implements IBeneficiaryCampaignRepos
       campaignId,
     })
   }
+
+  updateStatus(beneficiaryId: number, campaignId: number, status :StatusBeneficiaryCampaign): Promise<any> {
+    return this.repository
+      .update({beneficiaryId, campaignId},{status})
+  }
+
 }

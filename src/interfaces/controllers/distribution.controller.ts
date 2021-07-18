@@ -1,5 +1,6 @@
 import { ErrorHandler } from 'application/error'
-import { UpdateBeneficiaryToCampaign } from 'application/use_cases/beneficiaryCampaign'
+import { UpdateBeneficiary } from 'application/use_cases/beneficiary/UpdateBeneficiary'
+import { UpdateBeneficiaryStatus, UpdateBeneficiaryToCampaign } from 'application/use_cases/beneficiaryCampaign'
 import {
   CreateDistribution,
   GetCurrentDistribution,
@@ -12,7 +13,7 @@ import { DistributedCampaign } from 'application/use_cases/campaign/DistributedC
 import { ListDonations } from 'application/use_cases/donation'
 import { GetDistrict } from 'application/use_cases/ubigeo'
 import { BeneficiaryDonation } from 'domain/entity'
-import { StatusBeneficiaryCampaign } from 'domain/entity/BeneficiaryCampaign'
+import { BeneficiaryCampaign, StatusBeneficiaryCampaign } from 'domain/entity/BeneficiaryCampaign'
 import { Context } from 'koa'
 import { forEachAsync } from 'utils/forAsync'
 import { prioritize } from 'utils/prioritize'
@@ -126,14 +127,14 @@ const getDistribution = async (ctx: Context) => {
 const updateDistributionByBeneficiary = async (ctx: Context) => {
   const { campaignId, beneficiaryId } = ctx.params
   const amounts = ctx.request.body as Array<{
-    id: number,
+    donationId: number,
     amount: number,
   }>
 
   let distribution = amounts.map(amount => {
     return {
       amount: amount.amount,
-      donationId: amount.id,
+      donationId: amount.donationId,
       beneficiaryId: parseInt(beneficiaryId),
       campaignId: parseInt(campaignId),
     }
@@ -147,7 +148,7 @@ const updateDistributionByBeneficiary = async (ctx: Context) => {
     collected: number,
   }>
 
-  amounts.sort((a,b) => a.id>b.id ? 1:-1)
+  amounts.sort((a,b) => a.donationId>b.donationId ? 1:-1)
   listDonations.sort((a,b) => a.id>b.id ? 1:-1)
 
   let rest = currentDistribution.map((el, index) => {
@@ -175,7 +176,41 @@ const updateDistributionByBeneficiary = async (ctx: Context) => {
 }
 
 const deleteDistribution = async (ctx: Context) => {
+  //Mover el status de pendiente a sin asignar
+  //Setear los valores a cero o eliminarlo? Por default los seteare a cero
+  const { campaignId, beneficiaryId } = ctx.params
 
+  let currentDistribution = await GetCurrentDistribution(campaignId, ctx)
+  let beneficiaryDistribution = await GetDistributionByBeneficiary(beneficiaryId, campaignId, ctx)
+  let listDonations = await ListDonations(campaignId, ctx) as Array<{
+    id: number,
+    collected: number,
+  }>
+
+  let rest = currentDistribution.map((el, index) => {
+    let newAmount = el.total - beneficiaryDistribution[index].amount
+    let collected = listDonations[index].collected
+
+    if ( newAmount >= collected ) throw new ErrorHandler({
+      status: 400,
+      message: 'Valores incorrectos',
+    })
+
+    return {
+      donationId: el.donationId,
+      amount: collected - newAmount,
+    }
+  })
+  console.log(beneficiaryDistribution)
+
+  await forEachAsync(beneficiaryDistribution, async (el: any) => {
+    let x = await UpdateAmount(beneficiaryId, el.donationId, 0, ctx)
+    console.log(x)
+  })
+
+  await UpdateBeneficiaryStatus(beneficiaryId, campaignId, StatusBeneficiaryCampaign.rejected, ctx)
+
+  ctx.body = rest
 }
 
 export {

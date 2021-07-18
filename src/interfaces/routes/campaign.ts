@@ -11,6 +11,7 @@ import {
 } from 'interfaces/controllers/campaign.controller'
 import {
   createDistribution,
+  deleteDistribution,
   generateDistribution,
   getDistribution,
   getDistributionBeneficiary,
@@ -33,6 +34,7 @@ campaignRouter
   .get('/cover/:campaignId', getCover)
   .post('/:campaignId/beneficiary/:beneficiaryId', createDistribution)
   .put('/:campaignId/beneficiary/:beneficiaryId', updateDistributionByBeneficiary)
+  .delete('/:campaignId/beneficiary/:beneficiaryId', deleteDistribution)
   .post('/:campaignId/distribution', generateDistribution)
   .get('/:campaignId/distribution', getDistribution)
   .get('/:campaignId/distribution/:beneficiaryId', getDistributionBeneficiary)
