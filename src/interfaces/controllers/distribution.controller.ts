@@ -115,13 +115,24 @@ const getDistribution = async (ctx: Context) => {
     return { ...cb, ...beneficiary }
   })
 
-  ctx.body = {
-    error: false,
-    data: beneficiary,
-    status: 200,
-    message: 'ok'
-  }
+  let currentDistribution = await GetCurrentDistribution(campaignId, ctx)
+  let listDonations = await ListDonations(campaignId, ctx) as Array<{
+    id: number,
+    name: string,
+    collected: number,
+  }>
 
+  const leftassign = listDonations.map((el) => {
+    const donation = currentDistribution.find(dist => dist.donationId === el.id)
+    const amount = donation?.total
+    return {
+      id: el.id,
+      name: el.name,
+      leftasign: Math.max(el.collected - Number(amount), 0)
+    }
+  })
+
+  ctx.body = { beneficiary, leftassign }
 }
 
 const updateDistributionByBeneficiary = async (ctx: Context) => {
