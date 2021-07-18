@@ -9,7 +9,13 @@ import {
   closeCampaign,
   checkCampaignStatus,
 } from 'interfaces/controllers/campaign.controller'
-import { createDistribution, generateDistribution, getDistribution, getDistributionBeneficiary } from 'interfaces/controllers/distribution.controller'
+import {
+  createDistribution,
+  generateDistribution,
+  getDistribution,
+  getDistributionBeneficiary,
+  updateDistributionByBeneficiary,
+} from 'interfaces/controllers/distribution.controller'
 import Router from 'koa-router'
 
 const upload = multer({ dest: 'tmp/csv' })
@@ -26,6 +32,7 @@ campaignRouter
   .get('/', getCampaigns, getCampaignById)
   .get('/cover/:campaignId', getCover)
   .post('/:campaignId/beneficiary/:beneficiaryId', createDistribution)
+  .put('/:campaignId/beneficiary/:beneficiaryId', updateDistributionByBeneficiary)
   .post('/:campaignId/distribution', generateDistribution)
   .get('/:campaignId/distribution', getDistribution)
   .get('/:campaignId/distribution/:beneficiaryId', getDistributionBeneficiary)

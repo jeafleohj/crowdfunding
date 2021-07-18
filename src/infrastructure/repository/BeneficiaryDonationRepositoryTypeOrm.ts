@@ -12,12 +12,44 @@ export class BeneficiaryDonationRepository implements IBeneficiaryDonationReposi
     this.repository = getRepository(BeneficiaryDonationEntity)
   }
 
+  getDistributionByBeneficiary(beneficiaryId: number, campaignId: number): Promise<any> {
+    return this.repository
+      .find({
+        select: [
+          'donationId', 'amount'
+        ],
+        where: {
+          beneficiaryId,
+          campaignId
+        },
+        order:{
+          campaignId: 'ASC'
+        }
+      })
+  }
+
+  getCurrentDistribution(campaignId: number): Promise<any> {
+    return this.repository
+      .createQueryBuilder()
+      .select('donationId')
+      .addSelect('sum(amount)', 'total')
+      .groupBy('donationId')
+      .where("campaignId = :id", { id: campaignId })
+      .orderBy('campaignId')
+      .getRawMany()
+  }
+
   persist(data: Array<Partial<BeneficiaryDonation>>): Promise<any> {
     return this.repository
       .createQueryBuilder()
       .insert()
       .values(data)
       .execute()
+  }
+
+  updateAmount(beneficiaryId: number,donationId: number, amount: number): Promise<any> {
+    return this.repository
+      .update({donationId, beneficiaryId}, {amount});
   }
 
   persistMany(data: Partial<BeneficiaryDonation>[]): Promise<boolean> {
@@ -52,10 +84,10 @@ export class BeneficiaryDonationRepository implements IBeneficiaryDonationReposi
   deliverMany(donation: BeneficiaryDonation[]): Promise<any> {
     const beneficiaryDonationsIds = donation.map(el => el.id)
     const response = this.repository.createQueryBuilder()
-    .update()
-    .set({ status: StatusBeneficiaryDonation.delivered })
-    .whereInIds(beneficiaryDonationsIds)
-    .execute()
+      .update()
+      .set({ status: StatusBeneficiaryDonation.delivered })
+      .whereInIds(beneficiaryDonationsIds)
+      .execute()
     return response
   }
 

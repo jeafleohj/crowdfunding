@@ -1,12 +1,19 @@
+import { ErrorHandler } from 'application/error'
 import { UpdateBeneficiaryToCampaign } from 'application/use_cases/beneficiaryCampaign'
-import { CreateDistribution, GetDistribution } from 'application/use_cases/beneficiaryDonation'
+import {
+  CreateDistribution,
+  GetCurrentDistribution,
+  GetDistribution,
+  GetDistributionByBeneficiary,
+  UpdateAmount,
+} from 'application/use_cases/beneficiaryDonation'
 import { ListBeneficiaries } from 'application/use_cases/campaign'
 import { DistributedCampaign } from 'application/use_cases/campaign/DistributedCampaign'
 import { ListDonations } from 'application/use_cases/donation'
 import { GetDistrict } from 'application/use_cases/ubigeo'
 import { BeneficiaryDonation } from 'domain/entity'
 import { StatusBeneficiaryCampaign } from 'domain/entity/BeneficiaryCampaign'
-import { Context, Next } from 'koa'
+import { Context } from 'koa'
 import { forEachAsync } from 'utils/forAsync'
 import { prioritize } from 'utils/prioritize'
 import { quickSort } from 'utils/quickSort'
@@ -116,9 +123,66 @@ const getDistribution = async (ctx: Context) => {
 
 }
 
+const updateDistributionByBeneficiary = async (ctx: Context) => {
+  const { campaignId, beneficiaryId } = ctx.params
+  const amounts = ctx.request.body as Array<{
+    id: number,
+    amount: number,
+  }>
+
+  let distribution = amounts.map(amount => {
+    return {
+      amount: amount.amount,
+      donationId: amount.id,
+      beneficiaryId: parseInt(beneficiaryId),
+      campaignId: parseInt(campaignId),
+    }
+  }) as Array<BeneficiaryDonation>
+
+  let currentDistribution = await GetCurrentDistribution(campaignId, ctx)
+  let beneficiaryDistribution = await GetDistributionByBeneficiary(beneficiaryId, campaignId, ctx)
+
+  let listDonations = await ListDonations(campaignId, ctx) as Array<{
+    id: number,
+    collected: number,
+  }>
+
+  amounts.sort((a,b) => a.id>b.id ? 1:-1)
+  listDonations.sort((a,b) => a.id>b.id ? 1:-1)
+
+  let rest = currentDistribution.map((el, index) => {
+    let newAmount = el.total - beneficiaryDistribution[index].amount + amounts[index].amount
+    let collected = listDonations[index].collected
+    if ( newAmount >= collected )  {
+      throw new ErrorHandler({
+        status: 400,
+        message: 'Valores incorrectos',
+      })
+    }
+    return {
+      donationId: el.donationId,
+      amount: collected - newAmount,
+    }
+  })
+
+  await forEachAsync(distribution, async (el: {beneficiaryId: number,amount: number, donationId: number}) => {
+    await UpdateAmount(el.beneficiaryId, el.donationId, el.amount, ctx)
+  })
+
+  ctx.body = rest
+  ctx.status = 200
+
+}
+
+const deleteDistribution = async (ctx: Context) => {
+
+}
+
 export {
   createDistribution,
+  deleteDistribution,
   generateDistribution,
   getDistribution,
   getDistributionBeneficiary,
+  updateDistributionByBeneficiary,
 }

@@ -1,11 +1,11 @@
 import { Beneficiary } from 'domain/entity'
 
 export interface IBeneficiaryRepository {
-   persist(beneficiary: Beneficiary): Promise<any>
-   merge(beneficiary: Beneficiary): void
-   remove(beneficiary: Beneficiary): Promise<any>
-   getAll(): Promise<Beneficiary[]>
-   getTotalByCampaign(campaignId: number): Promise<number>
-   getByDocument(document: string): Promise<Beneficiary>
-   updateBeneficiary(beneficiary: Beneficiary): Promise<any>
+  getAll(): Promise<Beneficiary[]>
+  getByDocument(document: string): Promise<Beneficiary>
+  getTotalByCampaign(campaignId: number): Promise<number>
+  merge(beneficiary: Beneficiary): void
+  persist(beneficiary: Beneficiary): Promise<any>
+  remove(beneficiary: Beneficiary): Promise<any>
+  updateBeneficiary(beneficiary: Beneficiary): Promise<any>
 }
