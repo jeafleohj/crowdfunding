@@ -170,14 +170,14 @@ const updateDistributionByBeneficiary = async (ctx: Context) => {
     await UpdateAmount(el.beneficiaryId, el.donationId, el.amount, ctx)
   })
 
+  await UpdateBeneficiaryStatus(beneficiaryId, campaignId, StatusBeneficiaryCampaign.selected, ctx)
+
   ctx.body = rest
   ctx.status = 200
 
 }
 
 const deleteDistribution = async (ctx: Context) => {
-  //Mover el status de pendiente a sin asignar
-  //Setear los valores a cero o eliminarlo? Por default los seteare a cero
   const { campaignId, beneficiaryId } = ctx.params
 
   let currentDistribution = await GetCurrentDistribution(campaignId, ctx)
@@ -204,8 +204,7 @@ const deleteDistribution = async (ctx: Context) => {
   console.log(beneficiaryDistribution)
 
   await forEachAsync(beneficiaryDistribution, async (el: any) => {
-    let x = await UpdateAmount(beneficiaryId, el.donationId, 0, ctx)
-    console.log(x)
+    await UpdateAmount(beneficiaryId, el.donationId, 0, ctx)
   })
 
   await UpdateBeneficiaryStatus(beneficiaryId, campaignId, StatusBeneficiaryCampaign.rejected, ctx)
