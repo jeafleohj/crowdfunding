@@ -142,6 +142,16 @@ const updateDistributionByBeneficiary = async (ctx: Context) => {
     amount: number,
   }>
 
+  let notValids = amounts.map( el => el.amount == 0 ? true : false )
+  let valid = notValids.reduce((prev, el) => prev && el, true)
+
+  if( valid ) {
+    throw new ErrorHandler({
+      status: 400,
+      message: 'Todos los campos son ceros',
+    })
+  }
+
   let distribution = amounts.map(amount => {
     return {
       amount: amount.amount,
@@ -165,7 +175,7 @@ const updateDistributionByBeneficiary = async (ctx: Context) => {
   let rest = currentDistribution.map((el, index) => {
     let newAmount = el.total - beneficiaryDistribution[index].amount + amounts[index].amount
     let collected = listDonations[index].collected
-    if ( newAmount >= collected )  {
+    if ( newAmount > collected )  {
       throw new ErrorHandler({
         status: 400,
         message: 'Valores incorrectos',
