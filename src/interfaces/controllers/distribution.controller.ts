@@ -167,6 +167,7 @@ const updateDistributionByBeneficiary = async (ctx: Context) => {
   let listDonations = await ListDonations(campaignId, ctx) as Array<{
     id: number,
     collected: number,
+    amountByBeneficiary: number,
   }>
 
   amounts.sort((a,b) => a.donationId>b.donationId ? 1:-1)
@@ -175,7 +176,8 @@ const updateDistributionByBeneficiary = async (ctx: Context) => {
   let rest = currentDistribution.map((el, index) => {
     let newAmount = el.total - beneficiaryDistribution[index].amount + amounts[index].amount
     let collected = listDonations[index].collected
-    if ( newAmount > collected )  {
+    let perUser = listDonations[index].amountByBeneficiary
+    if ( newAmount > collected || amounts[index].amount > perUser )  {
       throw new ErrorHandler({
         status: 400,
         message: 'Valores incorrectos',
@@ -222,7 +224,6 @@ const deleteDistribution = async (ctx: Context) => {
       amount: collected - newAmount,
     }
   })
-  console.log(beneficiaryDistribution)
 
   await forEachAsync(beneficiaryDistribution, async (el: any) => {
     await UpdateAmount(beneficiaryId, el.donationId, 0, ctx)
